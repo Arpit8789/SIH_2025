@@ -1,0 +1,399 @@
+{
+  "diseases": [
+    {
+      "id": "wheat_rust_001",
+      "name": {
+        "en": "Wheat Rust",
+        "hi": "गेहूं का रतुआ रोग",
+        "pa": "ਕਣਕ ਦਾ ਰਤੂਆ ਰੋਗ"
+      },
+      "crop": "wheat",
+      "type": "fungal",
+      "scientificName": "Puccinia graminis",
+      "severity": "high",
+      "symptoms": {
+        "en": [
+          "Orange-red pustules on leaves",
+          "Yellow patches on leaf surface",
+          "Reduced grain yield",
+          "Premature leaf drying"
+        ],
+        "hi": [
+          "पत्तियों पर नारंगी-लाल दाने",
+          "पत्ती की सतह पर पीले धब्बे",
+          "अनाज की उपज में कमी",
+          "पत्तियों का समय से पहले सूखना"
+        ],
+        "pa": [
+          "ਪੱਤਿਆਂ ਉਤੇ ਸੰਤਰੀ-ਲਾਲ ਦਾਣੇ",
+          "ਪੱਤੇ ਦੀ ਸਤ੍ਹ ਉਤੇ ਪੀਲੇ ਧੱਬੇ",
+          "ਅਨਾਜ ਦੀ ਪੈਦਾਵਾਰ ਵਿੱਚ ਕਮੀ",
+          "ਪੱਤਿਆਂ ਦਾ ਸਮੇਂ ਤੋਂ ਪਹਿਲਾਂ ਸੁੱਕਣਾ"
+        ]
+      },
+      "causes": {
+        "en": [
+          "High humidity (70-80%)",
+          "Temperature 15-25°C",
+          "Continuous leaf wetness",
+          "Dense crop canopy"
+        ],
+        "hi": [
+          "उच्च आर्द्रता (70-80%)",
+          "तापमान 15-25°C",
+          "निरंतर पत्तियों की नमी",
+          "घनी फसल"
+        ],
+        "pa": [
+          "ਉੱਚੀ ਨਮੀ (70-80%)",
+          "ਤਾਪਮਾਨ 15-25°C",
+          "ਲਗਾਤਾਰ ਪੱਤਿਆਂ ਦੀ ਨਮੀ",
+          "ਸੰਘਣੀ ਫਸਲ"
+        ]
+      },
+      "treatment": {
+        "chemical": {
+          "en": [
+            "Propiconazole 25% EC @ 500ml/ha",
+            "Tebuconazole 250 EC @ 500ml/ha",
+            "Spray at 15-day intervals"
+          ],
+          "hi": [
+            "प्रोपिकोनाज़ोल 25% EC @ 500ml/हेक्टेयर",
+            "टेबुकोनाज़ोल 250 EC @ 500ml/हेक्टेयर",
+            "15 दिन के अंतराल पर छिड़काव"
+          ],
+          "pa": [
+            "ਪ੍ਰੋਪਿਕੋਨਾਜ਼ੋਲ 25% EC @ 500ml/ਹੈਕਟੇਅਰ",
+            "ਟੇਬੁਕੋਨਾਜ਼ੋਲ 250 EC @ 500ml/ਹੈਕਟੇਅਰ",
+            "15 ਦਿਨਾਂ ਦੇ ਅੰਤਰਾਲ ਉਤੇ ਛਿੜਕਾਅ"
+          ]
+        },
+        "organic": {
+          "en": [
+            "Neem oil spray @ 5ml/liter",
+            "Bordeaux mixture 1% spray",
+            "Remove infected plant parts"
+          ],
+          "hi": [
+            "नीम का तेल @ 5ml/लीटर",
+            "बोर्डो मिश्रण 1% छिड़काव",
+            "संक्रमित पौधों के हिस्से हटाएं"
+          ],
+          "pa": [
+            "ਨਿੰਮ ਦਾ ਤੇਲ @ 5ml/ਲਿਟਰ",
+            "ਬੋਰਡੋ ਮਿਸ਼ਰਣ 1% ਛਿੜਕਾਅ",
+            "ਸੰਕ੍ਰਮਿਤ ਪੌਧਿਆਂ ਦੇ ਹਿੱਸੇ ਹਟਾਓ"
+          ]
+        }
+      },
+      "prevention": {
+        "en": [
+          "Use resistant varieties",
+          "Proper field sanitation",
+          "Avoid excessive nitrogen",
+          "Timely sowing"
+        ],
+        "hi": [
+          "प्रतिरोधी किस्मों का उपयोग",
+          "उचित खेत की सफाई",
+          "अधिक नाइट्रोजन से बचें",
+          "समय पर बुवाई"
+        ],
+        "pa": [
+          "ਰੋਧਕ ਕਿਸਮਾਂ ਦਾ ਵਰਤੋਂ",
+          "ਉਚਿਤ ਖੇਤ ਦੀ ਸਫਾਈ",
+          "ਜ਼ਿਆਦਾ ਨਾਈਟ੍ਰੋਜਨ ਤੋਂ ਬਚੋ",
+          "ਸਮੇਂ ਸਿਰ ਬੀਜਾਈ"
+        ]
+      },
+      "images": [
+        "wheat_rust_leaf.jpg",
+        "wheat_rust_pustules.jpg",
+        "wheat_rust_field.jpg"
+      ],
+      "confidenceThreshold": 0.85,
+      "lastUpdated": "2025-09-17"
+    },
+    {
+      "id": "rice_blast_001",
+      "name": {
+        "en": "Rice Blast",
+        "hi": "धान का ब्लास्ट रोग",
+        "pa": "ਚਾਵਲ ਦਾ ਬਲਾਸਟ ਰੋਗ"
+      },
+      "crop": "rice",
+      "type": "fungal",
+      "scientificName": "Magnaporthe oryzae",
+      "severity": "high",
+      "symptoms": {
+        "en": [
+          "Diamond-shaped spots on leaves",
+          "Gray center with brown margins",
+          "Neck rot in panicles",
+          "Reduced grain filling"
+        ],
+        "hi": [
+          "पत्तियों पर हीरे के आकार के धब्बे",
+          "भूरे किनारों के साथ धूसर केंद्र",
+          "बालियों में गर्दन सड़न",
+          "अनाज भराव में कमी"
+        ],
+        "pa": [
+          "ਪੱਤਿਆਂ ਉਤੇ ਹੀਰੇ ਦੇ ਆਕਾਰ ਦੇ ਧੱਬੇ",
+          "ਭੂਰੇ ਕਿਨਾਰਿਆਂ ਦੇ ਨਾਲ ਧੂਸਰ ਕੇਂਦਰ",
+          "ਬਾਲਿਆਂ ਵਿੱਚ ਗਰਦਨ ਗਲਣ",
+          "ਅਨਾਜ ਭਰਨ ਵਿੱਚ ਕਮੀ"
+        ]
+      },
+      "causes": {
+        "en": [
+          "High humidity (90%+)",
+          "Temperature 25-28°C",
+          "Excessive nitrogen fertilization",
+          "Continuous flooding"
+        ],
+        "hi": [
+          "उच्च आर्द्रता (90%+)",
+          "तापमान 25-28°C",
+          "अधिक नाइट्रोजन उर्वरक",
+          "निरंतर जल भराव"
+        ],
+        "pa": [
+          "ਉੱਚੀ ਨਮੀ (90%+)",
+          "ਤਾਪਮਾਨ 25-28°C",
+          "ਜ਼ਿਆਦਾ ਨਾਈਟ੍ਰੋਜਨ ਖਾਦ",
+          "ਲਗਾਤਾਰ ਪਾਣੀ ਭਰਨਾ"
+        ]
+      },
+      "treatment": {
+        "chemical": {
+          "en": [
+            "Tricyclazole 75% WP @ 600g/ha",
+            "Isoprothiolane 40% EC @ 1.5L/ha",
+            "Spray before disease appearance"
+          ],
+          "hi": [
+            "ट्राइसाइक्लाजोल 75% WP @ 600g/हेक्टेयर",
+            "आइसोप्रोथिओलेन 40% EC @ 1.5L/हेक्टेयर",
+            "रोग दिखाई देने से पहले छिड़काव"
+          ],
+          "pa": [
+            "ਟ੍ਰਾਈਸਾਈਕਲਾਜ਼ੋਲ 75% WP @ 600g/ਹੈਕਟੇਅਰ",
+            "ਆਈਸੋਪ੍ਰੋਥਿਓਲੇਨ 40% EC @ 1.5L/ਹੈਕਟੇਅਰ",
+            "ਰੋਗ ਦਿਖਾਈ ਦੇਣ ਤੋਂ ਪਹਿਲਾਂ ਛਿੜਕਾਅ"
+          ]
+        },
+        "organic": {
+          "en": [
+            "Pseudomonas fluorescens spray",
+            "Neem extract 5% spray",
+            "Proper field drainage"
+          ],
+          "hi": [
+            "स्यूडोमोनास फ्लूरेसेंस छिड़काव",
+            "नीम का अर्क 5% छिड़काव",
+            "उचित खेत जल निकासी"
+          ],
+          "pa": [
+            "ਸਿਊਡੋਮੋਨਾਸ ਫਲੂਰੇਸੈਂਸ ਛਿੜਕਾਅ",
+            "ਨਿੰਮ ਦਾ ਅਰਕ 5% ਛਿੜਕਾਅ",
+            "ਉਚਿਤ ਖੇਤ ਪਾਣੀ ਨਿਕਾਸੀ"
+          ]
+        }
+      },
+      "prevention": {
+        "en": [
+          "Use blast-resistant varieties",
+          "Balanced fertilization",
+          "Avoid continuous flooding",
+          "Remove crop residue"
+        ],
+        "hi": [
+          "ब्लास्ट प्रतिरोधी किस्में उपयोग करें",
+          "संतुलित उर्वरीकरण",
+          "निरंतर जल भराव से बचें",
+          "फसल अवशेष हटाएं"
+        ],
+        "pa": [
+          "ਬਲਾਸਟ ਰੋਧਕ ਕਿਸਮਾਂ ਵਰਤੋ",
+          "ਸੰਤੁਲਿਤ ਖਾਦ ਪਾਓ",
+          "ਲਗਾਤਾਰ ਪਾਣੀ ਭਰਨ ਤੋਂ ਬਚੋ",
+          "ਫਸਲ ਬਚੇ ਹਿੱਸੇ ਹਟਾਓ"
+        ]
+      },
+      "images": [
+        "rice_blast_leaf.jpg",
+        "rice_blast_neck.jpg",
+        "rice_blast_panicle.jpg"
+      ],
+      "confidenceThreshold": 0.80,
+      "lastUpdated": "2025-09-17"
+    },
+    {
+      "id": "cotton_bollworm_001",
+      "name": {
+        "en": "Cotton Bollworm",
+        "hi": "कपास का गुलाबी सुंडी",
+        "pa": "ਕਪਾਹ ਦਾ ਗੁਲਾਬੀ ਸੁੰਡੀ"
+      },
+      "crop": "cotton",
+      "type": "pest",
+      "scientificName": "Helicoverpa armigera",
+      "severity": "high",
+      "symptoms": {
+        "en": [
+          "Small holes in bolls",
+          "Pink larvae inside bolls",
+          "Damaged cotton fiber",
+          "Reduced boll formation"
+        ],
+        "hi": [
+          "गांठों में छोटे छेद",
+          "गांठों के अंदर गुलाबी लार्वा",
+          "क्षतिग्रस्त कपास फाइबर",
+          "गांठ निर्माण में कमी"
+        ],
+        "pa": [
+          "ਗੰਢਾਂ ਵਿੱਚ ਛੋਟੇ ਛੇਦ",
+          "ਗੰਢਾਂ ਦੇ ਅੰਦਰ ਗੁਲਾਬੀ ਲਾਰਵਾ",
+          "ਨੁਕਸਾਨਿਆ ਕਪਾਹ ਫਾਈਬਰ",
+          "ਗੰਢ ਬਣਨ ਵਿੱਚ ਕਮੀ"
+        ]
+      },
+      "causes": {
+        "en": [
+          "Warm weather (25-30°C)",
+          "High humidity",
+          "Excessive nitrogen",
+          "Dense canopy"
+        ],
+        "hi": [
+          "गर्म मौसम (25-30°C)",
+          "उच्च आर्द्रता",
+          "अधिक नाइट्रोजन",
+          "घनी छतरी"
+        ],
+        "pa": [
+          "ਗਰਮ ਮੌਸਮ (25-30°C)",
+          "ਉੱਚੀ ਨਮੀ",
+          "ਜ਼ਿਆਦਾ ਨਾਈਟ੍ਰੋਜਨ",
+          "ਸੰਘਣੀ ਛਤਰੀ"
+        ]
+      },
+      "treatment": {
+        "chemical": {
+          "en": [
+            "Chlorpyrifos 20% EC @ 2.5ml/L",
+            "Emamectin Benzoate 5% SG @ 0.4g/L",
+            "Spray during evening hours"
+          ],
+          "hi": [
+            "क्लोरपाइरिफॉस 20% EC @ 2.5ml/L",
+            "इमामेक्टिन बेंजोएट 5% SG @ 0.4g/L",
+            "शाम के समय छिड़काव"
+          ],
+          "pa": [
+            "ਕਲੋਰਪਾਈਰਿਫਾਸ 20% EC @ 2.5ml/L",
+            "ਇਮਾਮੈਕਟਿਨ ਬੈਂਜ़ੋਏਟ 5% SG @ 0.4g/L",
+            "ਸ਼ਾਮ ਦੇ ਸਮੇਂ ਛਿੜਕਾਅ"
+          ]
+        },
+        "organic": {
+          "en": [
+            "Release Trichogramma wasps",
+            "Bt spray applications",
+            "Pheromone traps installation"
+          ],
+          "hi": [
+            "ट्राइकोग्रामा कीट छोड़ें",
+            "Bt छिड़काव उपयोग",
+            "फेरोमोन जाल स्थापित करें"
+          ],
+          "pa": [
+            "ਟ੍ਰਾਈਕੋਗ੍ਰਾਮਾ ਕੀਟ ਛੱਡੋ",
+            "Bt ਛਿੜਕਾਅ ਵਰਤੋ",
+            "ਫੇਰੋਮੋਨ ਜਾਲ ਲਗਾਓ"
+          ]
+        }
+      },
+      "prevention": {
+        "en": [
+          "Use Bt cotton varieties",
+          "Regular field monitoring",
+          "Destroy crop residue",
+          "Intercropping with marigold"
+        ],
+        "hi": [
+          "Bt कपास किस्में उपयोग करें",
+          "नियमित खेत निगरानी",
+          "फसल अवशेष नष्ट करें",
+          "गेंदे के साथ मिश्रित खेती"
+        ],
+        "pa": [
+          "Bt ਕਪਾਹ ਕਿਸਮਾਂ ਵਰਤੋ",
+          "ਨਿਯਮਿਤ ਖੇਤ ਨਿਗਰਾਨੀ",
+          "ਫਸਲ ਬਚੇ ਹਿੱਸੇ ਨਸ਼ਟ ਕਰੋ",
+          "ਗੇਂਦੇ ਨਾਲ ਮਿਸ਼ਰਿਤ ਖੇਤੀ"
+        ]
+      },
+      "images": [
+        "cotton_bollworm_damage.jpg",
+        "cotton_bollworm_larva.jpg",
+        "cotton_bollworm_adult.jpg"
+      ],
+      "confidenceThreshold": 0.75,
+      "lastUpdated": "2025-09-17"
+    }
+  ],
+  "diseaseTypes": {
+    "fungal": {
+      "name": {
+        "en": "Fungal Diseases",
+        "hi": "कवक रोग",
+        "pa": "ਉੱਲੀ ਰੋਗ"
+      },
+      "description": {
+        "en": "Diseases caused by fungi",
+        "hi": "कवक के कारण होने वाले रोग",
+        "pa": "ਉੱਲੀ ਕਾਰਨ ਹੋਣ ਵਾਲੇ ਰੋਗ"
+      }
+    },
+    "bacterial": {
+      "name": {
+        "en": "Bacterial Diseases",
+        "hi": "जीवाणु रोग",
+        "pa": "ਬੈਕਟੀਰੀਆ ਰੋਗ"
+      },
+      "description": {
+        "en": "Diseases caused by bacteria",
+        "hi": "जीवाणु के कारण होने वाले रोग",
+        "pa": "ਬੈਕਟੀਰੀਆ ਕਾਰਨ ਹੋਣ ਵਾਲੇ ਰੋਗ"
+      }
+    },
+    "viral": {
+      "name": {
+        "en": "Viral Diseases",
+        "hi": "वायरल रोग",
+        "pa": "ਵਾਇਰਲ ਰੋਗ"
+      },
+      "description": {
+        "en": "Diseases caused by viruses",
+        "hi": "वायरस के कारण होने वाले रोग",
+        "pa": "ਵਾਇਰਸ ਕਾਰਨ ਹੋਣ ਵਾਲੇ ਰੋਗ"
+      }
+    },
+    "pest": {
+      "name": {
+        "en": "Pest Problems",
+        "hi": "कीट समस्याएं",
+        "pa": "ਕੀਟ ਸਮੱਸਿਆਵਾਂ"
+      },
+      "description": {
+        "en": "Problems caused by insects and pests",
+        "hi": "कीटों और हानिकारकों के कारण होने वाली समस्याएं",
+        "pa": "ਕੀਟਾਂ ਅਤੇ ਨੁਕਸਾਨਦੇਹ ਕਾਰਨ ਹੋਣ ਵਾਲੀਆਂ ਸਮੱਸਿਆਵਾਂ"
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+/* src/styles/variables.css - UPDATED with Shadcn/UI Integration */
+:root {
+  /* Shadcn/UI Core Variables */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 142.1 76.2% 36.3%;
+  --primary-foreground: 355.7 100% 97.3%;
+  --secondary: 210 40% 98%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 98%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 98%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 142.1 76.2% 36.3%;
+  --radius: 0.75rem;
+
+  /* Agricultural Color Palette - Your Settings Preserved */
+  --color-wheat: #f5deb3;
+  --color-barley: #d4af37;
+  --color-corn: #fbec5d;
+  --color-rice: #faf0e6;
+  --color-soil-light: #8b4513;
+  --color-soil-dark: #654321;
+  --color-grass: #7cb342;
+  --color-forest: #2e7d32;
+  --color-sky: #87ceeb;
+  --color-cloud: #f0f8ff;
+  
+  /* Seasonal Colors - Your Settings Preserved */
+  --color-spring: #90ee90;
+  --color-summer: #32cd32;
+  --color-monsoon: #4682b4;
+  --color-autumn: #ff8c00;
+  --color-winter: #708090;
+  
+  /* Crop Category Colors - Your Settings Preserved */
+  --color-cereals: #daa520;
+  --color-pulses: #8fbc8f;
+  --color-vegetables: #98fb98;
+  --color-fruits: #ff69b4;
+  --color-spices: #dc143c;
+  --color-oilseeds: #f0e68c;
+  
+  /* Component Sizes - Your Settings Preserved */
+  --size-xs: 0.5rem;
+  --size-sm: 0.75rem;
+  --size-md: 1rem;
+  --size-lg: 1.25rem;
+  --size-xl: 1.5rem;
+  --size-2xl: 2rem;
+  --size-3xl: 3rem;
+  
+  /* Animation Durations - Enhanced */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 750ms;
+  
+  /* Breakpoints - Your Settings Preserved */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  
+  /* Z-index Scale - Enhanced */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  
+  /* Layout Dimensions - Your Settings Preserved */
+  --header-height-mobile: 3.5rem;
+  --header-height-desktop: 4rem;
+  --sidebar-width-collapsed: 4rem;
+  --sidebar-width-expanded: 16rem;
+  --footer-height: 3rem;
+  
+  /* Content Spacing - Your Settings Preserved */
+  --content-padding: 1rem;
+  --content-padding-lg: 2rem;
+  --content-max-width: 1200px;
+  
+  /* Form Elements - Enhanced with Shadcn/UI */
+  --input-height: 2.5rem;
+  --input-height-sm: 2rem;
+  --input-height-lg: 3rem;
+  --button-height: 2.5rem;
+  --button-height-sm: 2rem;
+  --button-height-lg: 3rem;
+
+  /* Agricultural Theme Specific */
+  --ag-gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+  --ag-gradient-secondary: linear-gradient(135deg, hsl(var(--warning)) 0%, hsl(var(--warning) / 0.8) 100%);
+  --ag-gradient-success: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(var(--success) / 0.8) 100%);
+}
+
+/* Dark mode variable overrides - Enhanced */
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 142.1 70.6% 45.3%;
+  --primary-foreground: 144.9 80.4% 10%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 142.1 70.6% 45.3%;
+
+  /* Dark mode agricultural colors */
+  --color-soil-light: #a0522d;
+  --color-soil-dark: #8b4513;
+  --color-grass: #689f38;
+  --color-forest: #388e3c;
+}
+
+/* Accessibility Preferences - Your Settings Preserved */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --border-width: 2px;
+  }
+  
+  .dark {
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+  }
+}
+
+/* Print Styles */
+@media print {
+  :root {
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+  }
+}

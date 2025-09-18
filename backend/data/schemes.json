@@ -1,0 +1,984 @@
+{
+  "governmentSchemes": {
+    "lastUpdated": "2025-09-17",
+    "totalSchemes": 12,
+    "activeSchemes": 12,
+    "totalBeneficiaries": 350000000,
+    "schemes": [
+      {
+        "id": "pm_kisan_001",
+        "name": {
+          "en": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+          "hi": "पीएम-किसान (प्रधानमंत्री किसान सम्मान निधि)",
+          "pa": "ਪੀਐਮ-ਕਿਸਾਨ (ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਕਿਸਾਨ ਸਮਾਨ ਨਿਧੀ)"
+        },
+        "category": "income_support",
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "2018",
+        "status": "active",
+        "priority": "high",
+        "description": {
+          "en": "Direct income support of ₹6000 per year to eligible farmer families in three equal installments",
+          "hi": "पात्र किसान परिवारों को तीन समान किस्तों में प्रति वर्ष ₹6000 की प्रत्यक्ष आय सहायता",
+          "pa": "ਯੋਗ ਕਿਸਾਨ ਪਰਿਵਾਰਾਂ ਨੂੰ ਤਿੰਨ ਬਰਾਬਰ ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਪ੍ਰਤੀ ਸਾਲ ₹6000 ਦੀ ਸਿੱਧੀ ਆਮਦਨੀ ਸਹਾਇਤਾ"
+        },
+        "benefits": {
+          "en": [
+            "₹6000 per year in 3 installments of ₹2000 each",
+            "Direct bank transfer (DBT) - no middlemen",
+            "No paperwork after initial registration",
+            "Covers all landholding farmer families",
+            "Instant transfer on approval"
+          ],
+          "hi": [
+            "₹2000 की 3 किस्तों में प्रति वर्ष ₹6000",
+            "सीधा बैंक स्थानांतरण (DBT) - कोई बिचौलिया नहीं",
+            "प्रारंभिक पंजीकरण के बाद कोई कागजी कार्रवाई नहीं",
+            "सभी भूमि धारक किसान परिवारों को कवर करता है",
+            "अनुमोदन पर तुरंत स्थानांतरण"
+          ],
+          "pa": [
+            "₹2000 ਦੀਆਂ 3 ਕਿਸ਼ਤਾਂ ਵਿੱਚ ਪ੍ਰਤੀ ਸਾਲ ₹6000",
+            "ਸਿੱਧਾ ਬੈਂਕ ਟ੍ਰਾਂਸਫਰ (DBT) - ਕੋਈ ਵਿਚੋਲਾ ਨਹੀਂ",
+            "ਸ਼ੁਰੂਆਤੀ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਤੋਂ ਬਾਅਦ ਕੋਈ ਕਾਗਜੀ ਕਾਰਵਾਈ ਨਹੀਂ",
+            "ਸਾਰੇ ਜ਼ਮੀਨਦਾਰ ਕਿਸਾਨ ਪਰਿਵਾਰਾਂ ਨੂੰ ਕਵਰ ਕਰਦਾ ਹੈ",
+            "ਮਨਜ਼ੂਰੀ 'ਤੇ ਤੁਰੰਤ ਟ੍ਰਾਂਸਫਰ"
+          ]
+        },
+        "eligibility": {
+          "en": [
+            "All landholding farmer families (rural & urban)",
+            "Valid Aadhaar card mandatory",
+            "Active bank account with IFSC code",
+            "Land ownership documents (Khasra/Registry)",
+            "Mobile number linked to Aadhaar"
+          ],
+          "hi": [
+            "सभी भूमि धारक किसान परिवार (ग्रामीण और शहरी)",
+            "वैध आधार कार्ड अनिवार्य",
+            "IFSC कोड के साथ सक्रिय बैंक खाता",
+            "भूमि स्वामित्व दस्तावेज (खसरा/रजिस्ट्री)",
+            "आधार से जुड़ा मोबाइल नंबर"
+          ],
+          "pa": [
+            "ਸਾਰੇ ਜ਼ਮੀਨਦਾਰ ਕਿਸਾਨ ਪਰਿਵਾਰ (ਪੇਂਡੂ ਅਤੇ ਸ਼ਹਿਰੀ)",
+            "ਵੈਧ ਆਧਾਰ ਕਾਰਡ ਲਾਜ਼ਮੀ",
+            "IFSC ਕੋਡ ਦੇ ਨਾਲ ਸਰਗਰਮ ਬੈਂਕ ਖਾਤਾ",
+            "ਜ਼ਮੀਨੀ ਮਾਲਕੀ ਦਸਤਾਵੇਜ਼ (ਖਸਰਾ/ਰਜਿਸਟ੍ਰੀ)",
+            "ਆਧਾਰ ਨਾਲ ਜੁੜਿਆ ਮੋਬਾਈਲ ਨੰਬਰ"
+          ]
+        },
+        "applicationProcess": {
+          "en": [
+            "Visit PM-KISAN official website (pmkisan.gov.in)",
+            "Click on 'New Farmer Registration'",
+            "Fill Aadhaar number and verification",
+            "Enter personal and bank details",
+            "Upload land documents (PDF format)",
+            "Submit application and save registration number",
+            "Track status online regularly"
+          ],
+          "hi": [
+            "PM-KISAN की आधिकारिक वेबसाइट (pmkisan.gov.in) पर जाएं",
+            "'नया किसान पंजीकरण' पर क्लिक करें",
+            "आधार संख्या भरें और सत्यापन करें",
+            "व्यक्तिगत और बैंक विवरण दर्ज करें",
+            "भूमि दस्तावेज अपलोड करें (PDF प्रारूप)",
+            "आवेदन जमा करें और पंजीकरण संख्या सेव करें",
+            "नियमित रूप से ऑनलाइन स्थिति ट्रैक करें"
+          ],
+          "pa": [
+            "PM-KISAN ਦੀ ਅਧਿਕਾਰਿਕ ਵੈਬਸਾਈਟ (pmkisan.gov.in) 'ਤੇ ਜਾਓ",
+            "'ਨਵਾਂ ਕਿਸਾਨ ਰਜਿਸਟ੍ਰੇਸ਼ਨ' 'ਤੇ ਕਲਿਕ ਕਰੋ",
+            "ਆਧਾਰ ਨੰਬਰ ਭਰੋ ਅਤੇ ਤਸਦੀਕ ਕਰੋ",
+            "ਨਿੱਜੀ ਅਤੇ ਬੈਂਕ ਵੇਰਵੇ ਦਾਖਲ ਕਰੋ",
+            "ਜ਼ਮੀਨੀ ਦਸਤਾਵੇਜ਼ ਅੱਪਲੋਡ ਕਰੋ (PDF ਫਾਰਮੈਟ)",
+            "ਅਰਜ਼ੀ ਜਮਾਂ ਕਰੋ ਅਤੇ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ ਸੇਵ ਕਰੋ",
+            "ਨਿਯਮਿਤ ਤੌਰ 'ਤੇ ਔਨਲਾਈਨ ਸਥਿਤੀ ਟਰੈਕ ਕਰੋ"
+          ]
+        },
+        "requiredDocuments": [
+          "Aadhaar Card",
+          "Bank Account Passbook/Cancelled Cheque", 
+          "Land Ownership Certificate/Khasra Number",
+          "Mobile Number (Aadhaar linked)",
+          "Passport Size Photo"
+        ],
+        "paymentSchedule": {
+          "installment1": "April-July",
+          "installment2": "August-November", 
+          "installment3": "December-March"
+        },
+        "contactInfo": {
+          "website": "https://pmkisan.gov.in/",
+          "helpline": "155261",
+          "email": "pmkisan-ict@gov.in",
+          "tolerFreeNumber": "1800-115-526"
+        },
+        "statistics": {
+          "applicants": 120000000,
+          "beneficiaries": 110000000,
+          "budgetAllocated": "₹75,000 crore",
+          "amountDisbursed": "₹2,64,000 crore",
+          "successRate": "92%"
+        },
+        "lastUpdated": "2025-09-17"
+      },
+      {
+        "id": "pmfby_001",
+        "name": {
+          "en": "PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+          "hi": "पीएमएफबीवाई (प्रधानमंत्री फसल बीमा योजना)",
+          "pa": "ਪੀਐਮਐਫਬੀਵਾਈ (ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਫਸਲ ਬੀਮਾ ਯੋਜਨਾ)"
+        },
+        "category": "crop_insurance",
+        "ministry": "Ministry of Agriculture & Farmers Welfare", 
+        "launchDate": "2016",
+        "status": "active",
+        "priority": "high",
+        "description": {
+          "en": "Comprehensive crop insurance scheme providing financial support to farmers in case of crop loss/damage due to natural calamities",
+          "hi": "प्राकृतिक आपदाओं के कारण फसल हानि/क्षति की स्थिति में किसानों को वित्तीय सहायता प्रदान करने वाली व्यापक फसल बीमा योजना",
+          "pa": "ਕੁਦਰਤੀ ਆਫ਼ਤਾਂ ਕਾਰਨ ਫਸਲੀ ਨੁਕਸਾਨ/ਹਾਨੀ ਦੀ ਸਥਿਤੀ ਵਿੱਚ ਕਿਸਾਨਾਂ ਨੂੰ ਵਿੱਤੀ ਸਹਾਇਤਾ ਪ੍ਰਦਾਨ ਕਰਨ ਵਾਲੀ ਵਿਆਪਕ ਫਸਲੀ ਬੀਮਾ ਯੋਜਨਾ"
+        },
+        "benefits": {
+          "en": [
+            "Coverage for all food & oilseed crops, annual commercial/horticultural crops",
+            "Very low premium rates for farmers (2% for Kharif, 1.5% for Rabi)",
+            "No upper limit on premium subsidy",
+            "Quick claim settlement through technology",
+            "Coverage against natural calamities, pests & diseases"
+          ],
+          "hi": [
+            "सभी खाद्य और तिलहन फसलों, वार्षिक वाणिज्यिक/बागवानी फसलों के लिए कवरेज",
+            "किसानों के लिए बहुत कम प्रीमियम दरें (खरीफ के लिए 2%, रबी के लिए 1.5%)",
+            "प्रीमियम सब्सिडी पर कोई ऊपरी सीमा नहीं",
+            "प्रौद्योगिकी के माध्यम से त्वरित दावा निपटान",
+            "प्राकृतिक आपदाओं, कीटों और बीमारियों के खिलाफ कवरेज"
+          ],
+          "pa": [
+            "ਸਾਰੀਆਂ ਭੋਜਨ ਅਤੇ ਤਿਲਹਨ ਫਸਲਾਂ, ਸਾਲਾਨਾ ਵਪਾਰਕ/ਬਾਗਬਾਨੀ ਫਸਲਾਂ ਲਈ ਕਵਰੇਜ",
+            "ਕਿਸਾਨਾਂ ਲਈ ਬਹੁਤ ਘੱਟ ਪ੍ਰੀਮੀਅਮ ਦਰਾਂ (ਖਰੀਫ਼ ਲਈ 2%, ਰਬੀ ਲਈ 1.5%)",
+            "ਪ੍ਰੀਮੀਅਮ ਸਬਸਿਡੀ 'ਤੇ ਕੋਈ ਉਪਰਲੀ ਸੀਮਾ ਨਹੀਂ",
+            "ਤਕਨਾਲੋਜੀ ਰਾਹੀਂ ਤੇਜ਼ ਦਾਅਵਾ ਨਿਪਟਾਰਾ",
+            "ਕੁਦਰਤੀ ਆਫ਼ਤਾਂ, ਕੀਟਾਂ ਅਤੇ ਬਿਮਾਰੀਆਂ ਦੇ ਵਿਰੁੱਧ ਕਵਰੇਜ"
+          ]
+        },
+        "coverage": {
+          "preventingSowing": "Prevented sowing/planting risk",
+          "standingCrop": "Standing crop (sowing to harvesting)",
+          "postHarvest": "Post-harvest losses (up to 14 days)",
+          "localizedRisks": "Localized calamities (hailstorm, landslide, inundation)"
+        },
+        "premiumRates": {
+          "kharif": "2.0% of sum insured",
+          "rabi": "1.5% of sum insured", 
+          "commercialHorticultural": "5.0% of sum insured"
+        },
+        "eligibility": {
+          "en": [
+            "All farmers including sharecroppers, tenant farmers",
+            "Loanee and non-loanee farmers",
+            "Compulsory for loanee farmers",
+            "Voluntary for non-loanee farmers"
+          ],
+          "hi": [
+            "बटाईदार, किरायेदार किसानों सहित सभी किसान",
+            "ऋणी और गैर-ऋणी किसान",
+            "ऋणी किसानों के लिए अनिवार्य",
+            "गैर-ऋणी किसानों के लिए स्वैच्छिक"
+          ],
+          "pa": [
+            "ਸਾਂਝੇਦਾਰ, ਕਿਰਾਇਆ ਕਿਸਾਨਾਂ ਸਮੇਤ ਸਾਰੇ ਕਿਸਾਨ",
+            "ਕਰਜ਼ਦਾਰ ਅਤੇ ਗੈਰ-ਕਰਜ਼ਦਾਰ ਕਿਸਾਨ",
+            "ਕਰਜ਼ਦਾਰ ਕਿਸਾਨਾਂ ਲਈ ਲਾਜ਼ਮੀ",
+            "ਗੈਰ-ਕਰਜ਼ਦਾਰ ਕਿਸਾਨਾਂ ਲਈ ਸਵੈਇੱਛਿਕ"
+          ]
+        },
+        "applicationProcess": {
+          "en": [
+            "Visit nearest bank branch or CSC center", 
+            "Fill PMFBY application form",
+            "Submit required documents",
+            "Pay farmer's share of premium",
+            "Get insurance certificate"
+          ],
+          "hi": [
+            "निकटतम बैंक शाखा या CSC केंद्र पर जाएं",
+            "PMFBY आवेदन पत्र भरें",
+            "आवश्यक दस्तावेज जमा करें",
+            "प्रीमियम का किसान का हिस्सा भुगतान करें",
+            "बीमा प्रमाणपत्र प्राप्त करें"
+          ],
+          "pa": [
+            "ਨਜ਼ਦीकੀ ਬੈਂਕ ਸ਼ਾਖਾ ਜਾਂ CSC ਸੈਂਟਰ 'ਤੇ ਜਾਓ",
+            "PMFBY ਅਰਜ਼ੀ ਫਾਰਮ ਭਰੋ",
+            "ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼ ਜਮਾਂ ਕਰੋ",
+            "ਪ੍ਰੀਮੀਅਮ ਦਾ ਕਿਸਾਨ ਦਾ ਹਿੱਸਾ ਭੁਗਤਾਨ ਕਰੋ",
+            "ਬੀਮਾ ਸਰਟੀਫਿਕੇਟ ਪ੍ਰਾਪਤ ਕਰੋ"
+          ]
+        },
+        "contactInfo": {
+          "website": "https://pmfby.gov.in/",
+          "helpline": "14447",
+          "email": "support.pmfby@gov.in",
+          "cropInsuranceApp": "Crop Insurance Mobile App"
+        },
+        "statistics": {
+          "applicants": 55000000,
+          "budgetAllocated": "₹15,000 crore", 
+          "claimsSettled": "₹90,000 crore",
+          "areaEnrolled": "40 million hectares"
+        }
+      },
+      {
+        "id": "kisan_credit_card_001",
+        "name": {
+          "en": "Kisan Credit Card (KCC)",
+          "hi": "किसान क्रेडिट कार्ड (केसीसी)",
+          "pa": "ਕਿਸਾਨ ਕ੍ਰੈਡਿਟ ਕਾਰਡ (ਕੇਸੀਸੀ)"
+        },
+        "category": "credit_support",
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "1998",
+        "status": "active",
+        "priority": "high",
+        "description": {
+          "en": "Credit facility to provide adequate and timely support from the banking system to farmers for their cultivation and other needs",
+          "hi": "किसानों को उनकी खेती और अन्य जरूरतों के लिए बैंकिंग प्रणाली से पर्याप्त और समय पर सहायता प्रदान करने के लिए ऋण सुविधा",
+          "pa": "ਕਿਸਾਨਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀ ਖੇਤੀ ਅਤੇ ਹੋਰ ਲੋੜਾਂ ਲਈ ਬੈਂਕਿੰਗ ਪ੍ਰਣਾਲੀ ਤੋਂ ਢੁਕਵੀਂ ਅਤੇ ਸਮੇਂ ਸਿਰ ਸਹਾਇਤਾ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਕਰਜ਼ਾ ਸਹੂਲਤ"
+        },
+        "benefits": {
+          "en": [
+            "Flexible credit limit based on land holding and cropping pattern",
+            "Interest rate: 7% per annum for crop loans up to ₹3 lakh",
+            "No collateral security up to ₹1.60 lakh",
+            "Insurance coverage for crops, assets and life",
+            "Can be used like debit card for purchases"
+          ],
+          "hi": [
+            "भूमि धारण और फसल पैटर्न के आधार पर लचीली क्रेडिट सीमा",
+            "ब्याज दर: ₹3 लाख तक फसल ऋण के लिए 7% प्रति वर्ष",
+            "₹1.60 लाख तक कोई संपार्श्विक सुरक्षा नहीं",
+            "फसल, संपत्ति और जीवन के लिए बीमा कवरेज",
+            "खरीदारी के लिए डेबिट कार्ड की तरह उपयोग किया जा सकता है"
+          ],
+          "pa": [
+            "ਜ਼ਮੀਨ ਮਾਲਕੀ ਅਤੇ ਫਸਲੀ ਪੈਟਰਨ ਦੇ ਆਧਾਰ 'ਤੇ ਲਚਕਦਾਰ ਕ੍ਰੈਡਿਟ ਸੀਮਾ",
+            "ਵਿਆਜ ਦਰ: ₹3 ਲੱਖ ਤੱਕ ਫਸਲੀ ਕਰਜ਼ੇ ਲਈ 7% ਪ੍ਰਤੀ ਸਾਲ",
+            "₹1.60 ਲੱਖ ਤੱਕ ਕੋਈ ਜ਼ਮਾਨਤੀ ਸੁਰੱਖਿਆ ਨਹੀਂ",
+            "ਫਸਲ, ਜਾਇਦਾਦ ਅਤੇ ਜੀਵਨ ਲਈ ਬੀਮਾ ਕਵਰੇਜ",
+            "ਖਰੀਦਦਾਰੀ ਲਈ ਡੇਬਿਟ ਕਾਰਡ ਵਾਂਗ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ"
+          ]
+        },
+        "creditLimits": {
+          "shortTermCrop": "Based on scale of finance × area + 10% incidental expenses",
+          "termLoan": "Based on unit cost of asset",
+          "maintenance": "20% of limit for crop loans"
+        },
+        "interestRates": {
+          "upTo3Lakh": "7% per annum",
+          "above3Lakh": "Variable (as per bank policy)",
+          "interestSubvention": "2% for timely repayment"
+        },
+        "eligibility": {
+          "en": [
+            "All farmers - individual/joint borrowers who are owner cultivators",
+            "Tenant farmers, oral lessees & sharecroppers",
+            "Self Help Group (SHG) members or Joint Liability Group (JLG) members"
+          ],
+          "hi": [
+            "सभी किसान - व्यक्तिगत/संयुक्त ऋणकर्ता जो मालिक खेतिहर हैं",
+            "किरायेदार किसान, मौखिक पट्टेदार और बटाईदार",
+            "स्वयं सहायता समूह (SHG) सदस्य या संयुक्त देयता समूह (JLG) सदस्य"
+          ],
+          "pa": [
+            "ਸਾਰੇ ਕਿਸਾਨ - ਵਿਅਕਤੀਗਤ/ਸਾਂਝਾ ਕਰਜ਼ਦਾਰ ਜੋ ਮਾਲਕ ਕਾਸ਼ਤਕਾਰ ਹਨ",
+            "ਕਿਰਾਇਆ ਕਿਸਾਨ, ਜ਼ੁਬਾਨੀ ਪੱਟੇਦਾਰ ਅਤੇ ਸਾਂਝੇਦਾਰ",
+            "ਸਵੈ-ਸਹਾਇਤਾ ਸਮੂਹ (SHG) ਮੈਂਬਰ ਜਾਂ ਸਾਂਝੀ ਜਿੰਮੇਵਾਰੀ ਸਮੂਹ (JLG) ਮੈਂਬਰ"
+          ]
+        },
+        "repaymentPeriod": {
+          "shortTerm": "Up to 12 months",
+          "mediumTerm": "1-5 years",
+          "longTerm": "5-10 years"
+        },
+        "contactInfo": {
+          "website": "https://kisan.gov.in/",
+          "helpline": "1800-180-1551",
+          "nationalPortal": "https://www.pmkisan.gov.in/"
+        },
+        "statistics": {
+          "applicants": 70000000,
+          "creditLimit": "Up to ₹3 lakh",
+          "totalCredit": "₹7.5 lakh crore"
+        }
+      },
+      {
+        "id": "soil_health_card_001", 
+        "name": {
+          "en": "Soil Health Card Scheme",
+          "hi": "मृदा स्वास्थ्य कार्ड योजना",
+          "pa": "ਮਿੱਟੀ ਸਿਹਤ ਕਾਰਡ ਯੋਜਨਾ"
+        },
+        "category": "soil_management",
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "2015",
+        "status": "active",
+        "priority": "medium",
+        "description": {
+          "en": "Provides soil health cards to farmers with information on nutrient status of their soil and recommendations on appropriate dosage of nutrients",
+          "hi": "किसानों को उनकी मिट्टी की पोषक स्थिति की जानकारी और पोषक तत्वों की उचित मात्रा की सिफारिशों के साथ मिट्टी स्वास्थ्य कार्ड प्रदान करता है",
+          "pa": "ਕਿਸਾਨਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੀ ਮਿੱਟੀ ਦੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਸਥਿਤੀ ਦੀ ਜਾਣਕਾਰੀ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਢੁਕਵੀਂ ਮਾਤਰਾ ਦੀਆਂ ਸਿਫ਼ਾਰਸ਼ਾਂ ਦੇ ਨਾਲ ਮਿੱਟੀ ਸਿਹਤ ਕਾਰਡ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ"
+        },
+        "benefits": {
+          "en": [
+            "Free soil testing for all farmers",
+            "Customized fertilizer recommendations for each field",
+            "Reduces input costs by 8-10%",
+            "Improves soil health and crop productivity",
+            "Available in local language"
+          ],
+          "hi": [
+            "सभी किसानों के लिए मुफ्त मिट्टी परीक्षण",
+            "प्रत्येक खेत के लिए अनुकूलित उर्वरक सिफारिशें",
+            "इनपुट लागत 8-10% कम करता है",
+            "मिट्टी के स्वास्थ्य और फसल उत्पादकता में सुधार",
+            "स्थानीय भाषा में उपलब्ध"
+          ],
+          "pa": [
+            "ਸਾਰੇ ਕਿਸਾਨਾਂ ਲਈ ਮੁਫ਼ਤ ਮਿੱਟੀ ਜਾਂਚ",
+            "ਹਰ ਖੇਤ ਲਈ ਅਨੁਕੂਲ ਖਾਦ ਸਿਫ਼ਾਰਸ਼ਾਂ",
+            "ਇਨਪੁੱਟ ਲਾਗਤ 8-10% ਘਟਾਉਂਦਾ ਹੈ",
+            "ਮਿੱਟੀ ਦੀ ਸਿਹਤ ਅਤੇ ਫਸਲ ਉਤਪਾਦਕਤਾ ਵਿੱਚ ਸੁਧਾਰ",
+            "ਸਥਾਨਕ ਭਾਸ਼ਾ ਵਿੱਚ ਉਪਲਬਧ"
+          ]
+        },
+        "testingParameters": [
+          "pH (Soil Reaction)",
+          "EC (Electrical Conductivity)", 
+          "Organic Carbon (OC)",
+          "Available Nitrogen (N)",
+          "Available Phosphorus (P2O5)",
+          "Available Potassium (K2O)",
+          "Available Sulphur (S)",
+          "Available Zinc (Zn)",
+          "Available Iron (Fe)",
+          "Available Manganese (Mn)",
+          "Available Copper (Cu)",
+          "Available Boron (B)"
+        ],
+        "eligibility": {
+          "en": [
+            "All farmers having agricultural land",
+            "One card covers 2.5 hectares of land",
+            "Card validity: 3 years",
+            "Free soil sample collection"
+          ],
+          "hi": [
+            "कृषि भूमि वाले सभी किसान",
+            "एक कार्ड 2.5 हेक्टेयर भूमि को कवर करता है",
+            "कार्ड की वैधता: 3 साल",
+            "मुफ्त मिट्टी नमूना संग्रह"
+          ],
+          "pa": [
+            "ਖੇਤੀਬਾੜੀ ਜ਼ਮੀਨ ਵਾਲੇ ਸਾਰੇ ਕਿਸਾਨ",
+            "ਇੱਕ ਕਾਰਡ 2.5 ਹੈਕਟੇਅਰ ਜ਼ਮੀਨ ਨੂੰ ਕਵਰ ਕਰਦਾ ਹੈ",
+            "ਕਾਰਡ ਦੀ ਵੈਧਤਾ: 3 ਸਾਲ",
+            "ਮੁਫ਼ਤ ਮਿੱਟੀ ਨਮੂਨਾ ਇਕੱਠਾ ਕਰਨਾ"
+          ]
+        },
+        "applicationProcess": {
+          "en": [
+            "Contact local agriculture extension officer",
+            "Provide land details and survey numbers",
+            "Soil sample collection by trained personnel", 
+            "Laboratory analysis (15-30 days)",
+            "Receive printed soil health card"
+          ],
+          "hi": [
+            "स्थानीय कृषि विस्तार अधिकारी से संपर्क करें",
+            "भूमि विवरण और सर्वे नंबर प्रदान करें",
+            "प्रशिक्षित कर्मियों द्वारा मिट्टी नमूना संग्रह",
+            "प्रयोगशाला विश्लेषण (15-30 दिन)",
+            "मुद्रित मिट्टी स्वास्थ्य कार्ड प्राप्त करें"
+          ],
+          "pa": [
+            "ਸਥਾਨਕ ਖੇਤੀਬਾੜੀ ਵਿਸਤਾਰ ਅਫ਼ਸਰ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
+            "ਜ਼ਮੀਨ ਦੇ ਵੇਰਵੇ ਅਤੇ ਸਰਵੇ ਨੰਬਰ ਦਿਓ",
+            "ਸਿਖਿਅਤ ਕਰਮਚਾਰੀਆਂ ਦੁਆਰਾ ਮਿੱਟੀ ਨਮੂਨਾ ਇਕੱਠਾ ਕਰਨਾ",
+            "ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਵਿਸ਼ਲੇਸ਼ਣ (15-30 ਦਿਨ)",
+            "ਛਾਪਿਆ ਮਿੱਟੀ ਸਿਹਤ ਕਾਰਡ ਪ੍ਰਾਪਤ ਕਰੋ"
+          ]
+        },
+        "contactInfo": {
+          "website": "https://soilhealth.dac.gov.in/",
+          "helpline": "1800-180-1551",
+          "mobileApp": "Soil Health Card Mobile App"
+        },
+        "statistics": {
+          "cardsIssued": 220000000,
+          "soilSamplesTested": 380000000,
+          "laboratoryEstablished": 3000
+        }
+      },
+      {
+        "id": "pm_kisan_maandhan_001",
+        "name": {
+          "en": "PM Kisan Maandhan Yojana",
+          "hi": "पीएम किसान मानधन योजना",
+          "pa": "ਪੀਐਮ ਕਿਸਾਨ ਮਾਨਧਨ ਯੋਜਨਾ"
+        },
+        "category": "pension_scheme",
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "2019",
+        "status": "active",
+        "priority": "medium",
+        "description": {
+          "en": "Voluntary pension scheme for small and marginal farmers aged 18-40 years providing ₹3000 monthly pension after 60 years",
+          "hi": "18-40 वर्ष की आयु के छोटे और सीमांत किसानों के लिए स्वैच्छिक पेंशन योजना जो 60 वर्ष बाद ₹3000 मासिक पेंशन प्रदान करती है",
+          "pa": "18-40 ਸਾਲ ਦੀ ਉਮਰ ਦੇ ਛੋਟे ਅਤੇ ਸੀਮਾਂਤ ਕਿਸਾਨਾਂ ਲਈ ਸਵੈਇੱਛਿਕ ਪੈਨਸ਼ਨ ਯੋਜਨਾ ਜੋ 60 ਸਾਲ ਬਾਅਦ ₹3000 ਮਾਸਿਕ ਪੈਨਸ਼ਨ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ"
+        },
+        "benefits": {
+          "en": [
+            "Monthly pension of ₹3000 after 60 years of age",
+            "50% contribution by Government of India",
+            "Family pension of ₹1500 to spouse after farmer's death",
+            "Voluntary and contributory pension scheme"
+          ],
+          "hi": [
+            "60 वर्ष की आयु के बाद ₹3000 मासिक पेंशन",
+            "भारत सरकार द्वारा 50% योगदान",
+            "किसान की मृत्यु के बाद पति/पत्नी को ₹1500 का पारिवारिक पेंशन",
+            "स्वैच्छिक और अंशदायी पेंशन योजना"
+          ],
+          "pa": [
+            "60 ਸਾਲ ਦੀ ਉਮਰ ਤੋਂ ਬਾਅਦ ₹3000 ਮਾਸਿਕ ਪੈਨਸ਼ਨ",
+            "ਭਾਰਤ ਸਰਕਾਰ ਦੁਆਰਾ 50% ਯੋਗਦਾਨ",
+            "ਕਿਸਾਨ ਦੀ ਮੌਤ ਤੋਂ ਬਾਅਦ ਪਤੀ/ਪਤਨੀ ਨੂੰ ₹1500 ਦੀ ਪਾਰਿਵਾਰਿਕ ਪੈਨਸ਼ਨ",
+            "ਸਵੈਇੱਛਿਕ ਅਤੇ ਯੋਗਦਾਨੀ ਪੈਨਸ਼ਨ ਯੋਜਨਾ"
+          ]
+        },
+        "eligibility": {
+          "en": [
+            "Small and Marginal Farmers (up to 2 hectares)",
+            "Age between 18-40 years at entry",
+            "Enrolled in PM-KISAN scheme",
+            "Not covered under any other social security scheme"
+          ],
+          "hi": [
+            "छोटे और सीमांत किसान (2 हेक्टेयर तक)",
+            "प्रवेश के समय 18-40 वर्ष की आयु",
+            "PM-KISAN योजना में नामांकित",
+            "किसी अन्य सामाजिक सुरक्षा योजना के तहत कवर नहीं"
+          ],
+          "pa": [
+            "ਛੋਟੇ ਅਤੇ ਸੀਮਾਂਤ ਕਿਸਾਨ (2 ਹੈਕਟੇਅਰ ਤੱਕ)",
+            "ਦਾਖਲੇ ਸਮੇਂ 18-40 ਸਾਲ ਦੀ ਉਮਰ",
+            "PM-KISAN ਯੋਜਨਾ ਵਿੱਚ ਨਾਮਜ਼ਦ",
+            "ਕਿਸੇ ਹੋਰ ਸਮਾਜਿਕ ਸੁਰੱਖਿਆ ਯੋਜਨਾ ਤਹਿਤ ਕਵਰ ਨਹੀਂ"
+          ]
+        },
+        "contributionStructure": {
+          "18years": "₹55/month",
+          "25years": "₹76/month", 
+          "30years": "₹105/month",
+          "35years": "₹151/month",
+          "40years": "₹200/month"
+        },
+        "contactInfo": {
+          "website": "https://maandhan.in/",
+          "helpline": "1800-3000-3468"
+        },
+        "statistics": {
+          "enrolledFarmers": 2200000,
+          "targetBeneficiaries": 50000000
+        }
+      },
+      {
+        "id": "per_drop_more_crop_001",
+        "name": {
+          "en": "Per Drop More Crop (PMKSY)",
+          "hi": "प्रति बूंद अधिक फसल (पीएमकेएसवाई)",
+          "pa": "ਪ੍ਰਤੀ ਬੂੰਦ ਜ਼ਿਆਦਾ ਫਸਲ (ਪੀਐਮਕੇਐਸਵਾਈ)"
+        },
+        "category": "water_management", 
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "2015",
+        "status": "active",
+        "priority": "high",
+        "description": {
+          "en": "Micro irrigation scheme to enhance water use efficiency in agriculture through drip and sprinkler irrigation systems",
+          "hi": "ड्रिप और स्प्रिंकलर सिंचाई प्रणालियों के माध्यम से कृषि में पानी के उपयोग की दक्षता बढ़ाने के लिए सूक्ष्म सिंचाई योजना",
+          "pa": "ਡਰਿਪ ਅਤੇ ਸਪ੍ਰਿੰਕਲਰ ਸਿੰਚਾਈ ਪ੍ਰਣਾਲੀਆਂ ਰਾਹੀਂ ਖੇਤੀਬਾੜੀ ਵਿੱਚ ਪਾਣੀ ਦੇ ਵਰਤੋਂ ਦੀ ਕੁਸ਼ਲਤਾ ਵਧਾਉਣ ਲਈ ਮਾਈਕਰੋ ਸਿੰਚਾਈ ਯੋਜਨਾ"
+        },
+        "benefits": {
+          "en": [
+            "Water saving of 40-50%",
+            "Increase in crop yield by 35-40%",
+            "Fertilizer savings of 20-25%",
+            "Labour cost reduction",
+            "Better quality produce"
+          ],
+          "hi": [
+            "40-50% पानी की बचत",
+            "फसल उत्पादन में 35-40% वृद्धि",
+            "20-25% उर्वरक की बचत",
+            "श्रम लागत में कमी",
+            "बेहतर गुणवत्ता का उत्पादन"
+          ],
+          "pa": [
+            "40-50% ਪਾਣੀ ਦੀ ਬਚਤ",
+            "ਫਸਲ ਉਤਪਾਦਨ ਵਿੱਚ 35-40% ਵਾਧਾ",
+            "20-25% ਖਾਦ ਦੀ ਬਚਤ",
+            "ਮਜ਼ਦੂਰੀ ਲਾਗਤ ਵਿੱਚ ਕਮੀ",
+            "ਬਿਹਤਰ ਗੁਣਵੱਤਾ ਦਾ ਉਤਪਾਦਨ"
+          ]
+        },
+        "subsidy": {
+          "smallMarginalFarmers": "55%",
+          "otherFarmers": "45%",
+          "womenFarmers": "55%",
+          "scStFarmers": "55%"
+        },
+        "eligibility": {
+          "en": [
+            "All categories of farmers",
+            "Water source should be assured",
+            "Minimum area: 0.5 hectare",
+            "Valid land documents required"
+          ],
+          "hi": [
+            "सभी श्रेणी के किसान",
+            "पानी का स्रोत सुनिश्चित होना चाहिए",
+            "न्यूनतम क्षेत्र: 0.5 हेक्टेयर",
+            "वैध भूमि दस्तावेज आवश्यक"
+          ],
+          "pa": [
+            "ਸਾਰੀਆਂ ਸ਼ਰੇਣੀਆਂ ਦੇ ਕਿਸਾਨ",
+            "ਪਾਣੀ ਦਾ ਸਰੋਤ ਯਕੀਨੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+            "ਘੱਟੋ-ਘੱਟ ਖੇਤਰ: 0.5 ਹੈਕਟੇਅਰ",
+            "ਵੈਧ ਜ਼ਮੀਨੀ ਦਸਤਾਵੇਜ਼ ਲੋੜੀਂਦੇ"
+          ]
+        },
+        "systems": {
+          "dripIrrigation": "Suitable for row crops, vegetables, fruits",
+          "sprinklerIrrigation": "Suitable for cereals, pulses, oilseeds", 
+          "rainGunSystems": "For large area coverage",
+          "foggerSystems": "For nurseries and greenhouses"
+        },
+        "contactInfo": {
+          "website": "https://pmksy.gov.in/",
+          "helpline": "1800-180-1551"
+        },
+        "statistics": {
+          "areaConvered": "48.28 lakh hectare",
+          "budgetAllocated": "₹4000 crore"
+        }
+      },
+      {
+        "id": "pkvy_001",
+        "name": {
+          "en": "PKVY (Paramparagat Krishi Vikas Yojana)",
+          "hi": "पीकेवीवाई (परंपरागत कृषि विकास योजना)",
+          "pa": "ਪੀਕੇਵੀਵਾਈ (ਪਰੰਪਰਾਗਤ ਕ੍ਰਿਸ਼ੀ ਵਿਕਾਸ ਯੋਜਨਾ)"
+        },
+        "category": "organic_farming",
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "2015",
+        "status": "active",
+        "priority": "medium",
+        "description": {
+          "en": "Promotes organic farming and certification of organic produce to improve soil health and provide chemical-free food",
+          "hi": "मिट्टी के स्वास्थ्य में सुधार और रसायन मुक्त भोजन प्रदान करने के लिए जैविक खेती और जैविक उत्पादन के प्रमाणीकरण को बढ़ावा देता है",
+          "pa": "ਮਿੱਟੀ ਦੀ ਸਿਹਤ ਵਿੱਚ ਸੁਧਾਰ ਅਤੇ ਰਸਾਇਣ ਮੁਕਤ ਭੋਜਨ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਜੈਵਿਕ ਖੇਤੀ ਅਤੇ ਜੈਵਿਕ ਉਤਪਾਦਨ ਦੇ ਪ੍ਰਮਾਣੀਕਰਣ ਨੂੰ ਵਧਾਵਾ ਦਿੰਦਾ ਹੈ"
+        },
+        "benefits": {
+          "en": [
+            "Financial assistance of ₹50,000 per hectare for 3 years",
+            "Organic certification support",
+            "Premium price for organic produce",
+            "Improved soil health and fertility",
+            "Reduced input costs over time"
+          ],
+          "hi": [
+            "3 साल के लिए ₹50,000 प्रति हेक्टेयर वित्तीय सहायता",
+            "जैविक प्रमाणीकरण सहायता",
+            "जैविक उत्पादन के लिए प्रीमियम मूल्य",
+            "बेहतर मिट्टी स्वास्थ्य और उर्वरता",
+            "समय के साथ इनपुट लागत में कमी"
+          ],
+          "pa": [
+            "3 ਸਾਲ ਲਈ ₹50,000 ਪ੍ਰਤੀ ਹੈਕਟੇਅਰ ਵਿੱਤੀ ਸਹਾਇਤਾ",
+            "ਜੈਵਿਕ ਪ੍ਰਮਾਣੀਕਰਣ ਸਹਾਇਤਾ",
+            "ਜੈਵਿਕ ਉਤਪਾਦਨ ਲਈ ਪ੍ਰੀਮੀਅਮ ਕੀਮਤ",
+            "ਬਿਹਤਰ ਮਿੱਟੀ ਸਿਹਤ ਅਤੇ ਉਪਜਾਊਤਾ",
+            "ਸਮੇਂ ਦੇ ਨਾਲ ਇਨਪੁੱਟ ਲਾਗਤ ਵਿੱਚ ਕਮੀ"
+          ]
+        },
+        "clusterApproach": {
+          "farmersPerCluster": 50,
+          "areaPerCluster": "50 hectares",
+          "duration": "3 years",
+          "pgsFormation": "Participatory Guarantee System"
+        },
+        "eligibility": {
+          "en": [
+            "Groups of 50 farmers forming clusters",
+            "Minimum area of 50 hectares per cluster", 
+            "Commitment for 3 years organic farming",
+            "Training and capacity building participation"
+          ],
+          "hi": [
+            "समूह बनाने वाले 50 किसानों के समूह",
+            "प्रति समूह न्यूनतम 50 हेक्टेयर क्षेत्र",
+            "3 साल जैविक खेती के लिए प्रतिबद्धता",
+            "प्रशिक्षण और क्षमता निर्माण भागीदारी"
+          ],
+          "pa": [
+            "ਸਮੂਹ ਬਣਾਉਣ ਵਾਲੇ 50 ਕਿਸਾਨਾਂ ਦੇ ਸਮੂਹ",
+            "ਪ੍ਰਤੀ ਸਮੂਹ ਘੱਟੋ-ਘੱਟ 50 ਹੈਕਟੇਅਰ ਖੇਤਰ",
+            "3 ਸਾਲ ਜੈਵਿਕ ਖੇਤੀ ਲਈ ਵਚਨਬੱਧਤਾ",
+            "ਸਿਖਲਾਈ ਅਤੇ ਸਮਰੱਥਾ ਨਿਰਮਾਣ ਭਾਗੀਦਾਰੀ"
+          ]
+        },
+        "financialSupport": {
+          "year1": "₹31,000/ha",
+          "year2": "₹18,000/ha", 
+          "year3": "₹8,000/ha",
+          "certification": "₹2,000/ha per cluster"
+        },
+        "contactInfo": {
+          "website": "https://pgsindia-ncof.gov.in/",
+          "email": "pkvy-agri@nic.in"
+        },
+        "statistics": {
+          "clustersFormed": 15000,
+          "areaConverted": "7.5 lakh hectares"
+        }
+      },
+      {
+        "id": "national_beekeeping_001",
+        "name": {
+          "en": "National Beekeeping & Honey Mission (NBHM)",
+          "hi": "राष्ट्रीय मधुमक्खी पालन और शहद मिशन (एनबीएचएम)",
+          "pa": "ਰਾਸ਼ਟਰੀ ਮਧੂ-ਮੱਖੀ ਪਾਲਣ ਅਤੇ ਸ਼ਹਿਦ ਮਿਸ਼ਨ (ਐਨਬੀਐਚਐਮ)"
+        },
+        "category": "allied_activities",
+        "ministry": "Ministry of Agriculture & Farmers Welfare",
+        "launchDate": "2020",
+        "status": "active", 
+        "priority": "medium",
+        "description": {
+          "en": "Promotes scientific beekeeping to increase production and productivity of honey and other beehive products",
+          "hi": "शहद और अन्य मधुमक्खी उत्पादों के उत्पादन और उत्पादकता को बढ़ाने के लिए वैज्ञानिक मधुमक्खी पालन को बढ़ावा देता है",
+          "pa": "ਸ਼ਹਿਦ ਅਤੇ ਹੋਰ ਮਧੂ-ਮੱਖੀ ਉਤਪਾਦਾਂ ਦੇ ਉਤਪਾਦਨ ਅਤੇ ਉਤਪਾਦਕਤਾ ਵਧਾਉਣ ਲਈ ਵਿਗਿਆਨਕ ਮਧੂ-ਮੱਖੀ ਪਾਲਣ ਨੂੰ ਵਧਾਵਾ ਦਿੰਦਾ ਹੈ"
+        },
+        "benefits": {
+          "en": [
+            "Additional income source for farmers",
+            "Low investment with high returns",
+            "Improves crop pollination and yield",
+            "Employment generation in rural areas",
+            "Export potential for honey products"
+          ],
+          "hi": [
+            "किसानों के लिए अतिरिक्त आय का स्रोत",
+            "उच्च रिटर्न के साथ कम निवेश",
+            "फसल परागण और उत्पादन में सुधार",
+            "ग्रामीण क्षेत्रों में रोजगार सृजन",
+            "शहद उत्पादों की निर्यात संभावना"
+          ],
+          "pa": [
+            "ਕਿਸਾਨਾਂ ਲਈ ਵਾਧੂ ਆਮਦਨ ਦਾ ਸਰੋਤ",
+            "ਉੱਚ ਵਾਪਸੀ ਦੇ ਨਾਲ ਘੱਟ ਨਿਵੇਸ਼",
+            "ਫਸਲ ਪਰਾਗਣ ਅਤੇ ਉਤਪਾਦਨ ਵਿੱਚ ਸੁਧਾਰ",
+            "ਪੇਂਡੂ ਖੇਤਰਾਂ ਵਿੱਚ ਰੁਜ਼ਗਾਰ ਸਿਰਜਣਾ",
+            "ਸ਼ਹਿਦ ਉਤਪਾਦਾਂ ਦੀ ਨਿਰਯਾਤ ਸੰਭਾਵਨਾ"
+          ]
+        },
+        "components": [
+          "Setting up of Integrated Beekeeping Development Centers",
+          "Establishment of honey testing laboratories",
+          "Post-harvest infrastructure and marketing support",
+          "Research and development activities",
+          "Training and capacity building programs"
+        ],
+        "subsidy": {
+          "beehives": "40-50% for general farmers, 50-60% for SC/ST/Women",
+          "honeExtractors": "40-50% subsidy",
+          "beeKeepingKit": "40-50% subsidy"
+        },
+        "eligibility": {
+          "en": [
+            "Individual farmers, SHGs, FPOs",
+            "Age between 18-60 years",
+            "Basic training in beekeeping",
+            "Availability of flora for bee foraging"
+          ],
+          "hi": [
+            "व्यक्तिगत किसान, SHG, FPO",
+            "18-60 वर्ष की आयु",
+            "मधुमक्खी पालन में बुनियादी प्रशिक्षण",
+            "मधुमक्खी चराई के लिए वनस्पति की उपलब्धता"
+          ],
+          "pa": [
+            "ਵਿਅਕਤੀਗਤ ਕਿਸਾਨ, SHG, FPO",
+            "18-60 ਸਾਲ ਦੀ ਉਮਰ",
+            "ਮਧੂ-ਮੱਖੀ ਪਾਲਣ ਵਿੱਚ ਬੁਨਿਆਦੀ ਸਿਖਲਾਈ",
+            "ਮਧੂ-ਮੱਖੀ ਚੁਗਾਈ ਲਈ ਬਨਸਪਤੀ ਦੀ ਉਪਲਬਧਤਾ"
+          ]
+        },
+        "contactInfo": {
+          "website": "https://nbhm.gov.in/",
+          "email": "nbhm-agri@gov.in"
+        },
+        "statistics": {
+          "targetBeneficiaries": 500000,
+          "budgetAllocation": "₹500 crore"
+        }
+      },
+      {
+        "id": "rashtriya_gokul_mission_001",
+        "name": {
+          "en": "Rashtriya Gokul Mission",
+          "hi": "राष्ट्रीय गोकुल मिशन",
+          "pa": "ਰਾਸ਼ਟਰੀ ਗੋਕੁਲ ਮਿਸ਼ਨ"
+        },
+        "category": "livestock",
+        "ministry": "Department of Animal Husbandry & Dairying",
+        "launchDate": "2014",
+        "status": "active",
+        "priority": "medium",
+        "description": {
+          "en": "Development and conservation of indigenous bovine breeds to enhance milk production and farmer income",
+          "hi": "दूध उत्पादन और किसान आय बढ़ाने के लिए स्वदेशी गोजातीय नस्लों का विकास और संरक्षण",
+          "pa": "ਦੁੱਧ ਉਤਪਾਦਨ ਅਤੇ ਕਿਸਾਨ ਆਮਦਨੀ ਵਧਾਉਣ ਲਈ ਸਵਦੇਸ਼ੀ ਗੋ-ਜਾਤੀ ਦੀਆਂ ਨਸਲਾਂ ਦਾ ਵਿਕਾਸ ਅਤੇ ਸੰਰਖਿਆ"
+        },
+        "benefits": {
+          "en": [
+            "Quality breeding bulls and semen distribution",
+            "Establishment of Gokul Grams",
+            "Training for scientific animal husbandry",
+            "Financial assistance for breed improvement",
+            "Marketing support for milk and milk products"
+          ],
+          "hi": [
+            "गुणवत्तापूर्ण प्रजनन बैल और वीर्य वितरण",
+            "गोकुल ग्रामों की स्थापना",
+            "वैज्ञानिक पशुपालन के लिए प्रशिक्षण",
+            "नस्ल सुधार के लिए वित्तीय सहायता",
+            "दूध और दूध उत्पादों के लिए विपणन सहायता"
+          ],
+          "pa": [
+            "ਗੁਣਵੱਤਾਪੂਰਨ ਪ੍ਰਜਨਨ ਬਲਦ ਅਤੇ ਵੀਰਜ ਵਿਤਰਣ",
+            "ਗੋਕੁਲ ਗ੍ਰਾਮਾਂ ਦੀ ਸਥਾਪਨਾ",
+            "ਵਿਗਿਆਨਕ ਪਸ਼ੂ ਪਾਲਣ ਲਈ ਸਿਖਲਾਈ",
+            "ਨਸਲ ਸੁਧਾਰ ਲਈ ਵਿੱਤੀ ਸਹਾਇਤਾ",
+            "ਦੁੱਧ ਅਤੇ ਦੁੱਧ ਉਤਪਾਦਾਂ ਲਈ ਮਾਰਕੀਟਿੰਗ ਸਹਾਇਤਾ"
+          ]
+        },
+        "components": [
+          "Development of indigenous breeds",
+          "Breed multiplication through natural service",
+          "Distribution of disease-free high genetic merit bulls",
+          "Strengthening of A.I. network with sexed semen",
+          "Establishment of Gokul Grams"
+        ],
+        "eligibility": {
+          "en": [
+            "Individual farmers with cattle",
+            "Dairy cooperatives and FPOs",
+            "Self Help Groups involved in dairying",
+            "NGOs working in livestock sector"
+          ],
+          "hi": [
+            "मवेशी रखने वाले व्यक्तिगत किसान",
+            "डेयरी सहकारी और FPO",
+            "डेयरी में शामिल स्वयं सहायता समूह",
+            "पशुधन क्षेत्र में काम करने वाली NGO"
+          ],
+          "pa": [
+            "ਪਸ਼ੂ ਰੱਖਣ ਵਾਲੇ ਵਿਅਕਤੀਗਤ ਕਿਸਾਨ",
+            "ਡੇਅਰੀ ਸਹਿਕਾਰੀ ਅਤੇ FPO",
+            "ਡੇਅਰੀ ਵਿੱਚ ਸ਼ਾਮਲ ਸਵੈ-ਸਹਾਇਤਾ ਸਮੂਹ",
+            "ਪਸ਼ੂਧਨ ਸੈਕਟਰ ਵਿੱਚ ਕੰਮ ਕਰ ਰਹੀਆਂ NGO"
+          ]
+        },
+        "contactInfo": {
+          "website": "https://dahd.nic.in/schemes/programmes/rashtriya-gokul-mission",
+          "email": "rgm-dahd@gov.in"
+        },
+        "statistics": {
+          "gokulGramsEstablished": 28,
+          "budgetAllocation": "₹2,400 crore"
+        }
+      }
+    ],
+    "categories": {
+      "income_support": {
+        "name": {
+          "en": "Income Support",
+          "hi": "आय सहायता", 
+          "pa": "ਆਮਦਨੀ ਸਹਾਇਤਾ"
+        },
+        "description": {
+          "en": "Direct financial assistance to farmers",
+          "hi": "किसानों को प्रत्यक्ष वित्तीय सहायता",
+          "pa": "ਕਿਸਾਨਾਂ ਨੂੰ ਸਿੱਧੀ ਵਿੱਤੀ ਸਹਾਇਤਾ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 110000000
+      },
+      "crop_insurance": {
+        "name": {
+          "en": "Crop Insurance",
+          "hi": "फसल बीमा",
+          "pa": "ਫਸਲੀ ਬੀਮਾ"
+        },
+        "description": {
+          "en": "Protection against crop losses due to natural calamities",
+          "hi": "प्राकृतिक आपदाओं के कारण फसल नुकसान के खिलाफ सुरक्षा",
+          "pa": "ਕੁਦਰਤੀ ਆਫ਼ਤਾਂ ਕਾਰਨ ਫसਲੀ ਨੁਕਸਾਨ ਦੇ ਵਿਰੁੱਧ ਸੁਰੱਖਿਆ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 55000000
+      },
+      "credit_support": {
+        "name": {
+          "en": "Credit Support",
+          "hi": "ऋण सहायता",
+          "pa": "ਕਰਜ਼ਾ ਸਹਾਇਤਾ"
+        },
+        "description": {
+          "en": "Easy access to agricultural credit at affordable rates",
+          "hi": "किफायती दरों पर कृषि ऋण तक आसान पहुंच",
+          "pa": "ਕਿਫਾਇਤੀ ਦਰਾਂ 'ਤੇ ਖੇਤੀਬਾੜੀ ਕਰਜ਼ੇ ਤੱਕ ਆਸਾਨ ਪਹੁੰਚ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 70000000
+      },
+      "soil_management": {
+        "name": {
+          "en": "Soil Management",
+          "hi": "मृदा प्रबंधन",
+          "pa": "ਮਿੱਟੀ ਪ੍ਰਬੰਧਨ"
+        },
+        "description": {
+          "en": "Schemes for soil health improvement and testing",
+          "hi": "मिट्टी स्वास्थ्य सुधार और परीक्षण के लिए योजनाएं",
+          "pa": "ਮਿੱਟੀ ਸਿਹਤ ਸੁਧਾਰ ਅਤੇ ਜਾਂਚ ਲਈ ਯੋਜਨਾਵਾਂ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 140000000
+      },
+      "pension_scheme": {
+        "name": {
+          "en": "Pension Schemes",
+          "hi": "पेंशन योजनाएं",
+          "pa": "ਪੈਨਸ਼ਨ ਯੋਜਨਾਵਾਂ"
+        },
+        "description": {
+          "en": "Social security and pension for farmers",
+          "hi": "किसानों के लिए सामाजिक सुरक्षा और पेंशन",
+          "pa": "ਕਿਸਾਨਾਂ ਲਈ ਸਮਾਜਿਕ ਸੁਰੱਖਿਆ ਅਤੇ ਪੈਨਸ਼ਨ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 2200000
+      },
+      "water_management": {
+        "name": {
+          "en": "Water Management",
+          "hi": "जल प्रबंधन", 
+          "pa": "ਪਾਣੀ ਪ੍ਰਬੰਧਨ"
+        },
+        "description": {
+          "en": "Efficient water use and irrigation schemes",
+          "hi": "कुशल जल उपयोग और सिंचाई योजनाएं",
+          "pa": "ਕੁਸ਼ल ਪਾਣੀ ਵਰਤੋਂ ਅਤੇ ਸਿੰਚਾਈ ਯੋਜਨਾਵਾਂ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 40000000
+      },
+      "organic_farming": {
+        "name": {
+          "en": "Organic Farming",
+          "hi": "जैविक खेती",
+          "pa": "ਜੈਵਿਕ ਖੇਤੀ"
+        },
+        "description": {
+          "en": "Promotion of organic and sustainable farming practices",
+          "hi": "जैविक और टिकाऊ कृषि प्रथाओं का प्रोत्साहन",
+          "pa": "ਜੈਵਿਕ ਅਤੇ ਟਿਕਾਊ ਖੇਤੀ ਪ੍ਰਥਾਵਾਂ ਦਾ ਪ੍ਰੋਤਸਾਹਨ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 15000000
+      },
+      "allied_activities": {
+        "name": {
+          "en": "Allied Activities",
+          "hi": "संबद्ध गतिविधियां",
+          "pa": "ਸਬੰਧਿਤ ਗਤੀਵਿਧੀਆਂ"
+        },
+        "description": {
+          "en": "Support for beekeeping, horticulture and other allied activities",
+          "hi": "मधुमक्खी पालन, बागवानी और अन्य संबद्ध गतिविधियों के लिए सहायता",
+          "pa": "ਮਧੂ-ਮੱਖੀ ਪਾਲਣ, ਬਾਗਬਾਨੀ ਅਤੇ ਹੋਰ ਸਬੰਧਿਤ ਗਤੀਵਿਧੀਆਂ ਲਈ ਸਹਾਇਤਾ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 500000
+      },
+      "livestock": {
+        "name": {
+          "en": "Livestock",
+          "hi": "पशुधन",
+          "pa": "ਪਸ਼ੂਧਨ"
+        },
+        "description": {
+          "en": "Development and improvement of livestock breeds",
+          "hi": "पशुधन नस्लों का विकास और सुधार",
+          "pa": "ਪਸ਼ੂਧਨ ਨਸਲਾਂ ਦਾ ਵਿਕਾਸ ਅਤੇ ਸੁਧਾਰ"
+        },
+        "totalSchemes": 1,
+        "totalBeneficiaries": 25000000
+      }
+    },
+    "applicationLinks": {
+      "pmKisan": "https://pmkisan.gov.in/",
+      "pmfby": "https://pmfby.gov.in/",
+      "kcc": "https://kisan.gov.in/",
+      "soilHealthCard": "https://soilhealth.dac.gov.in/",
+      "commonServiceCenter": "https://csc.gov.in/"
+    },
+    "helplines": {
+      "pmKisan": "155261",
+      "pmfby": "14447", 
+      "kcc": "1800-180-1551",
+      "soilHealth": "1800-180-1551",
+      "generalAgriculture": "1800-115-526"
+    },
+    "importantNotes": {
+      "en": [
+        "Ensure Aadhaar linking for all DBT schemes",
+        "Keep bank account active and updated",
+        "Submit applications within specified timeframes",
+        "Contact local agriculture department for assistance",
+        "Regular follow-up recommended for timely benefits"
+      ],
+      "hi": [
+        "सभी DBT योजनाओं के लिए आधार लिंकिंग सुनिश्चित करें",
+        "बैंक खाता सक्रिय और अपडेटेड रखें",
+        "निर्दिष्ट समयसीमा के भीतर आवेदन जमा करें",
+        "सहायता के लिए स्थानीय कृषि विभाग से संपर्क करें",
+        "समय पर लाभ के लिए नियमित फॉलो-अप की सिफारिश"
+      ],
+      "pa": [
+        "ਸਾਰੀਆਂ DBT ਯੋਜਨਾਵਾਂ ਲਈ ਆਧਾਰ ਲਿੰਕਿੰਗ ਯਕੀਨੀ ਬਣਾਓ",
+        "ਬੈਂਕ ਖਾਤਾ ਸਰਗਰਮ ਅਤੇ ਅੱਪਡੇਟ ਰੱਖੋ",
+        "ਨਿਰਧਾਰਿਤ ਸਮਾਂ-ਸੀਮਾ ਵਿੱਚ ਅਰਜ਼ੀਆਂ ਜਮਾਂ ਕਰੋ",
+        "ਸਹਾਇਤਾ ਲਈ ਸਥਾਨਕ ਖੇਤੀਬਾੜੀ ਵਿਭਾਗ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
+        "ਸਮੇਂ ਸਿਰ ਲਾਭ ਲਈ ਨਿਯਮਿਤ ਫਾਲੋ-ਅੱਪ ਦੀ ਸਿਫ਼ਾਰਸ਼"
+      ]
+    }
+  }
+}

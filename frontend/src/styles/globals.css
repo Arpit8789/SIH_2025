@@ -1,0 +1,436 @@
+/* src/styles/globals.css - UPDATED */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for Agricultural Theme - Enhanced */
+@layer base {
+  :root {
+    /* Shadcn/UI Core Variables */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 142.1 76.2% 36.3%; /* Emerald 600 */
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 98%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142.1 76.2% 36.3%; /* Emerald 600 */
+    --radius: 0.75rem;
+
+    /* Your Agricultural Colors - Preserved */
+    --ag-primary: 142.1 76.2% 36.3%;
+    --ag-primary-foreground: 355.7 100% 97.3%;
+    --ag-secondary: 45 93.4% 47.5%;
+    --ag-accent: 203.4 100% 50%;
+    
+    /* Semantic Colors - Enhanced */
+    --success: 142.1 76.2% 36.3%;
+    --warning: 45 93.4% 47.5%;
+    --error: 0 84.2% 60.2%;
+    --info: 203.4 100% 50%;
+    
+    /* Gray Scale - Enhanced */
+    --gray-50: 210 40% 98%;
+    --gray-100: 210 40% 96%;
+    --gray-200: 214.3 31.8% 91.4%;
+    --gray-300: 213.3 31.4% 83.1%;
+    --gray-400: 215.4 16.3% 46.9%;
+    --gray-500: 215 20.2% 65.1%;
+    --gray-600: 215.3 25% 26.7%;
+    --gray-700: 215.3 25% 26.7%;
+    --gray-800: 217.2 32.6% 17.5%;
+    --gray-900: 222.2 84% 4.9%;
+    
+    /* Component Variables - Your Settings Preserved */
+    --border-width: 1px;
+    --header-height: 4rem;
+    --sidebar-width: 16rem;
+    --footer-height: 3rem;
+
+    /* Agricultural Specific Variables */
+    --crop-yellow: 45 93.4% 47.5%;
+    --soil-brown: 25 35% 55%;
+    --water-blue: 203.4 100% 50%;
+    --leaf-green: 142.1 76.2% 36.3%;
+  }
+
+  /* Dark Theme Variables - Enhanced */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142.1 70.6% 45.3%; /* Emerald 500 */
+    --primary-foreground: 144.9 80.4% 10%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142.1 70.6% 45.3%;
+
+    /* Your Agricultural Dark Colors */
+    --ag-primary: 142.1 70.6% 45.3%;
+    --ag-primary-foreground: 144.9 80.4% 10%;
+    --success: 142.1 70.6% 45.3%;
+    --warning: 45 93.4% 60%;
+    --error: 0 62.8% 30.6%;
+    --info: 203.4 100% 60%;
+    
+    --gray-50: 222.2 84% 4.9%;
+    --gray-100: 217.2 32.6% 17.5%;
+    --gray-200: 216 34% 17%;
+    --gray-300: 223 47% 11%;
+    --gray-400: 215.4 16.3% 56.9%;
+    --gray-500: 215 20.2% 65.1%;
+    --gray-600: 213 31% 91%;
+    --gray-700: 210 40% 98%;
+    --gray-800: 213 31% 91%;
+    --gray-900: 210 40% 98%;
+  }
+
+  /* Base Element Styles - Your Settings Preserved */
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Typography Base - Your Settings Preserved */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+    line-height: 1.2;
+  }
+
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+  h2 { @apply text-3xl md:text-4xl lg:text-5xl; }
+  h3 { @apply text-2xl md:text-3xl lg:text-4xl; }
+  h4 { @apply text-xl md:text-2xl lg:text-3xl; }
+  h5 { @apply text-lg md:text-xl lg:text-2xl; }
+  h6 { @apply text-base md:text-lg lg:text-xl; }
+
+  p {
+    @apply text-gray-600 dark:text-gray-400;
+    margin-bottom: 1rem;
+  }
+
+  /* Link Styles */
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+    text-decoration: none;
+  }
+
+  /* Button Focus Styles */
+  button:focus-visible, 
+  [role="button"]:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  /* Scrollbar Styles - Enhanced */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-emerald-300 dark:bg-emerald-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-emerald-400 dark:bg-emerald-600;
+  }
+
+  /* Selection Styles - Agricultural theme */
+  ::selection {
+    @apply bg-emerald-200 dark:bg-emerald-800 text-emerald-900 dark:text-emerald-100;
+  }
+
+  /* Loading Skeleton */
+  .skeleton {
+    @apply bg-gray-200 dark:bg-gray-700 animate-pulse rounded;
+  }
+}
+
+/* Component Layer - Enhanced with Shadcn/UI compatibility */
+@layer components {
+  /* Container Utilities - Your Settings Preserved */
+  .container-custom {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: min(100% - 2rem, 1200px);
+  }
+
+  .container-full {
+    @apply w-full px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Card Components - Enhanced with Shadcn/UI */
+  .card-base {
+    @apply bg-card text-card-foreground rounded-xl border shadow-sm;
+  }
+
+  .card-hover {
+    @apply card-base transition-all duration-200 hover:shadow-lg hover:shadow-primary/5;
+  }
+
+  .card-interactive {
+    @apply card-hover cursor-pointer hover:bg-accent/50;
+  }
+
+  /* Button Variants - Enhanced */
+  .btn-ag-primary {
+    @apply bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg;
+    @apply hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+    @apply transition-all duration-200;
+  }
+
+  .btn-ag-secondary {
+    @apply bg-secondary text-secondary-foreground font-medium px-6 py-3 rounded-lg;
+    @apply hover:bg-secondary/80 hover:shadow-lg;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+    @apply transition-all duration-200;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary bg-transparent font-medium px-6 py-3 rounded-lg;
+    @apply hover:bg-primary hover:text-primary-foreground;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+    @apply transition-all duration-200;
+  }
+
+  /* Agricultural Themed Elements - Your Settings Preserved */
+  .ag-pattern {
+    background-image: 
+      radial-gradient(circle at 25px 25px, hsl(var(--primary) / 0.1) 2px, transparent 0),
+      radial-gradient(circle at 75px 75px, hsl(var(--warning) / 0.1) 2px, transparent 0);
+    background-size: 100px 100px;
+  }
+
+  .crop-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6;
+  }
+
+  .feature-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8;
+  }
+
+  /* Form Elements - Enhanced with Shadcn/UI */
+  .input-base {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2;
+    @apply text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium;
+    @apply placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2;
+    @apply focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input-error {
+    @apply input-base border-destructive focus-visible:ring-destructive;
+  }
+
+  .input-success {
+    @apply input-base border-emerald-500 focus-visible:ring-emerald-500;
+  }
+
+  /* Status Badges - Enhanced */
+  .badge-success {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold;
+    @apply border-transparent bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold;
+    @apply border-transparent bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
+  }
+
+  .badge-error {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold;
+    @apply border-transparent bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+  }
+
+  .badge-info {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold;
+    @apply border-transparent bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+  }
+
+  /* Loading States - Enhanced */
+  .loading-shimmer {
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted-foreground) / 0.1) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+/* Utility Layer - Enhanced */
+@layer utilities {
+  /* Spacing Utilities - Your Settings Preserved */
+  .space-y-mobile > * + * {
+    margin-top: 1rem;
+  }
+
+  .space-y-desktop > * + * {
+    margin-top: 1.5rem;
+  }
+
+  /* Text Utilities - Enhanced */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-gradient-ag {
+    @apply bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-sunset {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent;
+  }
+
+  /* Hide/Show Utilities */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Touch Targets for Mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Agricultural Icons */
+  .ag-icon {
+    @apply w-6 h-6 text-primary;
+  }
+
+  .ag-icon-lg {
+    @apply w-8 h-8 text-primary;
+  }
+
+  .ag-icon-xl {
+    @apply w-12 h-12 text-primary;
+  }
+
+  /* Glass Effect - Enhanced */
+  .glass-effect {
+    @apply backdrop-blur-md bg-background/80 border border-border/50;
+  }
+
+  /* Responsive Text */
+  .responsive-text {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  /* Agricultural Theme Shadows */
+  .shadow-ag {
+    box-shadow: 0 4px 6px -1px hsl(var(--primary) / 0.1), 0 2px 4px -1px hsl(var(--primary) / 0.06);
+  }
+
+  .shadow-ag-lg {
+    box-shadow: 0 10px 15px -3px hsl(var(--primary) / 0.1), 0 4px 6px -2px hsl(var(--primary) / 0.05);
+  }
+
+  /* Focus States */
+  .focus-ag {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  /* Agricultural Border */
+  .border-ag {
+    border-color: hsl(var(--primary));
+  }
+
+  /* Background Gradients */
+  .bg-gradient-ag {
+    @apply bg-gradient-to-r from-emerald-600 to-emerald-500;
+  }
+
+  .bg-gradient-sunset {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-500;
+  }
+
+  .bg-gradient-soil {
+    @apply bg-gradient-to-r from-amber-600 to-orange-600;
+  }
+}
+
+/* Shadcn/UI Animation Support */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}

@@ -1,0 +1,106 @@
+<!-- index.html - UPDATED -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Smart Multilingual Farming Advisory Platform for Indian Farmers" />
+    <meta name="keywords" content="farming, agriculture, crop advisory, weather alerts, AI, India" />
+    <meta name="author" content="Krishi Sahayak Team" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Krishi Sahayak - Smart Farming Platform" />
+    <meta property="og:description" content="AI-powered multilingual platform for Indian farmers with crop recommendations, weather alerts, and market prices" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#059669" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- <link rel="manifest" href="/manifest.json" /> -->
+    
+    <!-- Preload Critical Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Critical CSS Variables -->
+    <style>
+      :root {
+        --radius: 0.5rem;
+        --background: 0 0% 100%;
+        --foreground: 222.2 84% 4.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 222.2 84% 4.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222.2 84% 4.9%;
+        --primary: 142.1 76.2% 36.3%;
+        --primary-foreground: 355.7 100% 97.3%;
+        --secondary: 210 40% 96%;
+        --secondary-foreground: 222.2 84% 4.9%;
+        --muted: 210 40% 96%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --accent: 210 40% 96%;
+        --accent-foreground: 222.2 84% 4.9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 142.1 76.2% 36.3%;
+      }
+      
+      .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+        --primary: 142.1 70.6% 45.3%;
+        --primary-foreground: 144.9 80.4% 10%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 142.4 71.8% 29.2%;
+      }
+    </style>
+    
+    <title>Krishi Sahayak - Smart Farming Platform</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Loading Screen (Hidden by React) -->
+    <div id="initial-loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: linear-gradient(135deg, #059669, #34d399); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+      <div style="text-align: center; color: white;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🌾</div>
+        <div style="font-size: 1.5rem; font-weight: 600;">Krishi Sahayak</div>
+        <div style="font-size: 0.875rem; margin-top: 0.5rem; opacity: 0.8;">Loading...</div>
+      </div>
+    </div>
+    
+    <script>
+      // Hide loader when React app loads
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          const loader = document.getElementById('initial-loader');
+          if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 300);
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

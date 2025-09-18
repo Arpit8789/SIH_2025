@@ -1,0 +1,333 @@
+{
+  "Punjab": {
+    "state_code": "PB",
+    "climate_zone": "subtropical",
+    "main_languages": ["Punjabi", "Hindi"],
+    "kharif": {
+      "season_months": ["May", "June", "July", "August", "September"],
+      "crops": [
+        {
+          "name": "Rice",
+          "local_name": "ਚਾਵਲ",
+          "hindi_name": "चावल",
+          "area_percentage": 35,
+          "varieties": ["PR-121", "PR-126", "Pusa-44"],
+          "growth_stages": ["Nursery", "Transplanting", "Tillering", "Flowering", "Maturity"],
+          "critical_periods": ["Flowering", "Grain filling"],
+          "water_requirement": "high",
+          "pest_diseases": ["Brown planthopper", "Blast", "Sheath blight"]
+        },
+        {
+          "name": "Cotton",
+          "local_name": "ਕਪਾਹ",
+          "hindi_name": "कपास",
+          "area_percentage": 25,
+          "varieties": ["Bt Cotton", "F-846", "RCH-134"],
+          "growth_stages": ["Germination", "Squaring", "Flowering", "Boll formation", "Maturity"],
+          "critical_periods": ["Flowering", "Boll formation"],
+          "water_requirement": "medium",
+          "pest_diseases": ["Pink bollworm", "Whitefly", "Leaf curl virus"]
+        },
+        {
+          "name": "Sugarcane",
+          "local_name": "ਗੰਨਾ",
+          "hindi_name": "गन्ना",
+          "area_percentage": 15,
+          "varieties": ["CoJ-64", "Co-0238", "Co-0118"],
+          "growth_stages": ["Germination", "Tillering", "Grand growth", "Maturity"],
+          "critical_periods": ["Grand growth"],
+          "water_requirement": "very_high",
+          "pest_diseases": ["Red rot", "Early shoot borer", "Top borer"]
+        },
+        {
+          "name": "Maize",
+          "local_name": "ਮੱਕੀ",
+          "hindi_name": "मक्का",
+          "area_percentage": 12,
+          "varieties": ["PMH-1", "Ganga-5", "Deccan-103"],
+          "growth_stages": ["Germination", "Vegetative", "Tasseling", "Silking", "Maturity"],
+          "critical_periods": ["Tasseling", "Silking"],
+          "water_requirement": "medium",
+          "pest_diseases": ["Fall armyworm", "Stem borer", "Leaf blight"]
+        },
+        {
+          "name": "Bajra",
+          "local_name": "ਬਾਜਰਾ",
+          "hindi_name": "बाजरा",
+          "area_percentage": 8,
+          "varieties": ["HHB-67", "HHB-197", "RHB-121"],
+          "growth_stages": ["Germination", "Tillering", "Panicle initiation", "Flowering", "Maturity"],
+          "critical_periods": ["Panicle initiation", "Flowering"],
+          "water_requirement": "low",
+          "pest_diseases": ["Downy mildew", "Blast", "Smut"]
+        }
+      ]
+    },
+    "rabi": {
+      "season_months": ["October", "November", "December", "January", "February", "March", "April"],
+      "crops": [
+        {
+          "name": "Wheat",
+          "local_name": "ਕਣਕ",
+          "hindi_name": "गेहूं",
+          "area_percentage": 45,
+          "varieties": ["PBW-343", "HD-2967", "WH-147", "DBW-17"],
+          "growth_stages": ["Germination", "Tillering", "Jointing", "Booting", "Flowering", "Maturity"],
+          "critical_periods": ["Flowering", "Grain filling"],
+          "water_requirement": "medium",
+          "pest_diseases": ["Yellow rust", "Brown rust", "Aphids", "Termites"]
+        },
+        {
+          "name": "Mustard",
+          "local_name": "ਸਰ੍ਹੋਂ",
+          "hindi_name": "सरसों",
+          "area_percentage": 18,
+          "varieties": ["PBR-97", "RH-30", "Hyola-401"],
+          "growth_stages": ["Germination", "Rosette", "Stem elongation", "Flowering", "Pod filling", "Maturity"],
+          "critical_periods": ["Flowering", "Pod filling"],
+          "water_requirement": "low",
+          "pest_diseases": ["Aphids", "Painted bug", "White rust"]
+        },
+        {
+          "name": "Peas",
+          "local_name": "ਮਟਰ",
+          "hindi_name": "मटर",
+          "area_percentage": 12,
+          "varieties": ["Punjab-89", "Arkel", "Meteor"],
+          "growth_stages": ["Germination", "Vegetative", "Flowering", "Pod formation", "Maturity"],
+          "critical_periods": ["Flowering", "Pod formation"],
+          "water_requirement": "medium",
+          "pest_diseases": ["Powdery mildew", "Rust", "Pod borer"]
+        },
+        {
+          "name": "Gram",
+          "local_name": "ਚਣਾ",
+          "hindi_name": "चना",
+          "area_percentage": 10,
+          "varieties": ["PBG-1", "GPF-2", "Kabuli-2"],
+          "growth_stages": ["Germination", "Vegetative", "Flowering", "Pod filling", "Maturity"],
+          "critical_periods": ["Flowering", "Pod filling"],
+          "water_requirement": "low",
+          "pest_diseases": ["Wilt", "Blight", "Pod borer"]
+        },
+        {
+          "name": "Barley",
+          "local_name": "ਜੌਂ",
+          "hindi_name": "जौ",
+          "area_percentage": 8,
+          "varieties": ["PL-426", "BH-393", "RD-2035"],
+          "growth_stages": ["Germination", "Tillering", "Stem elongation", "Heading", "Maturity"],
+          "critical_periods": ["Heading", "Grain filling"],
+          "water_requirement": "low",
+          "pest_diseases": ["Stripe rust", "Powdery mildew", "Aphids"]
+        }
+      ]
+    },
+    "zaid": {
+      "season_months": ["March", "April", "May", "June"],
+      "crops": [
+        {
+          "name": "Fodder",
+          "local_name": "ਚਾਰਾ",
+          "hindi_name": "चारा",
+          "area_percentage": 40,
+          "varieties": ["Berseem", "Oats", "Sorghum"],
+          "growth_stages": ["Germination", "Vegetative", "Cutting stage"],
+          "critical_periods": ["Vegetative growth"],
+          "water_requirement": "high",
+          "pest_diseases": ["Aphids", "Leaf spot"]
+        },
+        {
+          "name": "Vegetables",
+          "local_name": "ਸਬਜ਼ੀਆਂ",
+          "hindi_name": "सब्जियां",
+          "area_percentage": 35,
+          "varieties": ["Tomato", "Onion", "Potato", "Cauliflower"],
+          "growth_stages": ["Seedling", "Vegetative", "Flowering/Fruiting", "Harvesting"],
+          "critical_periods": ["Flowering", "Fruiting"],
+          "water_requirement": "high",
+          "pest_diseases": ["Blight", "Aphids", "Fruit borer"]
+        },
+        {
+          "name": "Summer Rice",
+          "local_name": "ਗਰਮੀ ਦੇ ਚਾਵਲ",
+          "hindi_name": "गर्मी के चावल",
+          "area_percentage": 25,
+          "varieties": ["PR-113", "Pusa-834"],
+          "growth_stages": ["Nursery", "Transplanting", "Tillering", "Flowering", "Maturity"],
+          "critical_periods": ["Flowering", "Grain filling"],
+          "water_requirement": "very_high",
+          "pest_diseases": ["Blast", "Brown planthopper"]
+        }
+      ]
+    }
+  },
+  "Haryana": {
+    "state_code": "HR",
+    "climate_zone": "subtropical",
+    "main_languages": ["Hindi", "Haryanvi"],
+    "kharif": {
+      "season_months": ["May", "June", "July", "August", "September"],
+      "crops": [
+        {
+          "name": "Rice",
+          "area_percentage": 40,
+          "varieties": ["CSR-30", "Pusa-44", "PR-126"],
+          "water_requirement": "high",
+          "pest_diseases": ["Blast", "Brown planthopper"]
+        },
+        {
+          "name": "Cotton",
+          "area_percentage": 25,
+          "varieties": ["Bt Cotton", "H-777"],
+          "water_requirement": "medium",
+          "pest_diseases": ["Pink bollworm", "Whitefly"]
+        },
+        {
+          "name": "Sugarcane",
+          "area_percentage": 20,
+          "varieties": ["CoH-160", "CoPb-92"],
+          "water_requirement": "very_high",
+          "pest_diseases": ["Red rot", "Top borer"]
+        }
+      ]
+    },
+    "rabi": {
+      "season_months": ["October", "November", "December", "January", "February", "March", "April"],
+      "crops": [
+        {
+          "name": "Wheat",
+          "area_percentage": 50,
+          "varieties": ["HD-2967", "WH-542", "DBW-17"],
+          "water_requirement": "medium",
+          "pest_diseases": ["Yellow rust", "Aphids"]
+        },
+        {
+          "name": "Mustard",
+          "area_percentage": 20,
+          "varieties": ["RH-30", "Hyola-401"],
+          "water_requirement": "low",
+          "pest_diseases": ["Aphids", "White rust"]
+        },
+        {
+          "name": "Gram",
+          "area_percentage": 15,
+          "varieties": ["HC-1", "HC-3"],
+          "water_requirement": "low",
+          "pest_diseases": ["Wilt", "Pod borer"]
+        }
+      ]
+    }
+  },
+  "Uttar_Pradesh": {
+    "state_code": "UP",
+    "climate_zone": "subtropical",
+    "main_languages": ["Hindi", "Urdu"],
+    "kharif": {
+      "crops": [
+        {
+          "name": "Rice",
+          "area_percentage": 35,
+          "varieties": ["Saryu-52", "NDR-359"],
+          "water_requirement": "high"
+        },
+        {
+          "name": "Sugarcane",
+          "area_percentage": 30,
+          "varieties": ["CoS-767", "Co-0238"],
+          "water_requirement": "very_high"
+        }
+      ]
+    },
+    "rabi": {
+      "crops": [
+        {
+          "name": "Wheat",
+          "area_percentage": 45,
+          "varieties": ["HD-2967", "PBW-343"],
+          "water_requirement": "medium"
+        },
+        {
+          "name": "Barley",
+          "area_percentage": 15,
+          "varieties": ["RD-2035", "PL-426"],
+          "water_requirement": "low"
+        }
+      ]
+    }
+  },
+  "Bihar": {
+    "state_code": "BR",
+    "climate_zone": "subtropical",
+    "main_languages": ["Hindi", "Bhojpuri"],
+    "kharif": {
+      "crops": [
+        {
+          "name": "Rice",
+          "area_percentage": 50,
+          "varieties": ["Swarna", "IR-64"],
+          "water_requirement": "high"
+        },
+        {
+          "name": "Maize",
+          "area_percentage": 20,
+          "varieties": ["Ganga-5", "HQPM-1"],
+          "water_requirement": "medium"
+        }
+      ]
+    },
+    "rabi": {
+      "crops": [
+        {
+          "name": "Wheat",
+          "area_percentage": 40,
+          "varieties": ["HD-2967", "K-307"],
+          "water_requirement": "medium"
+        },
+        {
+          "name": "Gram",
+          "area_percentage": 25,
+          "varieties": ["Pusa-256", "KWR-108"],
+          "water_requirement": "low"
+        }
+      ]
+    }
+  },
+  "Rajasthan": {
+    "state_code": "RJ",
+    "climate_zone": "arid_semiarid",
+    "main_languages": ["Hindi", "Rajasthani"],
+    "kharif": {
+      "crops": [
+        {
+          "name": "Bajra",
+          "area_percentage": 35,
+          "varieties": ["RHB-121", "HHB-67"],
+          "water_requirement": "low"
+        },
+        {
+          "name": "Jowar",
+          "area_percentage": 25,
+          "varieties": ["CSH-16", "SPV-2043"],
+          "water_requirement": "low"
+        }
+      ]
+    },
+    "rabi": {
+      "crops": [
+        {
+          "name": "Wheat",
+          "area_percentage": 30,
+          "varieties": ["Raj-3765", "HD-2967"],
+          "water_requirement": "medium"
+        },
+        {
+          "name": "Mustard",
+          "area_percentage": 40,
+          "varieties": ["RH-30", "Pusa-Bold"],
+          "water_requirement": "low"
+        }
+      ]
+    }
+  }
+}

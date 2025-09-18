@@ -1,0 +1,341 @@
+{
+  "marketPrices": {
+    "lastUpdated": "2025-09-17T18:30:00Z",
+    "currency": "INR",
+    "unit": "per quintal",
+    "crops": [
+      {
+        "id": "wheat",
+        "name": {
+          "en": "Wheat",
+          "hi": "गेहूं",
+          "pa": "ਕਣਕ"
+        },
+        "currentPrice": 2200,
+        "previousPrice": 2150,
+        "trend": "rising",
+        "changePercent": 2.33,
+        "changeAmount": 50,
+        "markets": [
+          {
+            "name": "Delhi",
+            "price": 2250,
+            "trend": "stable"
+          },
+          {
+            "name": "Mumbai",
+            "price": 2280,
+            "trend": "rising"
+          },
+          {
+            "name": "Chandigarh",
+            "price": 2180,
+            "trend": "rising"
+          },
+          {
+            "name": "Ludhiana",
+            "price": 2170,
+            "trend": "stable"
+          }
+        ],
+        "priceHistory": [
+          { "date": "2025-09-10", "price": 2100 },
+          { "date": "2025-09-11", "price": 2120 },
+          { "date": "2025-09-12", "price": 2130 },
+          { "date": "2025-09-13", "price": 2140 },
+          { "date": "2025-09-14", "price": 2150 },
+          { "date": "2025-09-15", "price": 2160 },
+          { "date": "2025-09-16", "price": 2180 },
+          { "date": "2025-09-17", "price": 2200 }
+        ],
+        "recommendation": {
+          "action": "hold",
+          "reason": {
+            "en": "Prices are showing upward trend. Wait for further increase.",
+            "hi": "कीमतें बढ़ने का रुझान दिखा रही हैं। और वृद्धि का इंतजार करें।",
+            "pa": "ਕੀਮਤਾਂ ਵਧਣ ਦਾ ਰੁਝਾਨ ਦਿਖਾ ਰਹੀਆਂ ਹਨ। ਹੋਰ ਵਾਧੇ ਦਾ ਇੰਤਜ਼ਾਰ ਕਰੋ।"
+          },
+          "confidence": 75
+        },
+        "seasonalPattern": {
+          "peak": "March-April",
+          "low": "November-December"
+        }
+      },
+      {
+        "id": "rice",
+        "name": {
+          "en": "Rice",
+          "hi": "धान",
+          "pa": "ਚਾਵਲ"
+        },
+        "currentPrice": 1950,
+        "previousPrice": 1900,
+        "trend": "rising",
+        "changePercent": 2.63,
+        "changeAmount": 50,
+        "markets": [
+          {
+            "name": "Delhi",
+            "price": 1980,
+            "trend": "rising"
+          },
+          {
+            "name": "Kolkata",
+            "price": 1920,
+            "trend": "stable"
+          },
+          {
+            "name": "Chennai",
+            "price": 1950,
+            "trend": "rising"
+          },
+          {
+            "name": "Hyderabad",
+            "price": 1940,
+            "trend": "rising"
+          }
+        ],
+        "priceHistory": [
+          { "date": "2025-09-10", "price": 1850 },
+          { "date": "2025-09-11", "price": 1860 },
+          { "date": "2025-09-12", "price": 1870 },
+          { "date": "2025-09-13", "price": 1880 },
+          { "date": "2025-09-14", "price": 1900 },
+          { "date": "2025-09-15", "price": 1920 },
+          { "date": "2025-09-16", "price": 1935 },
+          { "date": "2025-09-17", "price": 1950 }
+        ],
+        "recommendation": {
+          "action": "sell",
+          "reason": {
+            "en": "Good price levels reached. Market may correct soon.",
+            "hi": "अच्छी कीमत पहुंच गई है। बाजार जल्द ही सुधार कर सकता है।",
+            "pa": "ਚੰਗੀ ਕੀਮਤ ਪਹੁੰਚ ਗਈ ਹੈ। ਬਾਜ਼ਾਰ ਜਲਦੀ ਸੁਧਾਰ ਹੋ ਸਕਦਾ ਹੈ।"
+          },
+          "confidence": 82
+        },
+        "seasonalPattern": {
+          "peak": "October-November",
+          "low": "June-July"
+        }
+      },
+      {
+        "id": "cotton",
+        "name": {
+          "en": "Cotton",
+          "hi": "कपास",
+          "pa": "ਕਪਾਹ"
+        },
+        "currentPrice": 5800,
+        "previousPrice": 6000,
+        "trend": "falling",
+        "changePercent": -3.33,
+        "changeAmount": -200,
+        "markets": [
+          {
+            "name": "Ahmedabad",
+            "price": 5750,
+            "trend": "falling"
+          },
+          {
+            "name": "Mumbai",
+            "price": 5850,
+            "trend": "stable"
+          },
+          {
+            "name": "Nagpur",
+            "price": 5780,
+            "trend": "falling"
+          },
+          {
+            "name": "Rajkot",
+            "price": 5820,
+            "trend": "stable"
+          }
+        ],
+        "priceHistory": [
+          { "date": "2025-09-10", "price": 6200 },
+          { "date": "2025-09-11", "price": 6150 },
+          { "date": "2025-09-12", "price": 6100 },
+          { "date": "2025-09-13", "price": 6050 },
+          { "date": "2025-09-14", "price": 6000 },
+          { "date": "2025-09-15", "price": 5950 },
+          { "date": "2025-09-16", "price": 5900 },
+          { "date": "2025-09-17", "price": 5800 }
+        ],
+        "recommendation": {
+          "action": "wait",
+          "reason": {
+            "en": "Prices falling due to oversupply. Wait for market stabilization.",
+            "hi": "अधिक आपूर्ति के कारण कीमतें गिर रही हैं। बाजार स्थिरीकरण का इंतजार करें।",
+            "pa": "ਜ਼ਿਆਦਾ ਸਪਲਾਈ ਕਾਰਨ ਕੀਮਤਾਂ ਡਿੱਗ ਰਹੀਆਂ ਹਨ। ਬਾਜ਼ਾਰ ਸਥਿਰਤਾ ਦਾ ਇੰਤਜ਼ਾਰ ਕਰੋ।"
+          },
+          "confidence": 70
+        },
+        "seasonalPattern": {
+          "peak": "December-January",
+          "low": "June-July"
+        }
+      },
+      {
+        "id": "sugarcane",
+        "name": {
+          "en": "Sugarcane",
+          "hi": "गन्ना",
+          "pa": "ਗੰਨਾ"
+        },
+        "currentPrice": 350,
+        "previousPrice": 345,
+        "trend": "stable",
+        "changePercent": 1.45,
+        "changeAmount": 5,
+        "markets": [
+          {
+            "name": "Lucknow",
+            "price": 355,
+            "trend": "stable"
+          },
+          {
+            "name": "Pune",
+            "price": 345,
+            "trend": "stable"
+          },
+          {
+            "name": "Muzaffarnagar",
+            "price": 350,
+            "trend": "rising"
+          },
+          {
+            "name": "Belgaum",
+            "price": 348,
+            "trend": "stable"
+          }
+        ],
+        "priceHistory": [
+          { "date": "2025-09-10", "price": 340 },
+          { "date": "2025-09-11", "price": 342 },
+          { "date": "2025-09-12", "price": 343 },
+          { "date": "2025-09-13", "price": 344 },
+          { "date": "2025-09-14", "price": 345 },
+          { "date": "2025-09-15", "price": 346 },
+          { "date": "2025-09-16", "price": 348 },
+          { "date": "2025-09-17", "price": 350 }
+        ],
+        "recommendation": {
+          "action": "sell",
+          "reason": {
+            "en": "Harvest season starting. Good time to sell before prices drop.",
+            "hi": "कटाई का मौसम शुरू हो रहा है। कीमत गिरने से पहले बेचने का अच्छा समय।",
+            "pa": "ਵਾਢੀ ਦਾ ਮੌਸਮ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ। ਕੀਮਤ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਵੇਚਣ ਦਾ ਚੰਗਾ ਸਮਾਂ।"
+          },
+          "confidence": 78
+        },
+        "seasonalPattern": {
+          "peak": "February-March",
+          "low": "November-December"
+        }
+      },
+      {
+        "id": "maize",
+        "name": {
+          "en": "Maize",
+          "hi": "मक्का",
+          "pa": "ਮੱਕੀ"
+        },
+        "currentPrice": 1800,
+        "previousPrice": 1750,
+        "trend": "rising",
+        "changePercent": 2.86,
+        "changeAmount": 50,
+        "markets": [
+          {
+            "name": "Delhi",
+            "price": 1820,
+            "trend": "rising"
+          },
+          {
+            "name": "Bangalore",
+            "price": 1780,
+            "trend": "stable"
+          },
+          {
+            "name": "Indore",
+            "price": 1800,
+            "trend": "rising"
+          },
+          {
+            "name": "Gulbarga",
+            "price": 1790,
+            "trend": "rising"
+          }
+        ],
+        "priceHistory": [
+          { "date": "2025-09-10", "price": 1650 },
+          { "date": "2025-09-11", "price": 1670 },
+          { "date": "2025-09-12", "price": 1690 },
+          { "date": "2025-09-13", "price": 1710 },
+          { "date": "2025-09-14", "price": 1750 },
+          { "date": "2025-09-15", "price": 1770 },
+          { "date": "2025-09-16", "price": 1785 },
+          { "date": "2025-09-17", "price": 1800 }
+        ],
+        "recommendation": {
+          "action": "hold",
+          "reason": {
+            "en": "Strong demand from poultry industry. Prices may rise further.",
+            "hi": "पोल्ट्री उद्योग से मजबूत मांग। कीमतें और बढ़ सकती हैं।",
+            "pa": "ਪੋਲਟਰੀ ਉਦਯੋਗ ਤੋਂ ਮਜ਼ਬੂਤ ਮੰਗ। ਕੀਮਤਾਂ ਹੋਰ ਵਧ ਸਕਦੀਆਂ ਹਨ।"
+          },
+          "confidence": 80
+        },
+        "seasonalPattern": {
+          "peak": "January-February",
+          "low": "September-October"
+        }
+      }
+    ],
+    "marketInsights": {
+      "en": [
+        "Monsoon rainfall has been adequate this year, supporting crop yields",
+        "Export demand for wheat and rice remains strong",
+        "Cotton prices affected by global market volatility",
+        "Government support prices announced for major crops"
+      ],
+      "hi": [
+        "इस साल मानसूनी बारिश पर्याप्त रही है, जो फसल की पैदावार को बढ़ावा दे रही है",
+        "गेहूं और चावल की निर्यात मांग मजबूत बनी हुई है",
+        "वैश्विक बाजार की अस्थिरता से कपास की कीमतें प्रभावित",
+        "प्रमुख फसलों के लिए सरकारी समर्थन मूल्य की घोषणा"
+      ],
+      "pa": [
+        "ਇਸ ਸਾਲ ਮਾਨਸੂਨੀ ਬਾਰਿਸ਼ ਢੁਕਵੀਂ ਰਹੀ ਹੈ, ਜੋ ਫਸਲ ਦੀ ਪੈਦਾਵਾਰ ਵਿੱਚ ਸਹਾਇਕ ਹੈ",
+        "ਕਣਕ ਅਤੇ ਚਾਵਲ ਦੀ ਨਿਰਯਾਤ ਮੰਗ ਮਜ਼ਬੂਤ ਬਣੀ ਹੋਈ ਹੈ",
+        "ਗਲੋਬਲ ਮਾਰਕਿਟ ਦੀ ਅਸਥਿਰਤਾ ਤੋਂ ਕਪਾਹ ਦੀਆਂ ਕੀਮਤਾਂ ਪ੍ਰਭਾਵਿਤ",
+        "ਮੁੱਖ ਫਸਲਾਂ ਲਈ ਸਰਕਾਰੀ ਸਮਰਥਨ ਮੁੱਲ ਦੀ ਘੋਸ਼ਣਾ"
+      ]
+    },
+    "alerts": [
+      {
+        "type": "price_alert",
+        "crop": "wheat",
+        "message": {
+          "en": "Wheat prices crossed ₹2200/quintal. Good time to consider selling.",
+          "hi": "गेहूं की कीमत ₹2200/क्विंटल पार कर गई। बेचने पर विचार करने का अच्छा समय।",
+          "pa": "ਕਣਕ ਦੀ ਕੀਮਤ ₹2200/ਕੁਇੰਟਲ ਪਾਰ ਕਰ ਗਈ। ਵੇਚਣ ਬਾਰੇ ਸੋਚਣ ਦਾ ਚੰਗਾ ਸਮਾਂ।"
+        },
+        "severity": "medium"
+      },
+      {
+        "type": "trend_alert",
+        "crop": "cotton",
+        "message": {
+          "en": "Cotton prices falling for 7 consecutive days. Monitor closely.",
+          "hi": "कपास की कीमतें लगातार 7 दिनों से गिर रही हैं। बारीकी से निगरानी करें।",
+          "pa": "ਕਪਾਹ ਦੀਆਂ ਕੀਮਤਾਂ ਲਗਾਤਾਰ 7 ਦਿਨਾਂ ਤੋਂ ਡਿੱਗ ਰਹੀਆਂ ਹਨ। ਬਾਰੀਕੀ ਨਾਲ ਨਿਗਰਾਨੀ ਕਰੋ।"
+        },
+        "severity": "high"
+      }
+    ]
+  }
+}

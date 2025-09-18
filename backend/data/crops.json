@@ -1,0 +1,367 @@
+{
+  "crops": [
+    {
+      "id": "wheat_001",
+      "name": {
+        "en": "Wheat",
+        "hi": "गेहूं",
+        "pa": "ਕਣਕ"
+      },
+      "scientificName": "Triticum aestivum",
+      "category": "cereals",
+      "season": {
+        "en": "Rabi (Winter)",
+        "hi": "रबी (सर्दी)",
+        "pa": "ਰਬੀ (ਸਰਦੀ)"
+      },
+      "sowingTime": {
+        "start": "November",
+        "end": "December"
+      },
+      "harvestTime": {
+        "start": "March",
+        "end": "April"
+      },
+      "duration": "120-150 days",
+      "climate": {
+        "temperature": "10-25°C",
+        "rainfall": "300-400mm",
+        "humidity": "50-60%"
+      },
+      "soilRequirements": {
+        "type": ["loamy", "clay-loam"],
+        "ph": "6.0-7.5",
+        "drainage": "well-drained"
+      },
+      "varieties": [
+        {
+          "name": "HD-3086",
+          "duration": "135-140 days",
+          "yield": "40-45 q/ha"
+        },
+        {
+          "name": "WH-147",
+          "duration": "125-130 days",
+          "yield": "35-40 q/ha"
+        }
+      ],
+      "fertilizer": {
+        "nitrogen": "120-150 kg/ha",
+        "phosphorus": "60-80 kg/ha",
+        "potassium": "40-60 kg/ha"
+      },
+      "irrigation": {
+        "frequency": "4-6 times",
+        "criticalStages": ["crown root initiation", "jointing", "flowering", "grain filling"]
+      },
+      "marketPrice": {
+        "current": 2200,
+        "currency": "INR/quintal",
+        "trend": "stable",
+        "lastUpdated": "2025-09-17"
+      },
+      "regions": ["Punjab", "Haryana", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan"],
+      "image": "wheat.jpg",
+      "commonDiseases": ["rust", "bunt", "smut"],
+      "pests": ["aphids", "termites", "cutworm"]
+    },
+    {
+      "id": "rice_001",
+      "name": {
+        "en": "Rice",
+        "hi": "धान",
+        "pa": "ਚਾਵਲ"
+      },
+      "scientificName": "Oryza sativa",
+      "category": "cereals",
+      "season": {
+        "en": "Kharif (Monsoon)",
+        "hi": "खरीफ (बारिश)",
+        "pa": "ਖਰੀਫ਼ (ਮਾਨਸੂਨ)"
+      },
+      "sowingTime": {
+        "start": "June",
+        "end": "July"
+      },
+      "harvestTime": {
+        "start": "October",
+        "end": "November"
+      },
+      "duration": "95-120 days",
+      "climate": {
+        "temperature": "20-35°C",
+        "rainfall": "1000-2000mm",
+        "humidity": "80-90%"
+      },
+      "soilRequirements": {
+        "type": ["clay", "clay-loam"],
+        "ph": "5.5-6.5",
+        "drainage": "poor-drainage"
+      },
+      "varieties": [
+        {
+          "name": "Basmati 370",
+          "duration": "125-130 days",
+          "yield": "25-30 q/ha"
+        },
+        {
+          "name": "Pusa Basmati 1509",
+          "duration": "115-120 days",
+          "yield": "35-40 q/ha"
+        }
+      ],
+      "fertilizer": {
+        "nitrogen": "100-120 kg/ha",
+        "phosphorus": "50-60 kg/ha",
+        "potassium": "40-50 kg/ha"
+      },
+      "irrigation": {
+        "frequency": "continuous flooding",
+        "criticalStages": ["transplanting", "tillering", "panicle initiation", "flowering"]
+      },
+      "marketPrice": {
+        "current": 1950,
+        "currency": "INR/quintal",
+        "trend": "rising",
+        "lastUpdated": "2025-09-17"
+      },
+      "regions": ["West Bengal", "Uttar Pradesh", "Punjab", "Tamil Nadu", "Andhra Pradesh"],
+      "image": "rice.jpg",
+      "commonDiseases": ["blast", "blight", "sheath_rot"],
+      "pests": ["stem_borer", "leaf_folder", "brown_plant_hopper"]
+    },
+    {
+      "id": "cotton_001",
+      "name": {
+        "en": "Cotton",
+        "hi": "कपास",
+        "pa": "ਕਪਾਹ"
+      },
+      "scientificName": "Gossypium hirsutum",
+      "category": "fiber",
+      "season": {
+        "en": "Kharif (Monsoon)",
+        "hi": "खरीफ (बारिश)",
+        "pa": "ਖਰੀਫ਼ (ਮਾਨਸੂਨ)"
+      },
+      "sowingTime": {
+        "start": "April",
+        "end": "June"
+      },
+      "harvestTime": {
+        "start": "October",
+        "end": "December"
+      },
+      "duration": "160-200 days",
+      "climate": {
+        "temperature": "21-30°C",
+        "rainfall": "500-1000mm",
+        "humidity": "60-70%"
+      },
+      "soilRequirements": {
+        "type": ["black cotton soil", "alluvial"],
+        "ph": "5.8-8.0",
+        "drainage": "well-drained"
+      },
+      "varieties": [
+        {
+          "name": "Bt Cotton",
+          "duration": "160-180 days",
+          "yield": "15-20 q/ha"
+        },
+        {
+          "name": "Hybrid Cotton",
+          "duration": "170-190 days",
+          "yield": "18-25 q/ha"
+        }
+      ],
+      "fertilizer": {
+        "nitrogen": "100-120 kg/ha",
+        "phosphorus": "50-60 kg/ha",
+        "potassium": "50-60 kg/ha"
+      },
+      "irrigation": {
+        "frequency": "8-12 times",
+        "criticalStages": ["germination", "flowering", "boll development"]
+      },
+      "marketPrice": {
+        "current": 5800,
+        "currency": "INR/quintal",
+        "trend": "volatile",
+        "lastUpdated": "2025-09-17"
+      },
+      "regions": ["Gujarat", "Maharashtra", "Telangana", "Karnataka", "Punjab"],
+      "image": "cotton.jpg",
+      "commonDiseases": ["wilt", "leaf_curl", "boll_rot"],
+      "pests": ["bollworm", "aphids", "whitefly"]
+    },
+    {
+      "id": "sugarcane_001",
+      "name": {
+        "en": "Sugarcane",
+        "hi": "गन्ना",
+        "pa": "ਗੰਨਾ"
+      },
+      "scientificName": "Saccharum officinarum",
+      "category": "cash_crop",
+      "season": {
+        "en": "Year-round",
+        "hi": "साल भर",
+        "pa": "ਸਾਲ ਭਰ"
+      },
+      "sowingTime": {
+        "start": "February",
+        "end": "April"
+      },
+      "harvestTime": {
+        "start": "December",
+        "end": "March"
+      },
+      "duration": "300-365 days",
+      "climate": {
+        "temperature": "20-40°C",
+        "rainfall": "1000-1500mm",
+        "humidity": "70-80%"
+      },
+      "soilRequirements": {
+        "type": ["loamy", "clay-loam"],
+        "ph": "6.0-7.5",
+        "drainage": "well-drained"
+      },
+      "varieties": [
+        {
+          "name": "Co-238",
+          "duration": "12 months",
+          "yield": "80-100 t/ha"
+        },
+        {
+          "name": "Co-86032",
+          "duration": "10-12 months",
+          "yield": "70-90 t/ha"
+        }
+      ],
+      "fertilizer": {
+        "nitrogen": "200-250 kg/ha",
+        "phosphorus": "80-100 kg/ha",
+        "potassium": "80-100 kg/ha"
+      },
+      "irrigation": {
+        "frequency": "15-20 times",
+        "criticalStages": ["planting", "tillering", "grand growth", "maturation"]
+      },
+      "marketPrice": {
+        "current": 350,
+        "currency": "INR/quintal",
+        "trend": "stable",
+        "lastUpdated": "2025-09-17"
+      },
+      "regions": ["Uttar Pradesh", "Maharashtra", "Karnataka", "Tamil Nadu", "Punjab"],
+      "image": "sugarcane.jpg",
+      "commonDiseases": ["red_rot", "smut", "wilt"],
+      "pests": ["borer", "aphids", "scale_insects"]
+    },
+    {
+      "id": "maize_001",
+      "name": {
+        "en": "Maize",
+        "hi": "मक्का",
+        "pa": "ਮੱਕੀ"
+      },
+      "scientificName": "Zea mays",
+      "category": "cereals",
+      "season": {
+        "en": "Kharif & Rabi",
+        "hi": "खरीफ और रबी",
+        "pa": "ਖਰੀਫ਼ ਅਤੇ ਰਬੀ"
+      },
+      "sowingTime": {
+        "start": "June",
+        "end": "July"
+      },
+      "harvestTime": {
+        "start": "September",
+        "end": "October"
+      },
+      "duration": "80-110 days",
+      "climate": {
+        "temperature": "21-27°C",
+        "rainfall": "500-800mm",
+        "humidity": "60-70%"
+      },
+      "soilRequirements": {
+        "type": ["loamy", "sandy-loam"],
+        "ph": "6.0-7.5",
+        "drainage": "well-drained"
+      },
+      "varieties": [
+        {
+          "name": "Pioneer 30V92",
+          "duration": "90-95 days",
+          "yield": "60-80 q/ha"
+        },
+        {
+          "name": "NK-6240",
+          "duration": "85-90 days",
+          "yield": "55-75 q/ha"
+        }
+      ],
+      "fertilizer": {
+        "nitrogen": "120-140 kg/ha",
+        "phosphorus": "60-80 kg/ha",
+        "potassium": "40-60 kg/ha"
+      },
+      "irrigation": {
+        "frequency": "4-6 times",
+        "criticalStages": ["germination", "knee-high", "tasseling", "grain filling"]
+      },
+      "marketPrice": {
+        "current": 1800,
+        "currency": "INR/quintal",
+        "trend": "rising",
+        "lastUpdated": "2025-09-17"
+      },
+      "regions": ["Karnataka", "Andhra Pradesh", "Tamil Nadu", "Maharashtra", "Bihar"],
+      "image": "maize.jpg",
+      "commonDiseases": ["blight", "rust", "stalk_rot"],
+      "pests": ["stem_borer", "fall_armyworm", "cutworm"]
+    }
+  ],
+  "categories": {
+    "cereals": {
+      "name": {
+        "en": "Cereals",
+        "hi": "अनाज",
+        "pa": "ਅਨਾਜ"
+      },
+      "description": {
+        "en": "Grain crops grown for food",
+        "hi": "भोजन के लिए उगाई जाने वाली अनाज की फसलें",
+        "pa": "ਭੋਜਨ ਲਈ ਉਗਾਈਆਂ ਜਾਂਦੀਆਂ ਅਨਾਜ ਦੀਆਂ ਫਸਲਾਂ"
+      }
+    },
+    "fiber": {
+      "name": {
+        "en": "Fiber Crops",
+        "hi": "रेशा फसलें",
+        "pa": "ਰੇਸ਼ਾ ਫਸਲਾਂ"
+      },
+      "description": {
+        "en": "Crops grown for fiber production",
+        "hi": "रेशा उत्पादन के लिए उगाई जाने वाली फसलें",
+        "pa": "ਰੇਸ਼ਾ ਉਤਪਾਦਨ ਲਈ ਉਗਾਈਆਂ ਜਾਂਦੀਆਂ ਫਸਲਾਂ"
+      }
+    },
+    "cash_crop": {
+      "name": {
+        "en": "Cash Crops",
+        "hi": "नकदी फसलें",
+        "pa": "ਨਕਦੀ ਫਸਲਾਂ"
+      },
+      "description": {
+        "en": "Commercial crops for market sale",
+        "hi": "बाजार में बेचने के लिए व्यावसायिक फसलें",
+        "pa": "ਬਾਜ਼ਾਰ ਵਿੱਚ ਵੇਚਣ ਲਈ ਵਪਾਰਕ ਫਸਲਾਂ"
+      }
+    }
+  }
+}

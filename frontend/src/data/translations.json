@@ -1,0 +1,29 @@
+
+{
+  "app": {
+    "name": "Krishi Sahayak"
+  },
+  "auth": {
+    "welcome": "Welcome Back",
+    "loginSubtitle": "Sign in to access your farming dashboard",
+    "email": "Email Address",
+    "password": "Password", 
+    "login": "Sign In",
+    "register": "Create Account",
+    "noAccount": "Don't have an account?",
+    "forgotPassword": "Forgot Password?"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "crops": "My Crops",
+    "market": "Market Prices", 
+    "weather": "Weather",
+    "schemes": "Govt Schemes"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  }
+}
