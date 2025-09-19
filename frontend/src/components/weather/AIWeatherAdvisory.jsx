@@ -1,4 +1,4 @@
-// src/components/weather/AIWeatherAdvisory.jsx
+// src/components/weather/AIWeatherAdvisory.jsx - FIXED WITHOUT EXTERNAL DEPS
 import React, { useState, useEffect } from 'react';
 import { 
   Brain, 
@@ -18,8 +18,6 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useSpeechSynthesis } from 'react-speech-kit';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useAuth } from '@/hooks/useAuth';
 import { weatherService } from '@/services/weatherService';
@@ -34,10 +32,10 @@ const AIWeatherAdvisory = ({
   const [error, setError] = useState(null);
   const [lastRefresh, setLastRefresh] = useState(null);
   const [feedback, setFeedback] = useState({ given: false, helpful: null });
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const { currentLanguage, t } = useLanguage();
   const { user } = useAuth();
-  const { speak, cancel, speaking, supported } = useSpeechSynthesis();
 
   useEffect(() => {
     if (user?.role === 'farmer') {
@@ -48,6 +46,34 @@ const AIWeatherAdvisory = ({
       return () => clearInterval(interval);
     }
   }, [user]);
+
+  // ✅ Native Speech Synthesis (No external library needed)
+  const speakText = (text) => {
+    if ('speechSynthesis' in window) {
+      // Stop any current speech
+      speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = currentLanguage === 'hi' ? 'hi-IN' : 'en-IN';
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      
+      speechSynthesis.speak(utterance);
+    } else {
+      alert(currentLanguage === 'hi' ? 'आपका ब्राउज़र वॉइस सपोर्ट नहीं करता' : 'Voice not supported in your browser');
+    }
+  };
+
+  const stopSpeaking = () => {
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  };
 
   const loadWeatherAdvisory = async () => {
     if (!user) return;
@@ -77,7 +103,11 @@ const AIWeatherAdvisory = ({
         } else {
           // Fallback to system advice
           setAdvisory({
-            primaryAdvice: response.data.agriculturalInfo[0]?.message || 'No specific advice available',
+            primaryAdvice: response.data.agriculturalInfo[0]?.message || (
+              currentLanguage === 'hi' ? 
+              'आज के मौसम के अनुसार अपनी फसलों की देखभाल करें।' :
+              'Take care of your crops according to today\'s weather.'
+            ),
             additionalTips: [],
             source: 'system',
             timestamp: new Date().toISOString(),
@@ -101,8 +131,8 @@ const AIWeatherAdvisory = ({
   };
 
   const handleSpeak = () => {
-    if (speaking) {
-      cancel();
+    if (isSpeaking) {
+      stopSpeaking();
       return;
     }
 
@@ -112,14 +142,7 @@ const AIWeatherAdvisory = ({
       ? `मौसम सलाह: ${advisory.primaryAdvice}. ${advisory.additionalTips.join('. ')}`
       : `Weather Advisory: ${advisory.primaryAdvice}. ${advisory.additionalTips.join('. ')}`;
 
-    speak({ 
-      text: textToSpeak,
-      voice: currentLanguage === 'hi' ? 
-        speechSynthesis.getVoices().find(voice => voice.lang.includes('hi')) : 
-        null,
-      rate: 0.9,
-      pitch: 1
-    });
+    speakText(textToSpeak);
   };
 
   const handleFeedback = async (isHelpful) => {
@@ -148,9 +171,9 @@ const AIWeatherAdvisory = ({
 
   const getSourceBadge = (source) => {
     const badges = {
-      ai: { label: 'AI Generated', variant: 'default', color: 'bg-purple-100 text-purple-800' },
-      expert: { label: 'Expert Advice', variant: 'success', color: 'bg-yellow-100 text-yellow-800' },
-      system: { label: 'System Advisory', variant: 'secondary', color: 'bg-blue-100 text-blue-800' }
+      ai: { label: 'AI Generated', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400' },
+      expert: { label: 'Expert Advice', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400' },
+      system: { label: 'System Advisory', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400' }
     };
 
     const badge = badges[source] || badges.system;
@@ -220,11 +243,7 @@ const AIWeatherAdvisory = ({
 
   if (compact) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className={`p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-lg border border-green-200 dark:border-green-800 ${className}`}
-      >
+      <div className={`p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-lg border border-green-200 dark:border-green-800 ${className}`}>
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0">
             {getSourceIcon(advisory.source)}
@@ -235,20 +254,20 @@ const AIWeatherAdvisory = ({
             </p>
             <div className="flex items-center justify-between mt-2">
               {getSourceBadge(advisory.source)}
-              {showVoiceControls && supported && (
+              {showVoiceControls && (
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleSpeak}
                   className="h-7 px-2 text-green-600 hover:text-green-700 hover:bg-green-100"
                 >
-                  {speaking ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
+                  {isSpeaking ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
                 </Button>
               )}
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
@@ -296,11 +315,7 @@ const AIWeatherAdvisory = ({
         </div>
 
         {/* Primary Advisory */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="space-y-3"
-        >
+        <div className="space-y-3">
           <div className="flex items-start gap-3">
             <div className="flex-shrink-0 mt-1">
               {getSourceIcon(advisory.source)}
@@ -320,21 +335,18 @@ const AIWeatherAdvisory = ({
               </h4>
               <ul className="space-y-1">
                 {advisory.additionalTips.map((tip, index) => (
-                  <motion.li
+                  <li
                     key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2"
                   >
                     <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
                     {tip}
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </div>
           )}
-        </motion.div>
+        </div>
 
         {/* Regional Crops */}
         {advisory.regionalCrops && advisory.regionalCrops.length > 0 && (
@@ -347,7 +359,7 @@ const AIWeatherAdvisory = ({
                 <Badge 
                   key={index}
                   variant="outline"
-                  className="text-xs bg-white/50 border-yellow-300 text-yellow-800"
+                  className="text-xs bg-white/50 border-yellow-300 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400"
                 >
                   {crop.localName || crop.name}
                 </Badge>
@@ -368,14 +380,14 @@ const AIWeatherAdvisory = ({
 
           <div className="flex items-center gap-2">
             {/* Voice Control */}
-            {showVoiceControls && supported && (
+            {showVoiceControls && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleSpeak}
                 className="flex items-center gap-2"
               >
-                {speaking ? (
+                {isSpeaking ? (
                   <>
                     <VolumeX className="h-4 w-4" />
                     {currentLanguage === 'hi' ? 'रोकें' : 'Stop'}

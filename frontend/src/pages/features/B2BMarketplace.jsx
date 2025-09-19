@@ -1,4 +1,4 @@
-// src/pages/features/B2BMarketplace.jsx
+// src/pages/features/B2BMarketplace.jsx - BEAUTIFUL DESIGN WITH MOCK DATA
 import React, { useState, useEffect } from 'react';
 import { 
   ShoppingCart, 
@@ -16,587 +16,712 @@ import {
   Share2,
   Truck,
   Shield,
-  Calendar
+  Calendar,
+  WhatsApp,
+  Verified,
+  Clock,
+  IndianRupee,
+  Award,
+  Leaf,
+  Building,
+  CheckCircle,
+  ExternalLink
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input, SearchInput } from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
-import VoiceButton from '@/components/common/VoiceButton';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useAuth } from '@/hooks/useAuth';
-import { useDebounce } from '@/hooks/useDebounce';
-import { marketplaceService } from '@/services/marketplaceService';
-import { farmerService } from '@/services/farmerService';
-import { numberHelpers, dateHelpers } from '@/utils/helpers';
+import { cn } from '@/lib/utils';
 
 const B2BMarketplace = () => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [sellers, setSellers] = useState([]);
+  const [activeTab, setActiveTab] = useState('buyers');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [locationFilter, setLocationFilter] = useState('all');
-  const [priceRange, setPriceRange] = useState('all');
-  const [sortBy, setSortBy] = useState('newest');
-  const [isLoading, setIsLoading] = useState(true);
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [marketStats, setMarketStats] = useState({});
+  const [loading, setLoading] = useState(false);
   
-  const debouncedSearch = useDebounce(searchQuery, 500);
-  const { t } = useLanguage();
+  const { currentLanguage } = useLanguage();
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadMarketplaceData();
-  }, []);
-
-  useEffect(() => {
-    filterProducts();
-  }, [debouncedSearch, selectedCategory, locationFilter, priceRange, sortBy, products]);
-
-  const loadMarketplaceData = async () => {
-    setIsLoading(true);
-    
-    try {
-      // Load available products
-      const productsResponse = await marketplaceService.getProducts({
-        includeVerified: true,
-        includeFeatured: true
-      });
-      
-      if (productsResponse.success) {
-        setProducts(productsResponse.data.products || []);
-        setFeaturedProducts(productsResponse.data.featured || []);
-      }
-
-      // Load top sellers
-      const sellersResponse = await marketplaceService.getTopSellers({
-        limit: 10
-      });
-      
-      if (sellersResponse.success) {
-        setSellers(sellersResponse.data.sellers || []);
-      }
-
-      // Load marketplace statistics
-      const statsResponse = await marketplaceService.getMarketStats();
-      if (statsResponse.success) {
-        setMarketStats(statsResponse.data.stats || {});
-      }
-
-    } catch (error) {
-      console.error('Failed to load marketplace data:', error);
-    } finally {
-      setIsLoading(false);
+  // ✅ MOCK DATA FOR BUYERS OFFERING RATES
+  const mockBuyers = [
+    {
+      id: 1,
+      name: "Rajesh Agro Industries",
+      type: "Processor",
+      location: { city: "Ludhiana", state: "Punjab" },
+      rating: 4.8,
+      reviewCount: 245,
+      verified: true,
+      premium: true,
+      phone: "+91 98765 43210",
+      whatsapp: "+91 98765 43210",
+      avatar: null,
+      offerings: [
+        {
+          crop: "Wheat",
+          rate: 2200,
+          unit: "quintal",
+          minQuantity: 100,
+          maxQuantity: 1000,
+          quality: "Grade A",
+          validTill: "2025-09-25",
+          paymentTerms: "Immediate",
+          features: ["Direct pickup", "Quality testing", "Fair price"]
+        },
+        {
+          crop: "Rice",
+          rate: 2800,
+          unit: "quintal", 
+          minQuantity: 50,
+          maxQuantity: 500,
+          quality: "Grade A",
+          validTill: "2025-09-30",
+          paymentTerms: "7 days",
+          features: ["Basmati accepted", "Premium rates", "Bulk orders"]
+        }
+      ],
+      specialization: ["Cereals", "Pulses"],
+      establishedYear: 2010,
+      description: "Leading grain processor in North India with modern facilities and fair pricing.",
+      badges: ["Verified Buyer", "Premium Partner", "Fast Payment"]
+    },
+    {
+      id: 2,
+      name: "Punjab Grain Merchants",
+      type: "Trader",
+      location: { city: "Amritsar", state: "Punjab" },
+      rating: 4.6,
+      reviewCount: 180,
+      verified: true,
+      premium: false,
+      phone: "+91 98876 54321",
+      whatsapp: "+91 98876 54321",
+      avatar: null,
+      offerings: [
+        {
+          crop: "Potato",
+          rate: 1500,
+          unit: "quintal",
+          minQuantity: 200,
+          maxQuantity: 2000,
+          quality: "A Grade",
+          validTill: "2025-09-22",
+          paymentTerms: "Cash on delivery",
+          features: ["Cold storage", "Sorting facility", "Transport included"]
+        }
+      ],
+      specialization: ["Vegetables", "Fruits"],
+      establishedYear: 2015,
+      description: "Trusted vegetable trader with cold storage facilities and quick payments.",
+      badges: ["Verified Buyer", "Quick Payment", "Storage Facility"]
+    },
+    {
+      id: 3,
+      name: "Haryana Food Processing Co.",
+      type: "Food Processor",
+      location: { city: "Karnal", state: "Haryana" },
+      rating: 4.9,
+      reviewCount: 320,
+      verified: true,
+      premium: true,
+      phone: "+91 99887 76543",
+      whatsapp: "+91 99887 76543",
+      avatar: null,
+      offerings: [
+        {
+          crop: "Mustard",
+          rate: 4500,
+          unit: "quintal",
+          minQuantity: 50,
+          maxQuantity: 300,
+          quality: "Premium",
+          validTill: "2025-10-01",
+          paymentTerms: "Advance 50%",
+          features: ["Oil extraction", "Premium rates", "Contract farming"]
+        },
+        {
+          crop: "Sunflower",
+          rate: 5200,
+          unit: "quintal",
+          minQuantity: 25,
+          maxQuantity: 200,
+          quality: "Grade 1",
+          validTill: "2025-09-28",
+          paymentTerms: "Net 15 days",
+          features: ["High oil content", "Export quality", "Bonus for quality"]
+        }
+      ],
+      specialization: ["Oilseeds", "Spices"],
+      establishedYear: 2008,
+      description: "Modern food processing unit specializing in oil extraction with export facilities.",
+      badges: ["Premium Partner", "Export Quality", "Contract Farming"]
     }
-  };
+  ];
 
-  const filterProducts = () => {
-    let filtered = [...products];
-
-    // Search filter
-    if (debouncedSearch) {
-      filtered = filtered.filter(product => 
-        product.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-        product.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-        product.sellerName.toLowerCase().includes(debouncedSearch.toLowerCase())
-      );
+  // ✅ MOCK DATA FOR B2B SERVICES
+  const mockServices = [
+    {
+      id: 1,
+      name: "Green Valley Seeds Co.",
+      type: "Seed Supplier",
+      location: { city: "Bathinda", state: "Punjab" },
+      rating: 4.7,
+      reviewCount: 156,
+      verified: true,
+      premium: true,
+      phone: "+91 98765 11111",
+      whatsapp: "+91 98765 11111",
+      services: [
+        {
+          name: "Hybrid Wheat Seeds",
+          price: 85,
+          unit: "kg",
+          minOrder: 100,
+          description: "High yielding hybrid wheat seeds with disease resistance",
+          features: ["95% germination", "Disease resistant", "High yield"],
+          category: "Seeds"
+        },
+        {
+          name: "Certified Rice Seeds",
+          price: 120,
+          unit: "kg", 
+          minOrder: 50,
+          description: "Premium certified rice seeds for Punjab climate",
+          features: ["Certified seeds", "Basmati variety", "Export quality"],
+          category: "Seeds"
+        }
+      ],
+      specialization: ["Seeds", "Fertilizers"],
+      establishedYear: 2012,
+      description: "Leading seed supplier with certified varieties and high germination rates.",
+      badges: ["Certified Dealer", "Premium Seeds", "Technical Support"]
+    },
+    {
+      id: 2,
+      name: "Punjab Transport Services",
+      type: "Logistics",
+      location: { city: "Chandigarh", state: "Punjab" },
+      rating: 4.5,
+      reviewCount: 89,
+      verified: true,
+      premium: false,
+      phone: "+91 98765 22222", 
+      whatsapp: "+91 98765 22222",
+      services: [
+        {
+          name: "Bulk Grain Transportation",
+          price: 12,
+          unit: "quintal/km",
+          minOrder: 100,
+          description: "Specialized vehicles for grain transportation with GPS tracking",
+          features: ["GPS tracking", "Insurance covered", "24/7 support"],
+          category: "Transportation"
+        },
+        {
+          name: "Cold Chain Transport",
+          price: 18,
+          unit: "quintal/km",
+          minOrder: 50,
+          description: "Temperature controlled transport for fruits and vegetables",
+          features: ["Temperature control", "Quick delivery", "Minimal wastage"],
+          category: "Transportation"
+        }
+      ],
+      specialization: ["Transportation", "Logistics"],
+      establishedYear: 2018,
+      description: "Professional transportation services with modern fleet and tracking systems.",
+      badges: ["GPS Enabled", "Insured Transport", "24/7 Service"]
+    },
+    {
+      id: 3,
+      name: "AgriTech Equipment Rental",
+      type: "Equipment Rental",
+      location: { city: "Hisar", state: "Haryana" },
+      rating: 4.4,
+      reviewCount: 95,
+      verified: true,
+      premium: true,
+      phone: "+91 98765 33333",
+      whatsapp: "+91 98765 33333",
+      services: [
+        {
+          name: "Combine Harvester Rental",
+          price: 2500,
+          unit: "day",
+          minOrder: 1,
+          description: "Modern combine harvesters with operator and fuel included",
+          features: ["Operator included", "Fuel included", "Maintenance covered"],
+          category: "Equipment"
+        },
+        {
+          name: "Tractor with Implements",
+          price: 1800,
+          unit: "day",
+          minOrder: 1,
+          description: "Tractors with various implements for farming operations",
+          features: ["Multiple implements", "Experienced operator", "Insurance covered"],
+          category: "Equipment"
+        }
+      ],
+      specialization: ["Equipment Rental", "Farm Machinery"],
+      establishedYear: 2016,
+      description: "Complete farm equipment rental services with trained operators and maintenance.",
+      badges: ["Modern Equipment", "Trained Operators", "Full Service"]
     }
-
-    // Category filter
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => product.category === selectedCategory);
-    }
-
-    // Location filter
-    if (locationFilter !== 'all') {
-      filtered = filtered.filter(product => product.location.state === locationFilter);
-    }
-
-    // Price range filter
-    if (priceRange !== 'all') {
-      const [min, max] = priceRange.split('-').map(Number);
-      filtered = filtered.filter(product => {
-        const price = product.pricePerUnit;
-        return max ? (price >= min && price <= max) : price >= min;
-      });
-    }
-
-    // Sort products
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'price_low':
-          return a.pricePerUnit - b.pricePerUnit;
-        case 'price_high':
-          return b.pricePerUnit - a.pricePerUnit;
-        case 'rating':
-          return b.sellerRating - a.sellerRating;
-        case 'quantity':
-          return b.quantity - a.quantity;
-        case 'newest':
-          return new Date(b.listedDate) - new Date(a.listedDate);
-        default:
-          return 0;
-      }
-    });
-
-    setFilteredProducts(filtered);
-  };
-
-  const handleVoiceSearch = (transcript) => {
-    setSearchQuery(transcript);
-  };
-
-  const handleContactSeller = (sellerId) => {
-    // Navigate to seller profile or open contact modal
-    console.log('Contact seller:', sellerId);
-  };
-
-  const handleAddToWishlist = async (productId) => {
-    try {
-      await marketplaceService.addToWishlist({
-        productId,
-        userId: user?.id
-      });
-    } catch (error) {
-      console.error('Failed to add to wishlist:', error);
-    }
-  };
+  ];
 
   const categories = [
-    { value: 'all', label: t('marketplace.allCategories') },
-    { value: 'cereals', label: t('crops.cereals') },
-    { value: 'pulses', label: t('crops.pulses') },
-    { value: 'vegetables', label: t('crops.vegetables') },
-    { value: 'fruits', label: t('crops.fruits') },
-    { value: 'spices', label: t('crops.spices') },
-    { value: 'equipment', label: t('marketplace.equipment') }
+    { value: 'all', label: currentLanguage === 'hi' ? 'सभी श्रेणियां' : 'All Categories' },
+    { value: 'cereals', label: currentLanguage === 'hi' ? 'अनाज' : 'Cereals' },
+    { value: 'vegetables', label: currentLanguage === 'hi' ? 'सब्जियां' : 'Vegetables' },
+    { value: 'oilseeds', label: currentLanguage === 'hi' ? 'तिलहन' : 'Oilseeds' },
+    { value: 'seeds', label: currentLanguage === 'hi' ? 'बीज' : 'Seeds' },
+    { value: 'transport', label: currentLanguage === 'hi' ? 'परिवहन' : 'Transportation' },
+    { value: 'equipment', label: currentLanguage === 'hi' ? 'उपकरण' : 'Equipment' }
   ];
 
   const locations = [
-    { value: 'all', label: t('common.allStates') },
-    { value: 'Punjab', label: 'Punjab' },
-    { value: 'Haryana', label: 'Haryana' },
-    { value: 'Uttar Pradesh', label: 'Uttar Pradesh' },
-    { value: 'Maharashtra', label: 'Maharashtra' }
+    { value: 'all', label: currentLanguage === 'hi' ? 'सभी स्थान' : 'All Locations' },
+    { value: 'punjab', label: 'Punjab' },
+    { value: 'haryana', label: 'Haryana' },
+    { value: 'uttar-pradesh', label: 'Uttar Pradesh' }
   ];
 
-  const priceRanges = [
-    { value: 'all', label: t('marketplace.allPrices') },
-    { value: '0-1000', label: '₹0 - ₹1,000' },
-    { value: '1000-5000', label: '₹1,000 - ₹5,000' },
-    { value: '5000-10000', label: '₹5,000 - ₹10,000' },
-    { value: '10000', label: '₹10,000+' }
-  ];
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('hi-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(amount);
+  };
 
-  const sortOptions = [
-    { value: 'newest', label: t('marketplace.newest') },
-    { value: 'price_low', label: t('marketplace.priceLowToHigh') },
-    { value: 'price_high', label: t('marketplace.priceHighToLow') },
-    { value: 'rating', label: t('marketplace.topRated') },
-    { value: 'quantity', label: t('marketplace.highestQuantity') }
-  ];
-
-  if (isLoading) {
-    return (
-      <div className="p-6">
-        <LoadingSpinner fullScreen text={t('marketplace.loading')} />
-      </div>
+  const handleWhatsAppContact = (phone, name, itemName) => {
+    const message = encodeURIComponent(
+      `Hello ${name}, I'm interested in your ${itemName}. Please share more details.`
     );
-  }
+    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${message}`, '_blank');
+  };
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
-            🛒 {t('marketplace.title')}
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-green-900/20">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        
+        {/* ✅ HERO HEADER */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full mb-4 shadow-lg">
+            <ShoppingCart className="h-8 w-8 text-white" />
+          </div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent mb-2">
+            {currentLanguage === 'hi' ? 'B2B मार्केटप्लेस' : 'B2B Marketplace'}
           </h1>
-          <p className="text-muted-foreground mt-1">
-            {t('marketplace.subtitle')}
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            {currentLanguage === 'hi' 
+              ? 'खरीदारों से जुड़ें और बल्क सेवाओं का लाभ उठाएं'
+              : 'Connect with buyers and access bulk agricultural services'
+            }
           </p>
         </div>
-        
-        <div className="flex items-center gap-3">
-          <VoiceButton
-            mode="listen"
-            onTranscript={handleVoiceSearch}
-            className="bg-gradient-ag text-white hover:shadow-lg"
-          />
-          <Badge variant="outline" className="px-3 py-1">
-            {filteredProducts.length} {t('marketplace.products')}
-          </Badge>
-        </div>
-      </div>
 
-      {/* Marketplace Stats */}
-      {Object.keys(marketStats).length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-blue-600 dark:text-blue-400">{t('marketplace.totalProducts')}</p>
-                  <p className="text-2xl font-bold text-blue-700 dark:text-blue-300">{numberHelpers.formatNumber(marketStats.totalProducts || 0)}</p>
-                </div>
-                <Package className="h-6 w-6 text-blue-500" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-green-600 dark:text-green-400">{t('marketplace.activeSellers')}</p>
-                  <p className="text-2xl font-bold text-green-700 dark:text-green-300">{numberHelpers.formatNumber(marketStats.activeSellers || 0)}</p>
-                </div>
-                <Users className="h-6 w-6 text-green-500" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-purple-600 dark:text-purple-400">{t('marketplace.totalTransactions')}</p>
-                  <p className="text-2xl font-bold text-purple-700 dark:text-purple-300">
-                    {numberHelpers.formatCurrency(marketStats.totalTransactions || 0)}
-                  </p>
-                </div>
-                <TrendingUp className="h-6 w-6 text-purple-500" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-orange-600 dark:text-orange-400">{t('marketplace.avgRating')}</p>
-                  <p className="text-2xl font-bold text-orange-700 dark:text-orange-300">
-                    {marketStats.averageRating || 0}/5 ⭐
-                  </p>
-                </div>
-                <Star className="h-6 w-6 text-orange-500" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* Search and Filters */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5 text-primary" />
-            {t('marketplace.searchAndFilter')}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-            <div className="relative md:col-span-2">
-              <SearchInput
-                placeholder={t('marketplace.searchProducts')}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pr-12"
-              />
-              <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                <VoiceButton
-                  mode="listen"
-                  onTranscript={handleVoiceSearch}
-                  size="sm"
-                  variant="ghost"
+        {/* ✅ SEARCH AND FILTERS */}
+        <Card className="mb-8 shadow-lg border-green-200 dark:border-green-800">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder={currentLanguage === 'hi' ? 'खोजें...' : 'Search...'}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 border-green-200 focus:border-green-400 dark:border-green-700"
                 />
               </div>
+              
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="border-green-200 dark:border-green-700">
+                  <SelectValue placeholder={currentLanguage === 'hi' ? 'श्रेणी' : 'Category'} />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.value} value={category.value}>
+                      {category.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select value={locationFilter} onValueChange={setLocationFilter}>
+                <SelectTrigger className="border-green-200 dark:border-green-700">
+                  <SelectValue placeholder={currentLanguage === 'hi' ? 'स्थान' : 'Location'} />
+                </SelectTrigger>
+                <SelectContent>
+                  {locations.map((location) => (
+                    <SelectItem key={location.value} value={location.value}>
+                      {location.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
+                <Filter className="h-4 w-4 mr-2" />
+                {currentLanguage === 'hi' ? 'फिल्टर करें' : 'Apply Filters'}
+              </Button>
             </div>
+          </CardContent>
+        </Card>
 
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('marketplace.category')} />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category.value} value={category.value}>
-                    {category.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        {/* ✅ MAIN TABS */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto bg-green-100 dark:bg-green-900/30">
+            <TabsTrigger 
+              value="buyers" 
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white"
+            >
+              <TrendingUp className="h-4 w-4 mr-2" />
+              {currentLanguage === 'hi' ? 'खरीदार दरें' : 'Buyer Rates'}
+            </TabsTrigger>
+            <TabsTrigger 
+              value="services" 
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white"
+            >
+              <Package className="h-4 w-4 mr-2" />
+              {currentLanguage === 'hi' ? 'B2B सेवाएं' : 'B2B Services'}
+            </TabsTrigger>
+          </TabsList>
 
-            <Select value={locationFilter} onValueChange={setLocationFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('marketplace.location')} />
-              </SelectTrigger>
-              <SelectContent>
-                {locations.map((location) => (
-                  <SelectItem key={location.value} value={location.value}>
-                    {location.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={priceRange} onValueChange={setPriceRange}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('marketplace.priceRange')} />
-              </SelectTrigger>
-              <SelectContent>
-                {priceRanges.map((range) => (
-                  <SelectItem key={range.value} value={range.value}>
-                    {range.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('marketplace.sortBy')} />
-              </SelectTrigger>
-              <SelectContent>
-                {sortOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Main Content */}
-      <Tabs defaultValue="products" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="products">{t('marketplace.allProducts')}</TabsTrigger>
-          <TabsTrigger value="featured">{t('marketplace.featured')}</TabsTrigger>
-          <TabsTrigger value="sellers">{t('marketplace.topSellers')}</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="products" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 group">
-                <CardContent className="p-0">
-                  {/* Product Image */}
-                  <div className="relative h-48 bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-t-lg overflow-hidden">
-                    {product.images && product.images.length > 0 ? (
-                      <img 
-                        src={product.images[0]} 
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-6xl">
-                        {product.category === 'cereals' ? '🌾' :
-                         product.category === 'vegetables' ? '🥬' :
-                         product.category === 'fruits' ? '🍎' : '🌱'}
-                      </div>
-                    )}
-                    
-                    {/* Badges */}
-                    <div className="absolute top-2 left-2">
-                      {product.isVerified && (
-                        <Badge variant="success" className="text-xs">
-                          <Shield className="w-3 h-3 mr-1" />
-                          {t('marketplace.verified')}
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <div className="absolute top-2 right-2 flex gap-1">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="w-8 h-8 p-0 bg-white/80 hover:bg-white"
-                        onClick={() => handleAddToWishlist(product.id)}
-                      >
-                        <Heart className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="w-8 h-8 p-0 bg-white/80 hover:bg-white"
-                      >
-                        <Share2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* Product Info */}
-                  <div className="p-4 space-y-3">
-                    <div>
-                      <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="text-2xl font-bold text-primary">
-                          {numberHelpers.formatCurrency(product.pricePerUnit)}
-                        </span>
-                        <span className="text-sm text-muted-foreground">/{product.unit}</span>
-                      </div>
-                      <Badge variant="outline">
-                        {numberHelpers.formatNumber(product.quantity)} {product.unit}
-                      </Badge>
-                    </div>
-
-                    {/* Seller Info */}
-                    <div className="flex items-center justify-between py-2 border-t border-border/50">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-ag rounded-full flex items-center justify-center text-white text-xs font-medium">
-                          {product.sellerName.charAt(0)}
-                        </div>
+          {/* ✅ BUYERS TAB */}
+          <TabsContent value="buyers" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {mockBuyers.map((buyer) => (
+                <Card key={buyer.id} className="group hover:shadow-xl transition-all duration-300 border-green-200 dark:border-green-800 bg-gradient-to-br from-white to-green-50/30 dark:from-gray-800 dark:to-green-900/10">
+                  <CardContent className="p-6">
+                    {/* Buyer Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-14 w-14 border-2 border-green-300">
+                          <AvatarFallback className="bg-gradient-to-br from-green-600 to-emerald-600 text-white font-bold text-lg">
+                            {buyer.name.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
                         <div>
-                          <p className="font-medium text-sm">{product.sellerName}</p>
-                          <div className="flex items-center gap-1">
-                            <Star className="w-3 h-3 text-yellow-500 fill-current" />
-                            <span className="text-xs text-muted-foreground">{product.sellerRating}/5</span>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-bold text-lg text-foreground">{buyer.name}</h3>
+                            {buyer.verified && (
+                              <Verified className="h-5 w-5 text-blue-600" />
+                            )}
+                            {buyer.premium && (
+                              <Award className="h-5 w-5 text-yellow-600" />
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground">{buyer.type}</p>
+                          <div className="flex items-center gap-1 mt-1">
+                            <MapPin className="h-4 w-4 text-green-600" />
+                            <span className="text-sm text-green-700 dark:text-green-400">
+                              {buyer.location.city}, {buyer.location.state}
+                            </span>
                           </div>
                         </div>
                       </div>
-                      <div className="text-xs text-muted-foreground">
-                        <MapPin className="w-3 h-3 inline mr-1" />
-                        {product.location.district}
+                      
+                      <div className="text-right">
+                        <div className="flex items-center gap-1 mb-1">
+                          <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                          <span className="font-semibold">{buyer.rating}</span>
+                          <span className="text-sm text-muted-foreground">({buyer.reviewCount})</span>
+                        </div>
+                        <Badge variant="outline" className="text-xs">
+                          Est. {buyer.establishedYear}
+                        </Badge>
                       </div>
                     </div>
 
-                    {/* Product Features */}
-                    <div className="flex flex-wrap gap-1">
-                      {product.features?.slice(0, 3).map((feature, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-xs">
-                          {feature}
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {buyer.description}
+                    </p>
+
+                    {/* Badges */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {buyer.badges.map((badge, idx) => (
+                        <Badge key={idx} variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                          {badge}
                         </Badge>
                       ))}
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex gap-2 pt-2">
-                      <Button size="sm" className="flex-1">
-                        <ShoppingCart className="w-4 h-4 mr-1" />
-                        {t('marketplace.buyNow')}
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleContactSeller(product.sellerId)}
-                      >
-                        <MessageCircle className="w-4 h-4 mr-1" />
-                        {t('marketplace.contact')}
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                    </div>
+                    {/* Offerings */}
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-foreground flex items-center gap-2">
+                        <IndianRupee className="h-4 w-4 text-green-600" />
+                        {currentLanguage === 'hi' ? 'खरीदारी दरें' : 'Buying Rates'}
+                      </h4>
+                      
+                      {buyer.offerings.map((offer, idx) => (
+                        <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-green-200 dark:border-green-800 shadow-sm">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <div className="text-2xl">
+                                {offer.crop === 'Wheat' ? '🌾' :
+                                 offer.crop === 'Rice' ? '🍚' :
+                                 offer.crop === 'Potato' ? '🥔' :
+                                 offer.crop === 'Mustard' ? '🌻' :
+                                 offer.crop === 'Sunflower' ? '🌻' : '🌱'}
+                              </div>
+                              <div>
+                                <h5 className="font-semibold text-foreground">{offer.crop}</h5>
+                                <p className="text-xs text-muted-foreground">{offer.quality}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-green-600">
+                                {formatCurrency(offer.rate)}
+                              </div>
+                              <div className="text-xs text-muted-foreground">per {offer.unit}</div>
+                            </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-3">
+                            <div>
+                              <span className="font-medium">Min Qty:</span> {offer.minQuantity} {offer.unit}
+                            </div>
+                            <div>
+                              <span className="font-medium">Max Qty:</span> {offer.maxQuantity} {offer.unit}
+                            </div>
+                            <div>
+                              <span className="font-medium">Payment:</span> {offer.paymentTerms}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              <span>Valid till {new Date(offer.validTill).toLocaleDateString()}</span>
+                            </div>
+                          </div>
 
-                    {/* Additional Info */}
-                    <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t border-border/30">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {t('marketplace.listed')} {dateHelpers.formatRelativeTime(product.listedDate)}
-                      </span>
-                      {product.deliveryAvailable && (
-                        <span className="flex items-center gap-1 text-green-600">
-                          <Truck className="w-3 h-3" />
-                          {t('marketplace.delivery')}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {offer.features.map((feature, fidx) => (
+                              <Badge key={fidx} variant="outline" className="text-xs border-green-300 text-green-700">
+                                <CheckCircle className="h-3 w-3 mr-1" />
+                                {feature}
+                              </Badge>
+                            ))}
+                          </div>
 
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-12">
-              <Package className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">
-                {t('marketplace.noProductsFound')}
-              </p>
+                          <div className="flex gap-2">
+                            <Button 
+                              size="sm" 
+                              className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                              onClick={() => handleWhatsAppContact(buyer.whatsapp, buyer.name, offer.crop)}
+                            >
+                              <MessageCircle className="h-4 w-4 mr-1" />
+                              {currentLanguage === 'hi' ? 'संपर्क करें' : 'Contact'}
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="border-green-300 text-green-700 hover:bg-green-50"
+                              onClick={() => handleWhatsAppContact(buyer.whatsapp, buyer.name, offer.crop)}
+                            >
+                              <Phone className="h-4 w-4 mr-1" />
+                              {currentLanguage === 'hi' ? 'कॉल' : 'Call'}
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="border-green-300 text-green-700 hover:bg-green-50"
+                              onClick={() => handleWhatsAppContact(buyer.whatsapp, buyer.name, offer.crop)}
+                            >
+                              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.786"/>
+                              </svg>
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          )}
-        </TabsContent>
+          </TabsContent>
 
-        <TabsContent value="featured">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProducts.map((product, index) => (
-              <Card key={index} className="border-primary/20 bg-primary/5">
-                {/* Similar structure to products tab but with featured styling */}
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                    <Badge variant="default">{t('marketplace.featured')}</Badge>
-                  </div>
-                  <h3 className="font-semibold">{product.name}</h3>
-                  <p className="text-primary font-bold">
-                    {numberHelpers.formatCurrency(product.pricePerUnit)}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="sellers">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sellers.map((seller, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-16 h-16 bg-gradient-ag rounded-full flex items-center justify-center text-white text-xl font-bold">
-                      {seller.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg">{seller.name}</h3>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                        <span className="font-medium">{seller.rating}/5</span>
-                        <span className="text-sm text-muted-foreground">({seller.reviewCount} reviews)</span>
+          {/* ✅ SERVICES TAB */}
+          <TabsContent value="services" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {mockServices.map((service) => (
+                <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 border-blue-200 dark:border-blue-800 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10">
+                  <CardContent className="p-6">
+                    {/* Service Provider Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-14 w-14 border-2 border-blue-300">
+                          <AvatarFallback className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white font-bold text-lg">
+                            {service.name.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-bold text-lg text-foreground">{service.name}</h3>
+                            {service.verified && (
+                              <Verified className="h-5 w-5 text-blue-600" />
+                            )}
+                            {service.premium && (
+                              <Award className="h-5 w-5 text-yellow-600" />
+                            )}
+                          </div>
+                          <p className="text-sm text-muted-foreground">{service.type}</p>
+                          <div className="flex items-center gap-1 mt-1">
+                            <MapPin className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm text-blue-700 dark:text-blue-400">
+                              {service.location.city}, {service.location.state}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="text-right">
+                        <div className="flex items-center gap-1 mb-1">
+                          <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                          <span className="font-semibold">{service.rating}</span>
+                          <span className="text-sm text-muted-foreground">({service.reviewCount})</span>
+                        </div>
+                        <Badge variant="outline" className="text-xs">
+                          Est. {service.establishedYear}
+                        </Badge>
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>{t('marketplace.totalProducts')}:</span>
-                      <span className="font-medium">{seller.totalProducts}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>{t('marketplace.successfulDeals')}:</span>
-                      <span className="font-medium">{seller.successfulDeals}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>{t('marketplace.location')}:</span>
-                      <span className="font-medium">{seller.location}</span>
-                    </div>
-                  </div>
 
-                  <div className="flex gap-2 mt-4">
-                    <Button size="sm" className="flex-1">
-                      <Eye className="w-4 h-4 mr-1" />
-                      {t('marketplace.viewProfile')}
-                    </Button>
-                    <Button size="sm" variant="outline">
-                      <MessageCircle className="w-4 h-4 mr-1" />
-                      {t('marketplace.contact')}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {service.description}
+                    </p>
+
+                    {/* Badges */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {service.badges.map((badge, idx) => (
+                        <Badge key={idx} variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                          {badge}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    {/* Services */}
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-foreground flex items-center gap-2">
+                        <Package className="h-4 w-4 text-blue-600" />
+                        {currentLanguage === 'hi' ? 'सेवाएं' : 'Services'}
+                      </h4>
+                      
+                      {service.services.map((item, idx) => (
+                        <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-blue-200 dark:border-blue-800 shadow-sm">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <div className="text-2xl">
+                                {item.category === 'Seeds' ? '🌱' :
+                                 item.category === 'Transportation' ? '🚛' :
+                                 item.category === 'Equipment' ? '🚜' : '📦'}
+                              </div>
+                              <div>
+                                <h5 className="font-semibold text-foreground">{item.name}</h5>
+                                <p className="text-xs text-muted-foreground">{item.category}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-blue-600">
+                                {formatCurrency(item.price)}
+                              </div>
+                              <div className="text-xs text-muted-foreground">per {item.unit}</div>
+                            </div>
+                          </div>
+                          
+                          <p className="text-sm text-muted-foreground mb-3">
+                            {item.description}
+                          </p>
+
+                          <div className="mb-3">
+                            <span className="text-sm font-medium text-muted-foreground">
+                              Min Order: {item.minOrder} {item.unit}
+                            </span>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {item.features.map((feature, fidx) => (
+                              <Badge key={fidx} variant="outline" className="text-xs border-blue-300 text-blue-700">
+                                <CheckCircle className="h-3 w-3 mr-1" />
+                                {feature}
+                              </Badge>
+                            ))}
+                          </div>
+
+                          <div className="flex gap-2">
+                            <Button 
+                              size="sm" 
+                              className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
+                              onClick={() => handleWhatsAppContact(service.whatsapp, service.name, item.name)}
+                            >
+                              <MessageCircle className="h-4 w-4 mr-1" />
+                              {currentLanguage === 'hi' ? 'संपर्क करें' : 'Contact'}
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="border-blue-300 text-blue-700 hover:bg-blue-50"
+                              onClick={() => handleWhatsAppContact(service.whatsapp, service.name, item.name)}
+                            >
+                              <Phone className="h-4 w-4 mr-1" />
+                              {currentLanguage === 'hi' ? 'कॉल' : 'Call'}
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="border-blue-300 text-blue-700 hover:bg-blue-50"
+                              onClick={() => handleWhatsAppContact(service.whatsapp, service.name, item.name)}
+                            >
+                              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.786"/>
+                              </svg>
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+
+        {/* ✅ CALL TO ACTION */}
+        <Card className="mt-8 bg-gradient-to-r from-green-600 to-emerald-600 text-white border-0">
+          <CardContent className="p-8 text-center">
+            <Building className="h-12 w-12 mx-auto mb-4 opacity-90" />
+            <h3 className="text-2xl font-bold mb-2">
+              {currentLanguage === 'hi' ? 'अपना व्यापार बढ़ाएं' : 'Grow Your Business'}
+            </h3>
+            <p className="text-green-100 mb-6 max-w-2xl mx-auto">
+              {currentLanguage === 'hi' 
+                ? 'हमारे प्लेटफॉर्म पर अपनी सेवाएं सूचीबद्ध करें और हजारों किसानों से जुड़ें'
+                : 'List your services on our platform and connect with thousands of farmers'
+              }
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="bg-white text-green-600 hover:bg-green-50">
+                <ExternalLink className="h-5 w-5 mr-2" />
+                {currentLanguage === 'hi' ? 'खरीदार बनें' : 'Become a Buyer'}
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Package className="h-5 w-5 mr-2" />
+                {currentLanguage === 'hi' ? 'सेवा प्रदाता बनें' : 'Become a Service Provider'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

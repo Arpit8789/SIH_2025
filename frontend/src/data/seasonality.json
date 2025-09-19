@@ -1,0 +1,129 @@
+{
+  "states": [
+    {
+      "id": "punjab",
+      "agmarketName": "Punjab",
+      "name": {
+        "en": "Punjab",
+        "hi": "पंजाब",
+        "pa": "ਪੰਜਾਬ"
+      },
+      "priority": 1,
+      "isDefault": true,
+      "markets": [
+        {
+          "id": "ludhiana",
+          "agmarketName": "Ludhiana",
+          "name": {"en": "Ludhiana", "hi": "लुधियाना", "pa": "ਲੁਧਿਆਣਾ"},
+          "isPrimary": true
+        },
+        {
+          "id": "amritsar",
+          "agmarketName": "Amritsar",
+          "name": {"en": "Amritsar", "hi": "अमृतसर", "pa": "ਅਮ੍ਰਿਤਸਰ"},
+          "isPrimary": true
+        },
+        {
+          "id": "jalandhar",
+          "agmarketName": "Jalandhar",
+          "name": {"en": "Jalandhar", "hi": "जालंधर", "pa": "ਜਲੰਧਰ"},
+          "isPrimary": true
+        },
+        {
+          "id": "patiala",
+          "agmarketName": "Patiala",
+          "name": {"en": "Patiala", "hi": "पटियाला", "pa": "ਪਟਿਆਲਾ"},
+          "isPrimary": false
+        },
+        {
+          "id": "bathinda",
+          "agmarketName": "Bathinda",
+          "name": {"en": "Bathinda", "hi": "भठिंडा", "pa": "ਬਠਿੰਡਾ"},
+          "isPrimary": false
+        }
+      ],
+      "majorCrops": ["wheat", "rice", "potato", "mustard"]
+    },
+    {
+      "id": "haryana",
+      "agmarketName": "Haryana",
+      "name": {
+        "en": "Haryana", 
+        "hi": "हरियाणा",
+        "pa": "ਹਰਿਆਣਾ"
+      },
+      "priority": 2,
+      "markets": [
+        {
+          "id": "karnal",
+          "agmarketName": "Karnal",
+          "name": {"en": "Karnal", "hi": "करनाल", "pa": "ਕਰਨਾਲ"},
+          "isPrimary": true
+        },
+        {
+          "id": "panipat",
+          "agmarketName": "Panipat", 
+          "name": {"en": "Panipat", "hi": "पानीपत", "pa": "ਪਾਨੀਪਤ"},
+          "isPrimary": true
+        },
+        {
+          "id": "hisar",
+          "agmarketName": "Hisar",
+          "name": {"en": "Hisar", "hi": "हिसार", "pa": "ਹਿਸਾਰ"},
+          "isPrimary": false
+        }
+      ],
+      "majorCrops": ["wheat", "rice", "mustard", "onion"]
+    },
+    {
+      "id": "bihar",
+      "agmarketName": "Bihar",
+      "name": {
+        "en": "Bihar",
+        "hi": "बिहार",
+        "pa": "ਬਿਹਾਰ"
+      },
+      "priority": 3,
+      "markets": [
+        {
+          "id": "patna",
+          "agmarketName": "Patna",
+          "name": {"en": "Patna", "hi": "पटना", "pa": "ਪਟਨਾ"},
+          "isPrimary": true
+        },
+        {
+          "id": "muzaffarpur",
+          "agmarketName": "Muzaffarpur",
+          "name": {"en": "Muzaffarpur", "hi": "मुजफ्फरपुर", "pa": "ਮੁਜ਼ਫ਼ਫ਼ਰਪੁਰ"},
+          "isPrimary": true
+        }
+      ],
+      "majorCrops": ["wheat", "rice", "potato"]
+    },
+    {
+      "id": "rajasthan", 
+      "agmarketName": "Rajasthan",
+      "name": {
+        "en": "Rajasthan",
+        "hi": "राजस्थान", 
+        "pa": "ਰਾਜਸਥਾਨ"
+      },
+      "priority": 4,
+      "markets": [
+        {
+          "id": "jaipur",
+          "agmarketName": "Jaipur",
+          "name": {"en": "Jaipur", "hi": "जयपुर", "pa": "ਜੈਪੁਰ"},
+          "isPrimary": true
+        },
+        {
+          "id": "jodhpur", 
+          "agmarketName": "Jodhpur",
+          "name": {"en": "Jodhpur", "hi": "जोधपुर", "pa": "ਜੋਧਪੁਰ"},
+          "isPrimary": false
+        }
+      ],
+      "majorCrops": ["wheat", "mustard", "onion"]
+    }
+  ]
+}

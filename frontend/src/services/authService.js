@@ -1,14 +1,15 @@
-// src/services/authService.js - REAL BACKEND CONNECTION
+// src/services/authService.js - UPDATED TO USE REACT-HOT-TOAST
+import toast from 'react-hot-toast'
+
 class AuthService {
   constructor() {
     this.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
     console.log('🌐 AuthService: Base URL =', this.baseURL)
   }
 
-  // Helper method for API calls
+  // ✅ Helper method for API calls
   async apiCall(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`
-    console.log(`🔗 API Call: ${options.method || 'GET'} ${url}`)
     
     const defaultOptions = {
       headers: {
@@ -36,41 +37,74 @@ class AuthService {
       const response = await fetch(url, finalOptions)
       const data = await response.json()
       
-      console.log(`✅ API Response [${response.status}]:`, data)
-      
       if (!response.ok) {
         throw new Error(data.message || `HTTP ${response.status}`)
       }
       
       return data
     } catch (error) {
-      console.error(`❌ API Error for ${endpoint}:`, error)
       throw error
     }
+  }
+
+  // ✅ Human-readable error messages with emojis
+  getHumanReadableError(message) {
+    const errorMap = {
+      // Registration errors
+      'User already exists with this email or phone': '😔 An account with this email or phone already exists. Try logging in instead.',
+      'All fields are required': '📝 Please fill in all required fields to continue.',
+      'Passwords do not match': '🔒 Passwords don\'t match. Please check and try again.',
+      'Password must be at least 6 characters': '🔑 Password should be at least 6 characters long for security.',
+      'Please enter a valid email address': '📧 Please enter a valid email address.',
+      'Please enter a valid 10-digit Indian phone number': '📱 Please enter a valid 10-digit phone number.',
+      'You must agree to terms and conditions': '📋 Please agree to the terms and conditions to continue.',
+      
+      // Login errors
+      'Invalid email or password': '🚫 Email or password is incorrect. Please try again.',
+      'Email and password are required': '📝 Please enter both email and password.',
+      'Account is deactivated. Please contact support.': '⚠️ Your account has been deactivated. Please contact support.',
+      'Please verify your email before logging in': '📧 Please verify your email address before logging in.',
+      
+      // Network errors
+      'Network Error': '🌐 Network connection problem. Please check your internet.',
+      'Failed to fetch': '🌐 Network connection problem. Please check your internet.',
+      'Request failed with status code 400': '❌ Invalid request. Please check your information.',
+      'Request failed with status code 401': '🔐 Authentication failed. Please login again.',
+      'Request failed with status code 403': '🚫 Access denied. You don\'t have permission.',
+      'Request failed with status code 404': '❓ Service not found. Please try again later.',
+      'Request failed with status code 500': '⚠️ Server error. Please try again later.',
+      
+      // OTP errors
+      'OTP must be 6 digits': '🔢 Please enter a valid 6-digit OTP.',
+      'User not found': '❓ Account not found. Please check your email.',
+      'Invalid OTP': '🔢 The OTP you entered is incorrect. Please try again.',
+      'OTP has expired': '⏰ OTP has expired. Please request a new one.',
+      
+      // Password reset errors
+      'Token and new password are required': '🔑 Please provide both reset token and new password.',
+      'Invalid or expired reset token': '⏰ Reset link has expired. Please request a new one.'
+    };
+
+    return errorMap[message] || `⚠️ ${message}`;
   }
 
   // ✅ REAL BACKEND: Register user
   async register(userData) {
     try {
-      console.log('📝 AuthService: Registering user...', userData)
-      
       const response = await this.apiCall('/auth/register', {
         method: 'POST',
         body: JSON.stringify(userData)
       })
-
-      console.log('📝 AuthService: Registration response =', response)
       
       return {
         success: true,
         data: response.data,
-        message: response.message || 'Registration successful'
+        message: '🌾 Registration successful! Welcome to Krishi Sahayak!'
       }
     } catch (error) {
-      console.error('📝 AuthService: Registration error =', error)
       return {
         success: false,
-        message: error.message || 'Registration failed. Please try again.'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -78,14 +112,10 @@ class AuthService {
   // ✅ REAL BACKEND: Login user
   async login(credentials) {
     try {
-      console.log('🔐 AuthService: Logging in user...', credentials.email)
-      
       const response = await this.apiCall('/auth/login', {
         method: 'POST',
         body: JSON.stringify(credentials)
       })
-
-      console.log('🔐 AuthService: Login response =', response)
 
       // Store tokens if login successful
       if (response.success && response.data?.tokens) {
@@ -97,13 +127,12 @@ class AuthService {
       return {
         success: true,
         data: response.data,
-        message: response.message || 'Login successful'
+        message: '🌾 Welcome back to Krishi Sahayak!'
       }
     } catch (error) {
-      console.error('🔐 AuthService: Login error =', error)
       return {
         success: false,
-        message: error.message || 'Login failed. Please check your credentials.'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -111,14 +140,10 @@ class AuthService {
   // ✅ REAL BACKEND: Verify OTP
   async verifyOTP(otpData) {
     try {
-      console.log('📧 AuthService: Verifying OTP...', otpData)
-      
       const response = await this.apiCall('/auth/verify-otp', {
         method: 'POST',
         body: JSON.stringify(otpData)
       })
-
-      console.log('📧 AuthService: OTP verification response =', response)
 
       // Store tokens if verification successful
       if (response.success && response.data?.tokens) {
@@ -130,13 +155,12 @@ class AuthService {
       return {
         success: true,
         data: response.data,
-        message: response.message || 'Email verified successfully'
+        message: '🎉 Email verified successfully! Welcome to Krishi Sahayak!'
       }
     } catch (error) {
-      console.error('📧 AuthService: OTP verification error =', error)
       return {
         success: false,
-        message: error.message || 'OTP verification failed'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -144,24 +168,19 @@ class AuthService {
   // ✅ REAL BACKEND: Resend OTP
   async resendOTP(email) {
     try {
-      console.log('🔄 AuthService: Resending OTP to', email)
-      
       const response = await this.apiCall('/auth/resend-otp', {
         method: 'POST',
         body: JSON.stringify({ email })
       })
-
-      console.log('🔄 AuthService: Resend OTP response =', response)
       
       return {
         success: true,
-        message: response.message || 'OTP sent successfully'
+        message: '📧 New OTP sent to your email! Please check your inbox.'
       }
     } catch (error) {
-      console.error('🔄 AuthService: Resend OTP error =', error)
       return {
         success: false,
-        message: error.message || 'Failed to resend OTP'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -169,26 +188,21 @@ class AuthService {
   // ✅ REAL BACKEND: Verify token
   async verifyToken() {
     try {
-      console.log('🔍 AuthService: Verifying token...')
-      
-      const response = await this.apiCall('/auth/verify-token', {
+      const response = await this.apiCall('/auth/profile', {
         method: 'GET'
       })
-
-      console.log('🔍 AuthService: Token verification response =', response)
       
       return {
         success: true,
         data: response.data,
-        message: response.message || 'Token valid'
+        message: 'Token valid'
       }
     } catch (error) {
-      console.error('🔍 AuthService: Token verification error =', error)
       // Clear invalid tokens
       this.clearTokens()
       return {
         success: false,
-        message: error.message || 'Invalid token'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -196,61 +210,58 @@ class AuthService {
   // ✅ REAL BACKEND: Logout
   async logout() {
     try {
-      console.log('👋 AuthService: Logging out...')
-      
-      const response = await this.apiCall('/auth/logout', {
+      await this.apiCall('/auth/logout', {
         method: 'POST'
       })
-
-      console.log('👋 AuthService: Logout response =', response)
-      
+    } catch (error) {
+      // Ignore logout API errors
+    } finally {
       // Clear local storage regardless of API response
       this.clearTokens()
+    }
+    
+    return {
+      success: true,
+      message: '👋 Logged out successfully. See you soon!'
+    }
+  }
+
+  // ✅ REAL BACKEND: Forgot password
+  async forgotPassword(email) {
+    try {
+      const response = await this.apiCall('/auth/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify({ email })
+      })
       
       return {
         success: true,
-        message: response.message || 'Logged out successfully'
+        message: '📧 Password reset link sent! Please check your email.'
       }
     } catch (error) {
-      console.error('👋 AuthService: Logout error =', error)
-      // Clear tokens even if API call fails
-      this.clearTokens()
       return {
-        success: true, // Still return success since local cleanup worked
-        message: 'Logged out successfully'
+        success: false,
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
 
-  // ✅ REAL BACKEND: Update profile
-  async updateProfile(updates) {
+  // ✅ REAL BACKEND: Reset password
+  async resetPassword(data) {
     try {
-      console.log('✏️ AuthService: Updating profile...', updates)
-      
-      const response = await this.apiCall('/auth/profile', {
-        method: 'PUT',
-        body: JSON.stringify(updates)
+      const response = await this.apiCall('/auth/reset-password', {
+        method: 'POST',
+        body: JSON.stringify(data)
       })
-
-      console.log('✏️ AuthService: Profile update response =', response)
-
-      // Update stored user data
-      if (response.success && response.data) {
-        const currentUser = JSON.parse(localStorage.getItem('krishi_user_data') || '{}')
-        const updatedUser = { ...currentUser, ...response.data }
-        localStorage.setItem('krishi_user_data', JSON.stringify(updatedUser))
-      }
       
       return {
         success: true,
-        data: response.data,
-        message: response.message || 'Profile updated successfully'
+        message: '✅ Password reset successfully! You can now login with your new password.'
       }
     } catch (error) {
-      console.error('✏️ AuthService: Profile update error =', error)
       return {
         success: false,
-        message: error.message || 'Profile update failed'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -258,16 +269,12 @@ class AuthService {
   // ✅ REAL BACKEND: Refresh token
   async refreshToken(data) {
     try {
-      console.log('🔄 AuthService: Refreshing token...')
-      
       const refreshToken = data?.refreshToken || localStorage.getItem('krishi_refresh_token')
       
       const response = await this.apiCall('/auth/refresh-token', {
         method: 'POST',
         body: JSON.stringify({ refreshToken })
       })
-
-      console.log('🔄 AuthService: Token refresh response =', response)
 
       // Update stored tokens
       if (response.success && response.data?.tokens) {
@@ -280,65 +287,14 @@ class AuthService {
       return {
         success: true,
         data: response.data,
-        message: response.message || 'Token refreshed'
+        message: 'Token refreshed'
       }
     } catch (error) {
-      console.error('🔄 AuthService: Token refresh error =', error)
       // Clear invalid tokens
       this.clearTokens()
       return {
         success: false,
-        message: error.message || 'Token refresh failed'
-      }
-    }
-  }
-
-  // ✅ REAL BACKEND: Forgot password
-  async forgotPassword(email) {
-    try {
-      console.log('🔑 AuthService: Forgot password for', email)
-      
-      const response = await this.apiCall('/auth/forgot-password', {
-        method: 'POST',
-        body: JSON.stringify({ email })
-      })
-
-      console.log('🔑 AuthService: Forgot password response =', response)
-      
-      return {
-        success: true,
-        message: response.message || 'Password reset email sent successfully'
-      }
-    } catch (error) {
-      console.error('🔑 AuthService: Forgot password error =', error)
-      return {
-        success: false,
-        message: error.message || 'Failed to send reset email'
-      }
-    }
-  }
-
-  // ✅ REAL BACKEND: Reset password
-  async resetPassword(data) {
-    try {
-      console.log('🔐 AuthService: Resetting password...')
-      
-      const response = await this.apiCall('/auth/reset-password', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-
-      console.log('🔐 AuthService: Reset password response =', response)
-      
-      return {
-        success: true,
-        message: response.message || 'Password reset successfully'
-      }
-    } catch (error) {
-      console.error('🔐 AuthService: Reset password error =', error)
-      return {
-        success: false,
-        message: error.message || 'Password reset failed'
+        message: this.getHumanReadableError(error.message)
       }
     }
   }
@@ -356,7 +312,6 @@ class AuthService {
       const userData = localStorage.getItem('krishi_user_data')
       return userData ? JSON.parse(userData) : null
     } catch (error) {
-      console.error('Failed to parse stored user data:', error)
       return null
     }
   }

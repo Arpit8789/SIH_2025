@@ -1,4 +1,4 @@
-// models/OTPVerification.js
+// backend/models/OTPVerification.js - IMPROVED WITH BETTER DEBUGGING
 import mongoose from 'mongoose';
 
 const otpVerificationSchema = new mongoose.Schema({
@@ -9,7 +9,8 @@ const otpVerificationSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    lowercase: true // ✅ Ensure lowercase for matching
   },
   otp: {
     type: String,
@@ -18,7 +19,8 @@ const otpVerificationSchema = new mongoose.Schema({
   purpose: {
     type: String,
     enum: ['registration', 'password_reset', 'email_change'],
-    required: true
+    required: true,
+    default: 'registration'
   },
   attempts: {
     type: Number,
@@ -40,16 +42,37 @@ const otpVerificationSchema = new mongoose.Schema({
   }
 });
 
-// Auto-delete expired documents
+// ✅ Auto-delete expired documents
 otpVerificationSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
-// Methods
+// ✅ IMPROVED: Methods with better debugging
 otpVerificationSchema.methods.isExpired = function() {
-  return this.expiresAt < new Date();
+  const now = new Date();
+  const expired = this.expiresAt < now;
+  console.log(`🕒 OTP Expiry Check: Current=${now}, Expires=${this.expiresAt}, Expired=${expired}`);
+  return expired;
 };
 
 otpVerificationSchema.methods.canAttempt = function() {
-  return this.attempts < 5 && !this.isUsed && !this.isExpired();
+  const canAttempt = this.attempts < 5 && !this.isUsed && !this.isExpired();
+  console.log(`🔍 OTP Can Attempt: attempts=${this.attempts}, isUsed=${this.isUsed}, expired=${this.isExpired()}, canAttempt=${canAttempt}`);
+  return canAttempt;
+};
+
+// ✅ Add debug method
+otpVerificationSchema.methods.debugInfo = function() {
+  return {
+    id: this._id,
+    email: this.email,
+    otp: this.otp,
+    purpose: this.purpose,
+    attempts: this.attempts,
+    isUsed: this.isUsed,
+    expiresAt: this.expiresAt,
+    createdAt: this.createdAt,
+    isExpired: this.isExpired(),
+    canAttempt: this.canAttempt()
+  };
 };
 
 export default mongoose.model('OTPVerification', otpVerificationSchema);

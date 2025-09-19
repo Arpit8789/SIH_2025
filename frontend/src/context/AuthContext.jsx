@@ -1,6 +1,7 @@
-// src/context/AuthContext.jsx - COMPLETELY FIXED
+// src/context/AuthContext.jsx - WITH EXTENSIVE DEBUGGING LOGS
 import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react'
 import { authService } from '@/services/authService'
+import toast from 'react-hot-toast'
 
 // Initial auth state
 const initialState = {
@@ -22,9 +23,9 @@ const AUTH_ACTIONS = {
   TOKEN_REFRESH: 'TOKEN_REFRESH',
 }
 
-// ✅ FIXED: Auth reducer (removed duplicate case)
+// Auth reducer
 const authReducer = (state, action) => {
-  console.log('🔄 AuthReducer: Action =', action.type, action.payload)
+  console.log('🔄 AuthReducer: Action =', action.type, action.payload ? 'with payload' : 'no payload')
   
   switch (action.type) {
     case AUTH_ACTIONS.LOADING:
@@ -35,6 +36,8 @@ const authReducer = (state, action) => {
       }
 
     case AUTH_ACTIONS.LOGIN_SUCCESS:
+      console.log('✅ AuthReducer: LOGIN_SUCCESS with user =', action.payload.user)
+      console.log('✅ AuthReducer: User role in reducer =', action.payload.user?.role)
       return {
         ...state,
         user: action.payload.user,
@@ -90,7 +93,7 @@ const AuthContext = createContext(null)
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  // ✅ FIXED: Initialize auth with better error handling
+  // ✅ Initialize auth with better token verification
   const initializeAuth = useCallback(async () => {
     console.log('🔍 AuthContext: Initializing auth...')
     
@@ -99,19 +102,21 @@ export const AuthProvider = ({ children }) => {
 
       const token = localStorage.getItem('krishi_access_token')
       const userData = localStorage.getItem('krishi_user_data')
-      
-      console.log('🔍 AuthContext: Stored token =', !!token)
-      console.log('🔍 AuthContext: Stored user =', !!userData)
+
+      console.log('🔍 AuthContext: Token exists =', !!token)
+      console.log('🔍 AuthContext: UserData exists =', !!userData)
 
       if (token && userData) {
         try {
           const user = JSON.parse(userData)
-          console.log('🔍 AuthContext: Verifying token with backend...')
+          console.log('🔍 AuthContext: Stored user =', user)
+          console.log('🔍 AuthContext: Stored user role =', user?.role)
           
           const response = await authService.verifyToken()
           
           if (response.success) {
-            console.log('✅ AuthContext: Token valid, user authenticated')
+            console.log('✅ AuthContext: Token verified, user authenticated')
+            console.log('✅ AuthContext: Auth state user role =', user?.role)
             dispatch({
               type: AUTH_ACTIONS.LOGIN_SUCCESS,
               payload: { user, token },
@@ -127,7 +132,7 @@ export const AuthProvider = ({ children }) => {
           dispatch({ type: AUTH_ACTIONS.LOGOUT })
         }
       } else {
-        console.log('🔍 AuthContext: No stored credentials, user not authenticated')
+        console.log('🔍 AuthContext: No stored credentials')
         dispatch({ type: AUTH_ACTIONS.LOADING, payload: false })
       }
     } catch (error) {
@@ -141,134 +146,274 @@ export const AuthProvider = ({ children }) => {
     initializeAuth()
   }, [initializeAuth])
 
-  // ✅ FIXED: Login function with better error handling
+  // ✅ Login function with DETAILED logging
   const login = useCallback(async (credentials) => {
     console.log('🔐 AuthContext: Login attempt for', credentials.email)
+    console.log('🔐 AuthContext: Full credentials object =', { email: credentials.email, password: '***' })
+    
+    const loadingToastId = toast.loading('🔐 Signing you in...')
     
     try {
       dispatch({ type: AUTH_ACTIONS.LOADING, payload: true })
 
+      console.log('🔐 AuthContext: Calling authService.login...')
       const response = await authService.login(credentials)
+      console.log('🔐 AuthContext: Raw authService response =', response)
+      console.log('🔐 AuthContext: Response success =', response?.success)
+      console.log('🔐 AuthContext: Response data =', response?.data)
       
       if (response.success) {
         const { user, tokens } = response.data
-        
-        console.log('✅ AuthContext: Login successful')
+        console.log('✅ AuthContext: Login successful!')
+        console.log('✅ AuthContext: User object =', user)
+        console.log('✅ AuthContext: User role =', user?.role)
+        console.log('✅ AuthContext: Tokens =', tokens ? 'Present' : 'Missing')
         
         // Update state
+        console.log('🔄 AuthContext: Dispatching LOGIN_SUCCESS...')
         dispatch({
           type: AUTH_ACTIONS.LOGIN_SUCCESS,
           payload: { user, token: tokens.accessToken },
         })
 
-        return { success: true }
+        console.log('🔄 AuthContext: State updated, current user role =', user?.role)
+
+        // Update loading toast to success
+        toast.success(response.message, { id: loadingToastId })
+
+        // ✅ Return user with DETAILED logging
+        const returnUser = {
+          ...user,
+          role: user.role
+        }
+        console.log('✅ AuthContext: Returning user object =', returnUser)
+        console.log('✅ AuthContext: Return user role =', returnUser.role)
+        
+        const loginResult = { 
+          success: true, 
+          user: returnUser
+        }
+        console.log('✅ AuthContext: Final login result =', loginResult)
+        
+        return loginResult
       } else {
-        console.log('❌ AuthContext: Login failed:', response.message)
+        console.log('❌ AuthContext: Login failed:', response?.message)
         dispatch({
           type: AUTH_ACTIONS.LOGIN_ERROR,
           payload: response.message,
         })
+
+        toast.error(response.message, { id: loadingToastId })
+        
         return { success: false, message: response.message }
       }
     } catch (error) {
       console.error('❌ AuthContext: Login error:', error)
-      const errorMessage = error.message || 'Login failed. Please try again.'
+      const errorMessage = 'Login failed. Please try again.'
       dispatch({
         type: AUTH_ACTIONS.LOGIN_ERROR,
         payload: errorMessage,
       })
+
+      toast.error(errorMessage, { id: loadingToastId })
+      
       return { success: false, message: errorMessage }
     }
   }, [])
 
-  // ✅ FIXED: Register function
+  // ✅ Helper function to get redirect path with EXTENSIVE logging
+  // ✅ FIXED: getRedirectPath with case-insensitive role checking
+const getRedirectPath = useCallback((user = state.user) => {
+  console.log('🎯 AuthContext: getRedirectPath called')
+  console.log('🎯 AuthContext: Input user parameter =', user)
+  console.log('🎯 AuthContext: State user =', state.user)
+  console.log('🎯 AuthContext: Final user to check =', user)
+  
+  if (!user) {
+    console.log('🎯 AuthContext: No user provided, returning default dashboard')
+    return '/dashboard'
+  }
+  
+  const role = user.role
+  console.log('🎯 AuthContext: Extracted role =', role)
+  console.log('🎯 AuthContext: Role type =', typeof role)
+  console.log('🎯 AuthContext: Role is truthy =', !!role)
+  
+  // ✅ FIX: Convert role to lowercase for comparison
+  const normalizedRole = role?.toLowerCase()
+  console.log('🎯 AuthContext: Normalized role =', normalizedRole)
+  
+  const paths = {
+    'farmer': '/dashboard/farmer',
+    'buyer': '/dashboard/buyer',
+    'admin': '/dashboard/admin'
+  }
+  
+  console.log('🎯 AuthContext: Available paths =', paths)
+  console.log('🎯 AuthContext: Looking for normalized role in paths:', normalizedRole, 'in', Object.keys(paths))
+  
+  const redirectPath = paths[normalizedRole] || '/dashboard'
+  console.log('🎯 AuthContext: Determined redirect path =', redirectPath)
+  
+  // Additional checks with normalized role
+  if (normalizedRole === 'farmer') {
+    console.log('🎯 AuthContext: ✅ User is farmer, should redirect to /dashboard/farmer')
+  } else if (normalizedRole === 'buyer') {
+    console.log('🎯 AuthContext: ✅ User is buyer, should redirect to /dashboard/buyer')  
+  } else if (normalizedRole === 'admin') {
+    console.log('🎯 AuthContext: ✅ User is admin, should redirect to /dashboard/admin')
+  } else {
+    console.log('🎯 AuthContext: ⚠️ Unknown role, redirecting to default dashboard')
+  }
+  
+  return redirectPath
+}, [state.user])
+
+
+  // Other functions remain the same...
   const register = useCallback(async (userData) => {
     console.log('📝 AuthContext: Registration attempt for', userData.email)
+    const loadingToastId = toast.loading('🌾 Creating your Krishi Sahayak account...')
     
     try {
       dispatch({ type: AUTH_ACTIONS.LOADING, payload: true })
 
       const response = await authService.register(userData)
+      console.log('📝 AuthContext: Registration response =', response)
       
       if (response.success) {
-        console.log('✅ AuthContext: Registration successful')
         dispatch({ type: AUTH_ACTIONS.LOADING, payload: false })
-        return { success: true, data: response.data }
+
+        toast.success(response.message, { id: loadingToastId })
+        
+        return { 
+          success: true, 
+          data: {
+            ...response.data,
+            role: userData.role
+          }
+        }
       } else {
         console.log('❌ AuthContext: Registration failed:', response.message)
         dispatch({
           type: AUTH_ACTIONS.LOGIN_ERROR,
           payload: response.message,
         })
+
+        toast.error(response.message, { id: loadingToastId })
+        
         return { success: false, message: response.message }
       }
     } catch (error) {
       console.error('❌ AuthContext: Registration error:', error)
-      const errorMessage = error.message || 'Registration failed. Please try again.'
+      const errorMessage = 'Registration failed. Please try again.'
       dispatch({
         type: AUTH_ACTIONS.LOGIN_ERROR,
         payload: errorMessage,
       })
+
+      toast.error(errorMessage, { id: loadingToastId })
+      
       return { success: false, message: errorMessage }
     }
   }, [])
 
-  // ✅ FIXED: Verify OTP function
   const verifyOTP = useCallback(async (otpData) => {
-    console.log('📧 AuthContext: OTP verification for', otpData.email)
+    console.log('🔢 AuthContext: OTP verification for', otpData.email)
+    const loadingToastId = toast.loading('🔢 Verifying your OTP...')
     
     try {
       dispatch({ type: AUTH_ACTIONS.LOADING, payload: true })
 
       const response = await authService.verifyOTP(otpData)
+      console.log('🔢 AuthContext: OTP verification response =', response)
       
       if (response.success) {
         const { user, tokens } = response.data
+        console.log('✅ AuthContext: OTP verification successful for user =', user)
+        console.log('✅ AuthContext: User role after OTP =', user.role)
         
-        console.log('✅ AuthContext: OTP verification successful')
-        
-        // Update state
         dispatch({
           type: AUTH_ACTIONS.LOGIN_SUCCESS,
           payload: { user, token: tokens.accessToken },
         })
 
-        return { success: true, user }
+        toast.success(response.message, { id: loadingToastId })
+
+        return { 
+          success: true, 
+          user: {
+            ...user,
+            role: user.role
+          }
+        }
       } else {
         console.log('❌ AuthContext: OTP verification failed:', response.message)
         dispatch({
           type: AUTH_ACTIONS.LOGIN_ERROR,
           payload: response.message,
         })
+
+        toast.error(response.message, { id: loadingToastId })
+        
         return { success: false, message: response.message }
       }
     } catch (error) {
       console.error('❌ AuthContext: OTP verification error:', error)
-      const errorMessage = error.message || 'OTP verification failed.'
+      const errorMessage = 'OTP verification failed.'
       dispatch({
         type: AUTH_ACTIONS.LOGIN_ERROR,
         payload: errorMessage,
       })
+
+      toast.error(errorMessage, { id: loadingToastId })
+      
       return { success: false, message: errorMessage }
     }
   }, [])
 
-  // ✅ FIXED: Logout function
+  const resendOTP = useCallback(async (email) => {
+    console.log('📧 AuthContext: Resending OTP to', email)
+    const loadingToastId = toast.loading('📧 Sending new OTP...')
+    
+    try {
+      const response = await authService.resendOTP(email)
+      console.log('📧 AuthContext: Resend OTP response =', response)
+      
+      if (response.success) {
+        toast.success(response.message, { id: loadingToastId })
+      } else {
+        toast.error(response.message, { id: loadingToastId })
+      }
+      
+      return response
+    } catch (error) {
+      console.error('❌ AuthContext: Resend OTP error:', error)
+      const errorMessage = 'Failed to send OTP. Please try again.'
+      toast.error(errorMessage, { id: loadingToastId })
+      return { success: false, message: errorMessage }
+    }
+  }, [])
+
   const logout = useCallback(async () => {
     console.log('👋 AuthContext: Logout initiated')
     
     try {
-      await authService.logout()
-      console.log('✅ AuthContext: Logout successful')
-    } catch (error) {
-      console.error('❌ AuthContext: Logout API error:', error)
-    } finally {
+      const response = await authService.logout()
       dispatch({ type: AUTH_ACTIONS.LOGOUT })
+      
+      console.log('✅ AuthContext: Logout successful')
+      toast.success(response.message)
+    } catch (error) {
+      console.error('❌ AuthContext: Logout error:', error)
+      dispatch({ type: AUTH_ACTIONS.LOGOUT })
+      toast.success('👋 Logged out successfully. See you soon!')
     }
   }, [])
 
-  // Update profile function
   const updateProfile = useCallback(async (updates) => {
+    console.log('✏️ AuthContext: Updating profile with', updates)
+    
     try {
       const response = await authService.updateProfile(updates)
       
@@ -277,18 +422,23 @@ export const AuthProvider = ({ children }) => {
           type: AUTH_ACTIONS.UPDATE_PROFILE,
           payload: response.data,
         })
+        toast.success('✅ Profile updated successfully!')
         return { success: true }
       } else {
+        toast.error(response.message)
         return { success: false, message: response.message }
       }
     } catch (error) {
-      const errorMessage = error.message || 'Profile update failed.'
+      console.error('❌ AuthContext: Profile update error:', error)
+      const errorMessage = 'Profile update failed.'
+      toast.error(errorMessage)
       return { success: false, message: errorMessage }
     }
   }, [])
 
-  // Refresh token function
   const refreshToken = useCallback(async () => {
+    console.log('🔄 AuthContext: Refreshing token...')
+    
     try {
       const refreshToken = localStorage.getItem('krishi_refresh_token')
       if (!refreshToken) throw new Error('No refresh token')
@@ -303,29 +453,34 @@ export const AuthProvider = ({ children }) => {
           payload: newToken,
         })
 
+        console.log('✅ AuthContext: Token refreshed successfully')
         return newToken
       } else {
         throw new Error('Token refresh failed')
       }
     } catch (error) {
-      console.error('Token refresh error:', error)
+      console.error('❌ AuthContext: Token refresh error:', error)
       logout()
       return null
     }
   }, [logout])
 
-  // Clear error function
   const clearError = useCallback(() => {
     dispatch({ type: AUTH_ACTIONS.CLEAR_ERROR })
   }, [])
 
-  // Helper functions
-  const hasRole = useCallback((role) => state.user?.role === role, [state.user])
+  const hasRole = useCallback((role) => {
+    const userRole = state.user?.role
+    const hasRoleResult = userRole === role
+    console.log(`🔍 AuthContext: hasRole(${role}) = ${hasRoleResult} (user role: ${userRole})`)
+    return hasRoleResult
+  }, [state.user])
+
   const isFarmer = useCallback(() => hasRole('farmer'), [hasRole])
   const isBuyer = useCallback(() => hasRole('buyer'), [hasRole])
   const isAdmin = useCallback(() => hasRole('admin'), [hasRole])
 
-  // ✅ FIXED: Memoized context value
+  // Memoized context value
   const value = React.useMemo(() => ({
     // State
     user: state.user,
@@ -339,6 +494,7 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     verifyOTP,
+    resendOTP,
     logout,
     updateProfile,
     refreshToken,
@@ -349,6 +505,7 @@ export const AuthProvider = ({ children }) => {
     isFarmer,
     isBuyer,
     isAdmin,
+    getRedirectPath,
   }), [
     state.user,
     state.token, 
@@ -359,6 +516,7 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     verifyOTP,
+    resendOTP,
     logout,
     updateProfile,
     refreshToken,
@@ -366,7 +524,8 @@ export const AuthProvider = ({ children }) => {
     hasRole,
     isFarmer,
     isBuyer,
-    isAdmin
+    isAdmin,
+    getRedirectPath
   ])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
@@ -383,5 +542,4 @@ export const useAuth = () => {
   return context
 }
 
-// Export context for advanced use cases
 export { AuthContext }

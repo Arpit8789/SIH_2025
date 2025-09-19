@@ -24,7 +24,6 @@ const MainLayout = () => {
     } else {
       document.body.style.overflow = 'unset';
     }
-
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -47,7 +46,7 @@ const MainLayout = () => {
       />
 
       <div className="flex flex-1">
-        {/* Sidebar - Only show for authenticated users */}
+        {/* Sidebar - Only for authenticated users */}
         {isAuthenticated && (
           <Sidebar 
             isOpen={isMobileMenuOpen}
@@ -58,14 +57,14 @@ const MainLayout = () => {
         {/* Main Content */}
         <main 
           className={cn(
-            "flex-1 flex flex-col min-w-0",
-            isAuthenticated && "lg:ml-64" // Offset for sidebar on desktop
+            "flex-1 flex flex-col min-w-0 transition-all duration-300",
+            isAuthenticated && "lg:ml-72" // ✅ offset for sidebar
           )}
         >
           <div className="flex-1">
             <Outlet />
           </div>
-          
+
           {/* Footer */}
           <Footer />
         </main>

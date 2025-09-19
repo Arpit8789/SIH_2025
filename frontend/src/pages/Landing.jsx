@@ -1,4 +1,4 @@
-// src/pages/Landing.jsx - FIXED JSX CLOSING TAGS
+// src/pages/Landing.jsx - FIXED LANDING PAGE (NO SIDEBAR REFERENCES)
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
@@ -31,7 +31,7 @@ const Landing = () => {
   
   const [testimonials, setTestimonials] = useState([])
   const { currentLanguage } = useLanguage()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth() // This is causing the dashboard redirect
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -84,9 +84,9 @@ const Landing = () => {
     setTestimonials(mockTestimonials)
   }, [currentLanguage])
 
+  // ✅ FIXED: ALWAYS REDIRECT TO REGISTER (REGARDLESS OF LOGIN STATUS)
   const handleGetStarted = () => {
-    const targetRoute = isAuthenticated ? '/dashboard' : '/register'
-    navigate(targetRoute)
+    navigate('/auth/register') // Always go to register
   }
 
   const handleWatchDemo = () => {
@@ -345,10 +345,8 @@ const Landing = () => {
                 onClick={handleGetStarted}
                 className="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                {isAuthenticated ? 
-                  (currentLanguage === 'hi' ? 'डैशबोर्ड पर जाएं' : 'Go to Dashboard') : 
-                  (currentLanguage === 'hi' ? 'निःशुल्क खाता बनाएं' : 'Create Free Account')
-                }
+                {/* ✅ ALWAYS SHOW REGISTER TEXT */}
+                {currentLanguage === 'hi' ? 'निःशुल्क खाता बनाएं' : 'Create Free Account'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button 

@@ -1,5 +1,4 @@
-// "Shree Radha Radha"
-// models/User.js
+// backend/models/User.js - FINAL VERSION (Compatible with your Farmer model)
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -29,14 +28,14 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters long']
   },
-  role: {
-    type: String,
-    enum: {
-      values: ['admin', 'farmer', 'buyer'],
-      message: 'Role must be either admin, farmer, or buyer'
-    },
-    required: [true, 'Role is required']
-  },
+  // role: {
+  //   type: String,
+  //   enum: {
+  //     values: ['admin', 'farmer', 'buyer'],
+  //     message: 'Role must be either admin, farmer, or buyer'
+  //   },
+  //   required: [true, 'Role is required']
+  // },
   isActive: {
     type: Boolean,
     default: true
@@ -49,22 +48,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null
   },
-  // OTP related fields
-  otp: {
-    code: {
-      type: String,
-      default: null
-    },
-    expiresAt: {
-      type: Date,
-      default: null
-    },
-    attempts: {
-      type: Number,
-      default: 0,
-      max: 5
-    }
-  },
+  // OTP related fields (removed since using separate OTPVerification model)
+  
   // Password reset fields
   resetPasswordToken: String,
   resetPasswordExpires: Date,
@@ -85,7 +70,7 @@ const userSchema = new mongoose.Schema({
   registrationIP: String
 }, { 
   timestamps: true,
-  discriminatorKey: 'role'
+  discriminatorKey: 'role' // ✅ This enables discriminators and matches your Farmer model
 });
 
 // Virtual for account lock status
@@ -139,46 +124,6 @@ userSchema.methods.validatePasswordStrength = function(password) {
   else strength.level = 'weak';
 
   return strength;
-};
-
-// Generate OTP
-userSchema.methods.generateOTP = function() {
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  this.otp.code = otp;
-  this.otp.expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
-  this.otp.attempts = 0;
-  return otp;
-};
-
-// Verify OTP
-userSchema.methods.verifyOTP = function(inputOTP) {
-  if (!this.otp.code) return { success: false, message: 'No OTP generated' };
-  if (this.otp.expiresAt < new Date()) return { success: false, message: 'OTP has expired' };
-  if (this.otp.attempts >= 5) return { success: false, message: 'Too many attempts. Please request a new OTP' };
-  
-  this.otp.attempts += 1;
-  
-  if (this.otp.code === inputOTP) {
-    this.isVerified = true;
-    this.otp.code = null;
-    this.otp.expiresAt = null;
-    this.otp.attempts = 0;
-    return { success: true, message: 'OTP verified successfully' };
-  }
-  
-  return { 
-    success: false, 
-    message: `Invalid OTP. ${5 - this.otp.attempts} attempts remaining` 
-  };
-};
-
-// Clear expired OTP
-userSchema.methods.clearExpiredOTP = function() {
-  if (this.otp.expiresAt && this.otp.expiresAt < new Date()) {
-    this.otp.code = null;
-    this.otp.expiresAt = null;
-    this.otp.attempts = 0;
-  }
 };
 
 // Handle failed login attempts
@@ -240,8 +185,6 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
 
 // Clean up expired data
 userSchema.methods.cleanup = function() {
-  this.clearExpiredOTP();
-  
   // Clear expired password reset token
   if (this.resetPasswordExpires && this.resetPasswordExpires < new Date()) {
     this.resetPasswordToken = undefined;
@@ -252,7 +195,5 @@ userSchema.methods.cleanup = function() {
 // Index for performance
 userSchema.index({ email: 1 });
 userSchema.index({ phone: 1 });
-userSchema.index({ 'otp.expiresAt': 1 }, { expireAfterSeconds: 0 });
 
 export default mongoose.model('User', userSchema);
-

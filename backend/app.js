@@ -1,4 +1,4 @@
-// app.js - Enhanced with Weather System
+// app.js - Enhanced with Weather System + Market Data
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -27,7 +27,8 @@ import weatherAlertService from './services/weatherAlertService.js';
 
 // Import routes
 import authRoutes from './routes/auth.js';
-import weatherRoutes from './routes/weather.js'; // ⭐ ADD THIS
+import weatherRoutes from './routes/weather.js';
+import marketRoutes from './routes/marketRoutes.js'; // ⭐ ADD THIS LINE
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -148,7 +149,7 @@ app.use(generalLimiter);
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Health check endpoint
+// Health check endpoint - ENHANCED
 app.get('/api/health', (req, res) => {
   const healthData = {
     status: 'OK',
@@ -157,7 +158,13 @@ app.get('/api/health', (req, res) => {
     nodeVersion: process.version,
     memoryUsage: process.memoryUsage(),
     platform: process.platform,
-    weatherService: weatherAlertService.getStatus() // ⭐ ADD WEATHER STATUS
+    weatherService: weatherAlertService.getStatus(),
+    marketDataService: 'Active', // ⭐ ADD THIS
+    endpoints: {
+      auth: '/api/auth',
+      weather: '/api/weather',
+      marketData: '/api/real-market' // ⭐ ADD THIS
+    }
   };
 
   res.successResponse(healthData, 'Server is healthy 🌾');
@@ -174,14 +181,17 @@ app.get('/', (req, res) => {
       '🤖 AI-Powered Weather Advisory',
       '🌦️ Real-time Weather Alerts', 
       '🌾 Regional Crop Intelligence',
-      '📱 Multi-language Support'
+      '📱 Multi-language Support',
+      '📊 Real-time Market Data', // ⭐ ADD THIS
+      '💰 Live Price Intelligence' // ⭐ ADD THIS
     ]
   }, 'Krishi Sahayak API - Empowering Indian Farmers with Technology');
 });
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/weather', weatherRoutes); // ⭐ ADD WEATHER ROUTES
+app.use('/api/weather', weatherRoutes);
+app.use('/api/real-market', marketRoutes); // ⭐ ADD THIS LINE
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -204,9 +214,8 @@ app.use((err, req, res, next) => {
 
 // ⭐ START WEATHER SERVICE WHEN SERVER STARTS
 
-
-// ⭐ GRACEFUL SHUTDOWN
-const gracefulShutdown = () => {
+// ⭐ ENHANCED GRACEFUL SHUTDOWN
+const gracefulShutdown = async () => {
   console.log('📴 Shutting down gracefully...');
   
   // Stop weather service
@@ -217,17 +226,20 @@ const gracefulShutdown = () => {
     console.error('❌ Error stopping Weather Alert Service:', error);
   }
   
-  // Close server
-  server.close(() => {
-    console.log('✅ HTTP server closed');
-    process.exit(0);
-  });
+  // ⭐ ADD: Stop market data service
+  try {
+    const { default: agmarknetService } = await import('./services/agmarknetService.js');
+    await agmarknetService.closeBrowser();
+    console.log('✅ Market Data Service stopped');
+  } catch (error) {
+    console.error('❌ Error stopping Market Data Service:', error);
+  }
   
-  // Force close after 10 seconds
+  // Close server
   setTimeout(() => {
-    console.error('❌ Could not close connections in time, forcefully shutting down');
-    process.exit(1);
-  }, 10000);
+    console.log('✅ Services stopped, server shutting down');
+    process.exit(0);
+  }, 1000);
 };
 
 // Handle shutdown signals

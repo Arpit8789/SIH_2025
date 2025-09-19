@@ -1,0 +1,124 @@
+{
+  "crops": [
+    {
+      "id": "wheat",
+      "agmarketName": "Wheat",
+      "name": {
+        "en": "Wheat",
+        "hi": "गेहूं",
+        "pa": "ਕਣਕ"
+      },
+      "icon": "🌾",
+      "category": "cereals",
+      "season": "rabi",
+      "peakSellingMonths": [3, 4, 5],
+      "lowPriceMonths": [6, 7, 8],
+      "volatility": "low",
+      "avgPrice": 2200,
+      "unit": "quintal",
+      "majorStates": ["punjab", "haryana", "rajasthan", "bihar"],
+      "aiWeights": {
+        "seasonal": 0.35,
+        "trend": 0.30,
+        "volatility": 0.20,
+        "regional": 0.15
+      }
+    },
+    {
+      "id": "rice",
+      "agmarketName": "Rice",
+      "name": {
+        "en": "Rice",
+        "hi": "चावल",
+        "pa": "ਚੌਲ"
+      },
+      "icon": "🍚",
+      "category": "cereals",
+      "season": "kharif",
+      "peakSellingMonths": [10, 11, 12],
+      "lowPriceMonths": [1, 2, 3],
+      "volatility": "medium",
+      "avgPrice": 2800,
+      "unit": "quintal",
+      "majorStates": ["punjab", "haryana", "bihar"],
+      "aiWeights": {
+        "seasonal": 0.40,
+        "trend": 0.25,
+        "volatility": 0.25,
+        "regional": 0.10
+      }
+    },
+    {
+      "id": "potato",
+      "agmarketName": "Potato",
+      "name": {
+        "en": "Potato",
+        "hi": "आलू",
+        "pa": "ਆਲੂ"
+      },
+      "icon": "🥔",
+      "category": "vegetables",
+      "season": "rabi",
+      "peakSellingMonths": [2, 3, 4],
+      "lowPriceMonths": [11, 12, 1],
+      "volatility": "medium",
+      "avgPrice": 1500,
+      "unit": "quintal",
+      "majorStates": ["punjab", "bihar", "haryana"],
+      "aiWeights": {
+        "seasonal": 0.30,
+        "trend": 0.35,
+        "volatility": 0.25,
+        "regional": 0.10
+      }
+    },
+    {
+      "id": "onion",
+      "agmarketName": "Onion",
+      "name": {
+        "en": "Onion",
+        "hi": "प्याज",
+        "pa": "ਪਿਆਜ਼"
+      },
+      "icon": "🧅",
+      "category": "vegetables",
+      "season": "rabi",
+      "peakSellingMonths": [6, 7, 8, 11, 12],
+      "lowPriceMonths": [2, 3, 4],
+      "volatility": "high",
+      "avgPrice": 2000,
+      "unit": "quintal",
+      "majorStates": ["rajasthan", "haryana", "punjab"],
+      "aiWeights": {
+        "seasonal": 0.25,
+        "trend": 0.30,
+        "volatility": 0.35,
+        "regional": 0.10
+      }
+    },
+    {
+      "id": "mustard",
+      "agmarketName": "Mustard",
+      "name": {
+        "en": "Mustard",
+        "hi": "सरसों",
+        "pa": "ਸਰ੍ਹੋਂ"
+      },
+      "icon": "🌻",
+      "category": "oilseeds",
+      "season": "rabi",
+      "peakSellingMonths": [3, 4, 5],
+      "lowPriceMonths": [9, 10, 11],
+      "volatility": "medium",
+      "avgPrice": 4500,
+      "unit": "quintal",
+      "majorStates": ["rajasthan", "haryana", "punjab"],
+      "aiWeights": {
+        "seasonal": 0.40,
+        "trend": 0.30,
+        "volatility": 0.20,
+        "regional": 0.10
+      }
+    }
+  ]
+}
