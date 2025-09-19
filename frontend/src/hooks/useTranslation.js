@@ -1,103 +1,136 @@
-// src/hooks/useTranslation.js
-import { useState, useCallback } from 'react';
-import { translationService } from '@services/translationService';
-import { useLanguage } from './useLanguage';
-import { useNotification } from '@context/NotificationContext';
+import { useCallback, useEffect, useState } from 'react';
+import { useLanguageContext } from '../context/LanguageContext';
+import { translationService } from '../utils/translation';
+import { textExtractor } from '../utils/textExtractor';
+import { errorHandler } from '../utils/errorHandler';
+import { TRANSLATION_CONFIG } from '../config/languageConfig';
 
-// Translation hook using backend translation service
 export const useTranslation = () => {
-  const [isTranslating, setIsTranslating] = useState(false);
-  const [translationCache, setTranslationCache] = useState({});
+  const { 
+    currentLanguage, 
+    isTranslating, 
+    startTranslating, 
+    stopTranslating 
+  } = useLanguageContext();
   
-  const { currentLanguage } = useLanguage();
-  const { showError } = useNotification();
+  const [translationQueue, setTranslationQueue] = useState([]);
+  const [lastTranslatedLanguage, setLastTranslatedLanguage] = useState(null);
 
-  // Translate text using backend service
-  const translateText = useCallback(async (text, targetLanguage = currentLanguage, sourceLanguage = 'auto') => {
-    if (!text || !text.trim()) return text;
-
-    // Check cache first
-    const cacheKey = `${sourceLanguage}-${targetLanguage}-${text}`;
-    if (translationCache[cacheKey]) {
-      return translationCache[cacheKey];
+  // Translate entire page content
+  const translatePage = useCallback(async () => {
+    if (!currentLanguage || currentLanguage.code === 'en') {
+      return; // Skip translation for English or if no language selected
     }
 
-    // Skip if source and target are the same
-    if (sourceLanguage === targetLanguage) {
-      return text;
+    if (isTranslating) {
+      return; // Prevent concurrent translations
     }
 
     try {
-      setIsTranslating(true);
+      startTranslating();
 
-      const response = await translationService.translateText(text, targetLanguage, sourceLanguage);
+      // Extract text from page
+      const textMappings = textExtractor.extractFromElements();
       
-      if (response.success && response.data.translatedText) {
-        const translatedText = response.data.translatedText;
+      if (textMappings.length === 0) {
+        stopTranslating();
+        return;
+      }
+
+      // Prepare texts for batch translation
+      const textsToTranslate = textExtractor.prepareBatchTexts(textMappings);
+      
+      // Translate in batches to avoid overwhelming the service
+      const batchSize = TRANSLATION_CONFIG.MAX_BATCH_SIZE || 20;
+      const translatedResults = [];
+
+      for (let i = 0; i < textsToTranslate.length; i += batchSize) {
+        const batch = textsToTranslate.slice(i, i + batchSize);
         
-        // Cache the translation
-        setTranslationCache(prev => ({
-          ...prev,
-          [cacheKey]: translatedText,
-        }));
+        try {
+          const batchResults = await translationService.translateBatch(
+            batch, 
+            currentLanguage.code, 
+            'auto'
+          );
+          
+          translatedResults.push(...batchResults);
+        } catch (error) {
+          const errorResult = errorHandler.handleTranslationError(error, {
+            batchIndex: Math.floor(i / batchSize),
+            targetLanguage: currentLanguage.code
+          });
+          
+          // Use original texts as fallback
+          translatedResults.push(...batch);
+        }
 
-        return translatedText;
-      } else {
-        throw new Error('Translation failed');
+        // Small delay between batches to be gentle on the service
+        if (i + batchSize < textsToTranslate.length) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
       }
-    } catch (error) {
-      console.error('Translation error:', error);
-      showError('Translation failed. Showing original text.');
-      return text; // Return original text on error
-    } finally {
-      setIsTranslating(false);
-    }
-  }, [currentLanguage, translationCache, showError]);
 
-  // Detect language using backend service
-  const detectLanguage = useCallback(async (text) => {
-    if (!text || !text.trim()) return 'en';
+      // Map results back and apply to DOM
+      const finalMappings = textExtractor.mapTranslationResults(textMappings, translatedResults);
+      const updatedCount = textExtractor.applyTranslations(finalMappings);
+
+      setLastTranslatedLanguage(currentLanguage.code);
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Translated ${updatedCount} elements to ${currentLanguage.label}`);
+      }
+
+    } catch (error) {
+      errorHandler.handleTranslationError(error, {
+        action: 'translatePage',
+        targetLanguage: currentLanguage.code
+      });
+    } finally {
+      stopTranslating();
+    }
+  }, [currentLanguage, isTranslating, startTranslating, stopTranslating]);
+
+  // Translate specific text
+  const translateText = useCallback(async (text, targetLanguage = null) => {
+    if (!text || !text.trim()) return text;
+    
+    const target = targetLanguage || currentLanguage?.code || 'en';
+    
+    if (target === 'en') return text; // No need to translate to English
 
     try {
-      const response = await translationService.detectLanguage(text);
-      
-      if (response.success && response.data.language) {
-        return response.data.language;
-      } else {
-        throw new Error('Language detection failed');
-      }
+      return await translationService.translateText(text, target, 'auto');
     } catch (error) {
-      console.error('Language detection error:', error);
-      return 'en'; // Default to English
+      const errorResult = errorHandler.handleTranslationError(error, {
+        text: text.substring(0, 50) + '...',
+        targetLanguage: target
+      });
+      
+      return errorResult.fallback || text;
     }
-  }, []);
+  }, [currentLanguage]);
 
-  // Translate multiple texts at once
-  const translateBatch = useCallback(async (texts, targetLanguage = currentLanguage) => {
-    const translations = await Promise.allSettled(
-      texts.map(text => translateText(text, targetLanguage))
-    );
+  // Auto-translate page when language changes
+  useEffect(() => {
+    if (currentLanguage && 
+        currentLanguage.code !== 'en' && 
+        currentLanguage.code !== lastTranslatedLanguage) {
+      
+      // Small delay to ensure DOM is ready
+      const timeoutId = setTimeout(() => {
+        translatePage();
+      }, 300);
 
-    return translations.map((result, index) => ({
-      original: texts[index],
-      translated: result.status === 'fulfilled' ? result.value : texts[index],
-      success: result.status === 'fulfilled',
-    }));
-  }, [translateText, currentLanguage]);
-
-  // Clear translation cache
-  const clearCache = useCallback(() => {
-    setTranslationCache({});
-  }, []);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [currentLanguage, translatePage, lastTranslatedLanguage]);
 
   return {
+    translatePage,
     translateText,
-    detectLanguage,
-    translateBatch,
     isTranslating,
-    clearCache,
-    cacheSize: Object.keys(translationCache).length,
+    currentLanguage,
+    canTranslate: currentLanguage && currentLanguage.code !== 'en'
   };
 };
-
-export default useTranslation;

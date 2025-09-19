@@ -1,4 +1,3 @@
-// src/main.jsx - COMPLETE
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -6,7 +5,7 @@ import '@/styles/globals.css'
 
 // Context Providers
 import { AuthProvider } from '@/context/AuthContext'
-import { LanguageProvider } from '@/context/LanguageContext'
+import { LanguageProvider } from '@/context/LanguageContext' // ✅ Already imported
 import { ThemeProvider } from '@/context/ThemeContext'
 import { NotificationProvider } from '@/context/NotificationContext'
 
@@ -20,31 +19,33 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ErrorBoundary>
       <ThemeProvider>
+        {/* ✅ LANGUAGE PROVIDER - Already wrapped correctly */}
         <LanguageProvider>
           <AuthProvider>
             <NotificationProvider>
               <App />
               <Toaster 
-                position="top-right"
+                position="top-center"
                 toastOptions={{
                   duration: 4000,
                   style: {
-                    background: 'hsl(var(--card))',
-                    color: 'hsl(var(--card-foreground))',
-                    border: '1px solid hsl(var(--border))',
+                    marginTop: '70px',
+                    background: '#ff4d4f',
+                    color: '#fff',
+                    borderRadius: '8px',
+                    padding: '12px 16px',
+                    fontWeight: 500,
                   },
                   success: {
                     style: {
-                      background: 'hsl(142.1 76.2% 36.3% / 0.1)',
-                      color: 'hsl(142.1 76.2% 36.3%)',
-                      border: '1px solid hsl(142.1 76.2% 36.3% / 0.2)',
+                      background: '#4BB543',
+                      color: '#fff',
                     },
                   },
                   error: {
                     style: {
-                      background: 'hsl(0 84.2% 60.2% / 0.1)',
-                      color: 'hsl(0 84.2% 60.2%)',
-                      border: '1px solid hsl(0 84.2% 60.2% / 0.2)',
+                      background: '#ff4d4f',
+                      color: '#fff',
                     },
                   },
                 }}

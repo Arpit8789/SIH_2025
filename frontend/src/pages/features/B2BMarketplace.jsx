@@ -1,4 +1,4 @@
-// src/pages/features/B2BMarketplace.jsx - BEAUTIFUL DESIGN WITH MOCK DATA
+// src/pages/features/B2BMarketplace.jsx - FIXED WITHOUT WHATSAPP & AVATAR ERRORS
 import React, { useState, useEffect } from 'react';
 import { 
   ShoppingCart, 
@@ -17,7 +17,6 @@ import {
   Truck,
   Shield,
   Calendar,
-  WhatsApp,
   Verified,
   Clock,
   IndianRupee,
@@ -33,10 +32,22 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
+
+// ✅ SIMPLE AVATAR COMPONENT (No external dependency)
+const Avatar = ({ className, children, ...props }) => (
+  <div className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)} {...props}>
+    {children}
+  </div>
+);
+
+const AvatarFallback = ({ className, children, ...props }) => (
+  <div className={cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)} {...props}>
+    {children}
+  </div>
+);
 
 const B2BMarketplace = () => {
   const [activeTab, setActiveTab] = useState('buyers');
@@ -413,7 +424,7 @@ const B2BMarketplace = () => {
                           <div className="flex items-center gap-2">
                             <h3 className="font-bold text-lg text-foreground">{buyer.name}</h3>
                             {buyer.verified && (
-                              <Verified className="h-5 w-5 text-blue-600" />
+                              <CheckCircle className="h-5 w-5 text-blue-600" />
                             )}
                             {buyer.premium && (
                               <Award className="h-5 w-5 text-yellow-600" />
@@ -504,7 +515,7 @@ const B2BMarketplace = () => {
 
                           <div className="flex flex-wrap gap-2 mb-3">
                             {offer.features.map((feature, fidx) => (
-                              <Badge key={fidx} variant="outline" className="text-xs border-green-300 text-green-700">
+                              <Badge key={fidx} variant="outline" className="text-xs border-green-300 text-green-700 dark:border-green-600 dark:text-green-400">
                                 <CheckCircle className="h-3 w-3 mr-1" />
                                 {feature}
                               </Badge>
@@ -523,8 +534,8 @@ const B2BMarketplace = () => {
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="border-green-300 text-green-700 hover:bg-green-50"
-                              onClick={() => handleWhatsAppContact(buyer.whatsapp, buyer.name, offer.crop)}
+                              className="border-green-300 text-green-700 hover:bg-green-50 dark:border-green-600 dark:text-green-400"
+                              onClick={() => window.open(`tel:${buyer.phone}`, '_self')}
                             >
                               <Phone className="h-4 w-4 mr-1" />
                               {currentLanguage === 'hi' ? 'कॉल' : 'Call'}
@@ -532,7 +543,7 @@ const B2BMarketplace = () => {
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="border-green-300 text-green-700 hover:bg-green-50"
+                              className="border-green-300 text-green-700 hover:bg-green-50 dark:border-green-600 dark:text-green-400"
                               onClick={() => handleWhatsAppContact(buyer.whatsapp, buyer.name, offer.crop)}
                             >
                               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -567,7 +578,7 @@ const B2BMarketplace = () => {
                           <div className="flex items-center gap-2">
                             <h3 className="font-bold text-lg text-foreground">{service.name}</h3>
                             {service.verified && (
-                              <Verified className="h-5 w-5 text-blue-600" />
+                              <CheckCircle className="h-5 w-5 text-blue-600" />
                             )}
                             {service.premium && (
                               <Award className="h-5 w-5 text-yellow-600" />
@@ -650,7 +661,7 @@ const B2BMarketplace = () => {
 
                           <div className="flex flex-wrap gap-2 mb-3">
                             {item.features.map((feature, fidx) => (
-                              <Badge key={fidx} variant="outline" className="text-xs border-blue-300 text-blue-700">
+                              <Badge key={fidx} variant="outline" className="text-xs border-blue-300 text-blue-700 dark:border-blue-600 dark:text-blue-400">
                                 <CheckCircle className="h-3 w-3 mr-1" />
                                 {feature}
                               </Badge>
@@ -669,8 +680,8 @@ const B2BMarketplace = () => {
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="border-blue-300 text-blue-700 hover:bg-blue-50"
-                              onClick={() => handleWhatsAppContact(service.whatsapp, service.name, item.name)}
+                              className="border-blue-300 text-blue-700 hover:bg-blue-50 dark:border-blue-600 dark:text-blue-400"
+                              onClick={() => window.open(`tel:${service.phone}`, '_self')}
                             >
                               <Phone className="h-4 w-4 mr-1" />
                               {currentLanguage === 'hi' ? 'कॉल' : 'Call'}
@@ -678,7 +689,7 @@ const B2BMarketplace = () => {
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="border-blue-300 text-blue-700 hover:bg-blue-50"
+                              className="border-blue-300 text-blue-700 hover:bg-blue-50 dark:border-blue-600 dark:text-blue-400"
                               onClick={() => handleWhatsAppContact(service.whatsapp, service.name, item.name)}
                             >
                               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">

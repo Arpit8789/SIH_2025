@@ -25,7 +25,7 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    // Your existing proxy configuration preserved
+    // ✅ PROXY PRESERVED - This routes /api calls to backend
     proxy: {
       '/api': {
         target: 'http://localhost:5000',

@@ -1,4 +1,4 @@
-// app.js - Enhanced with Weather System + Market Data
+// app.js - Enhanced with Weather System + Market Data + Translation System
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -28,7 +28,8 @@ import weatherAlertService from './services/weatherAlertService.js';
 // Import routes
 import authRoutes from './routes/auth.js';
 import weatherRoutes from './routes/weather.js';
-import marketRoutes from './routes/marketRoutes.js'; // ⭐ ADD THIS LINE
+import marketRoutes from './routes/marketRoutes.js'; // ⭐ EXISTING
+import translateRoutes from './routes/translateRoutes.js'; // ✅ NEW - Translation routes
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -159,11 +160,13 @@ app.get('/api/health', (req, res) => {
     memoryUsage: process.memoryUsage(),
     platform: process.platform,
     weatherService: weatherAlertService.getStatus(),
-    marketDataService: 'Active', // ⭐ ADD THIS
+    marketDataService: 'Active', // ⭐ EXISTING
+    translationService: 'Active', // ✅ NEW - Translation service status
     endpoints: {
       auth: '/api/auth',
       weather: '/api/weather',
-      marketData: '/api/real-market' // ⭐ ADD THIS
+      marketData: '/api/real-market', // ⭐ EXISTING
+      translation: '/api/translate' // ✅ NEW - Translation endpoint
     }
   };
 
@@ -182,8 +185,9 @@ app.get('/', (req, res) => {
       '🌦️ Real-time Weather Alerts', 
       '🌾 Regional Crop Intelligence',
       '📱 Multi-language Support',
-      '📊 Real-time Market Data', // ⭐ ADD THIS
-      '💰 Live Price Intelligence' // ⭐ ADD THIS
+      '📊 Real-time Market Data', // ⭐ EXISTING
+      '💰 Live Price Intelligence', // ⭐ EXISTING
+      '🌐 Real-time Translation (Hindi/English/Punjabi)' // ✅ NEW - Translation feature
     ]
   }, 'Krishi Sahayak API - Empowering Indian Farmers with Technology');
 });
@@ -191,7 +195,8 @@ app.get('/', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/weather', weatherRoutes);
-app.use('/api/real-market', marketRoutes); // ⭐ ADD THIS LINE
+app.use('/api/real-market', marketRoutes); // ⭐ EXISTING
+app.use('/api', translateRoutes); // ✅ NEW - Translation routes under /api
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -226,7 +231,7 @@ const gracefulShutdown = async () => {
     console.error('❌ Error stopping Weather Alert Service:', error);
   }
   
-  // ⭐ ADD: Stop market data service
+  // ⭐ EXISTING: Stop market data service
   try {
     const { default: agmarknetService } = await import('./services/agmarknetService.js');
     await agmarknetService.closeBrowser();
