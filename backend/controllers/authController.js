@@ -540,6 +540,7 @@ export const verifyOTP = async (req, res) => {
 
 // ✅ LOGIN
 export const login = async (req, res) => {
+  console.log("Hit");
   try {
     const { email, password } = req.body;
 
@@ -554,6 +555,7 @@ export const login = async (req, res) => {
     if (!passwordCheck.isValid) {
       return ResponseHandler.error(res, passwordCheck.message, 400);
     }
+    console.log("The email is ", email);
 
     // Find user (works with discriminators automatically)
     const user = await User.findOne({ email: email.toLowerCase() });
