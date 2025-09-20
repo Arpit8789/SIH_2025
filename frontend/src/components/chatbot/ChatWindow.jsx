@@ -1,10 +1,9 @@
-// components/chatbot/ChatWindow.jsx - COMPLETE MESSAGING INTERFACE
+// components/chatbot/ChatWindow.jsx - MOBILE OPTIMIZED
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Mic, MicOff, Paperclip, Smile, MoreVertical } from 'lucide-react';
+import { Send, Mic, MicOff, Smile } from 'lucide-react';
 import Message from './Message';
 import QuickActions from './QuickActions';
-import VoiceControls from './VoiceControls';
 
 const ChatWindow = ({
   messages = [],
@@ -83,23 +82,23 @@ const ChatWindow = ({
   };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth">
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* ✅ MESSAGES AREA - PROPER SCROLLING */}
+      <div className="flex-1 overflow-y-auto p-2 md:p-4 space-y-3 md:space-y-4 scroll-smooth">
         {/* Welcome Message if no messages */}
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-8"
+            className="text-center py-4 md:py-8"
           >
-            <div className="text-6xl mb-4">🌾</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
+            <div className="text-4xl md:text-6xl mb-3 md:mb-4">🌾</div>
+            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">
               {currentLanguage === 'hi' ? 'नमस्ते किसान!' :
                currentLanguage === 'pa' ? 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ!' :
                'Hello Farmer!'}
             </h3>
-            <p className="text-gray-600 text-sm max-w-xs mx-auto">
+            <p className="text-gray-600 text-xs md:text-sm max-w-xs mx-auto leading-relaxed">
               {currentLanguage === 'hi' ? 'मैं आपका AI कृषि सहायक हूँ। फसल, मौसम, बाजार की कीमत या सरकारी योजनाओं के बारे में पूछें।' :
                currentLanguage === 'pa' ? 'ਮੈਂ ਤੁਹਾਡਾ AI ਖੇਤੀ ਸਹਾਇਕ ਹਾਂ। ਫਸਲ, ਮੌਸਮ, ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ ਜਾਂ ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ ਬਾਰੇ ਪੁੱਛੋ।' :
                'I\'m your AI farming assistant. Ask me about crops, weather, market prices, or government schemes.'}
@@ -127,11 +126,11 @@ const ChatWindow = ({
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-start"
           >
-            <div className="flex space-x-3">
-              <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                <div className="w-5 h-5 text-white">🤖</div>
+            <div className="flex space-x-2 md:space-x-3">
+              <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-green-500 flex items-center justify-center">
+                <div className="w-4 h-4 md:w-5 md:h-5 text-white">🤖</div>
               </div>
-              <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+              <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-3 md:px-4 py-2 md:py-3 shadow-sm">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -157,9 +156,9 @@ const ChatWindow = ({
         />
       )}
 
-      {/* Input Area */}
-      <div className="p-4 border-t border-gray-200 bg-white">
-        <div className="flex items-end space-x-3">
+      {/* ✅ INPUT AREA - COMPACT FOR MOBILE */}
+      <div className="p-2 md:p-4 border-t border-gray-200 bg-white flex-shrink-0">
+        <div className="flex items-end space-x-2 md:space-x-3">
           {/* Voice Input Button */}
           {speechSupported && (
             <motion.button
@@ -167,14 +166,14 @@ const ChatWindow = ({
               whileTap={{ scale: 0.95 }}
               onClick={isListening ? onStopListening : onStartListening}
               disabled={isLoading}
-              className={`p-3 rounded-full transition-all duration-200 ${
+              className={`p-2 md:p-3 rounded-full transition-all duration-200 ${
                 isListening
                   ? 'bg-red-500 text-white shadow-lg animate-pulse'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
               } disabled:opacity-50`}
               title={isListening ? 'Stop listening' : 'Voice input'}
             >
-              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+              {isListening ? <MicOff className="w-4 h-4 md:w-5 md:h-5" /> : <Mic className="w-4 h-4 md:w-5 md:h-5" />}
             </motion.button>
           )}
 
@@ -187,34 +186,34 @@ const ChatWindow = ({
               onKeyPress={handleKeyPress}
               placeholder={getText('placeholder')}
               disabled={isLoading}
-              className="w-full resize-none border border-gray-300 rounded-2xl px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] max-h-32"
+              className="w-full resize-none border border-gray-300 rounded-2xl px-3 md:px-4 py-2 md:py-3 pr-10 md:pr-12 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
               rows="1"
               style={{
                 resize: 'none',
                 overflow: 'hidden',
                 height: 'auto',
-                minHeight: '48px'
+                minHeight: '40px',
+                maxHeight: '80px'
               }}
               onInput={(e) => {
                 // Auto-resize textarea
                 e.target.style.height = 'auto';
-                e.target.style.height = Math.min(e.target.scrollHeight, 128) + 'px';
+                e.target.style.height = Math.min(e.target.scrollHeight, 80) + 'px';
               }}
             />
 
             {/* Emoji Button */}
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
               onClick={() => {
-                // You can add emoji picker here
                 const emojis = ['🌾', '🚜', '🌱', '🌽', '🍅', '🥕', '🌿', '☀️', '🌧️', '💧'];
                 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
                 setInputMessage(prev => prev + randomEmoji);
                 inputRef.current?.focus();
               }}
             >
-              <Smile className="w-4 h-4" />
+              <Smile className="w-3 h-3 md:w-4 md:h-4" />
             </button>
           </div>
 
@@ -224,19 +223,19 @@ const ChatWindow = ({
             whileTap={{ scale: 0.95 }}
             onClick={handleSendMessage}
             disabled={!inputMessage.trim() || isLoading}
-            className={`p-3 rounded-full transition-all duration-200 ${
+            className={`p-2 md:p-3 rounded-full transition-all duration-200 ${
               inputMessage.trim() && !isLoading
                 ? 'bg-green-500 hover:bg-green-600 text-white shadow-lg'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             title={getText('send')}
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-4 h-4 md:w-5 md:h-5" />
           </motion.button>
         </div>
 
-        {/* Input Footer */}
-        <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+        {/* ✅ MOBILE-FRIENDLY INPUT FOOTER */}
+        <div className="hidden md:flex items-center justify-between mt-2 text-xs text-gray-500">
           <div className="flex items-center space-x-2">
             {isListening && (
               <span className="flex items-center space-x-1 text-red-500">
