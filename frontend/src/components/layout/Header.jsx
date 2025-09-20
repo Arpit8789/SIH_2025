@@ -1,4 +1,4 @@
-// src/components/layout/Header.jsx - IMPROVED WITH BETTER DESIGN & FIXES
+// src/components/layout/Header.jsx - FIXED LANGUAGE DROPDOWN VISIBILITY
 import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { 
@@ -67,15 +67,17 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
   return (
     <header className={cn(
       "w-full border-b bg-white/95 dark:bg-gray-900/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-gray-900/80 shadow-sm transition-all duration-300",
-      // ✅ Different styling for auth pages vs landing/dashboard
+      // ✅ FIXED: Higher z-index for header to ensure proper stacking
+      "sticky top-0 z-[100]",
+      // Different styling for auth pages vs landing/dashboard
       isAuthPage 
-        ? "sticky top-0 z-50 border-gray-200 dark:border-gray-700" 
+        ? "border-gray-200 dark:border-gray-700" 
         : "border-green-100 dark:border-green-900/50 shadow-green-100/50 dark:shadow-green-900/20"
     )}>
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           
-          {/* ✅ LEFT SECTION - ENHANCED LOGO */}
+          {/* LEFT SECTION - ENHANCED LOGO */}
           <div className="flex items-center gap-3">
             {isAuthenticated && !isAuthPage && (
               <Button
@@ -93,7 +95,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
               <div className="relative">
                 <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-green-600 via-emerald-600 to-green-500 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                   <span className="text-white font-bold text-lg">🌾</span>
-                  {/* ✅ Add sparkle effect */}
+                  {/* Add sparkle effect */}
                   <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
@@ -109,7 +111,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
             </Link>
           </div>
 
-          {/* ✅ CENTER SECTION - ENHANCED SEARCH (Only for authenticated users) */}
+          {/* CENTER SECTION - ENHANCED SEARCH (Only for authenticated users) */}
           {isAuthenticated && !isAuthPage && (
             <div className="hidden md:flex flex-1 max-w-md mx-8">
               <form onSubmit={handleSearch} className="relative w-full group">
@@ -136,10 +138,10 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
             </div>
           )}
 
-          {/* ✅ RIGHT SECTION - ENHANCED CONTROLS */}
+          {/* RIGHT SECTION - ENHANCED CONTROLS */}
           <div className="flex items-center gap-2">
             
-            {/* ✅ LANGUAGE SELECTOR - Enhanced dropdown */}
+            {/* ✅ FIXED: LANGUAGE SELECTOR - Proper z-index and portal rendering */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -154,7 +156,16 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
                   </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 mt-2 border-green-200 dark:border-green-800">
+              {/* ✅ CRITICAL FIX: Very high z-index and proper positioning */}
+              <DropdownMenuContent 
+                align="end" 
+                className="w-48 mt-2 border-green-200 dark:border-green-800"
+                style={{ zIndex: 9999 }}
+                container={document.body}
+                sideOffset={4}
+                avoidCollisions={true}
+                collisionPadding={10}
+              >
                 <DropdownMenuLabel className="text-green-700 dark:text-green-300">
                   {currentLanguage === 'hi' ? 'भाषा चुनें' : 'Choose Language'}
                 </DropdownMenuLabel>
@@ -180,7 +191,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* ✅ ENHANCED THEME TOGGLE - Works on ALL pages */}
+            {/* ENHANCED THEME TOGGLE - Works on ALL pages */}
             <Button
               variant="ghost"
               size="icon"
@@ -207,7 +218,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
               </div>
             </Button>
 
-            {/* ✅ USER SECTION - Enhanced */}
+            {/* USER SECTION - Enhanced */}
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -219,7 +230,15 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
                     <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-900 rounded-full"></div>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 mt-2" align="end" sideOffset={8}>
+                {/* ✅ FIXED: Proper z-index for user dropdown too */}
+                <DropdownMenuContent 
+                  className="w-56 mt-2" 
+                  align="end" 
+                  sideOffset={8}
+                  style={{ zIndex: 9999 }}
+                  container={document.body}
+                  avoidCollisions={true}
+                >
                   <DropdownMenuLabel>
                     <div className="flex flex-col">
                       <p className="text-sm font-medium text-green-700 dark:text-green-300">{getGreeting()}</p>
@@ -241,7 +260,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              /* ✅ ENHANCED AUTH BUTTONS */
+              /* ENHANCED AUTH BUTTONS */
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
@@ -263,7 +282,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
           </div>
         </div>
 
-        {/* ✅ MOBILE SEARCH - Enhanced */}
+        {/* MOBILE SEARCH - Enhanced */}
         {isAuthenticated && !isAuthPage && (
           <div className="md:hidden border-t border-green-100 dark:border-green-900/50 px-0 py-3 bg-gradient-to-r from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20">
             <form onSubmit={handleSearch} className="relative group">
