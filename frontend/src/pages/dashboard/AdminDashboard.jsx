@@ -22,7 +22,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { useAuth } from '@/hooks/useAuth';
 import { useLanguage } from '@/hooks/useLanguage';
-import { adminService } from '@/services/adminService';
+//import { adminService } from '@/services/adminService';
 import { dateHelpers, numberHelpers } from '@/utils/helpers';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
     setIsLoading(true);
     
     try {
-      const response = await adminService.getDashboardOverview();
+      //const response = await adminService.getDashboardOverview();
       
       if (response.success) {
         const data = response.data;
