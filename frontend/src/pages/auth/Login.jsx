@@ -1,4 +1,4 @@
-// src/pages/auth/Login.jsx - BEAUTIFUL AGRICULTURAL BACKGROUND
+// src/pages/auth/Login.jsx - SMALLER BEAUTIFUL AGRICULTURAL BACKGROUND
 import React from 'react';
 import LoginForm from '@/components/forms/LoginForm';
 
@@ -43,19 +43,19 @@ const Login = () => {
         <div className="absolute bottom-1/4 left-1/2 w-2 h-2 bg-emerald-400 rounded-full animate-ping" style={{ animationDelay: '1.5s' }}></div>
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 w-full max-w-lg">
+      {/* Main Content - Smaller Container */}
+      <div className="relative z-10 w-full max-w-sm">
         <LoginForm />
       </div>
 
       {/* Bottom Agricultural Info */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center z-10">
         <div className="bg-green-100/80 dark:bg-green-900/40 backdrop-blur-sm rounded-full px-6 py-2 border border-green-200/50 dark:border-green-700/50">
-          <p className="text-sm font-semibold text-green-700 dark:text-green-300 flex items-center gap-2">
+          {/* <p className="text-sm font-semibold text-green-700 dark:text-green-300 flex items-center gap-2">
             <span>🌾</span>
             <span>Smart Farming • Weather Alerts • AI Advisory</span>
             <span>🇮🇳</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

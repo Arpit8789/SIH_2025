@@ -1,4 +1,4 @@
-// src/components/layout/Sidebar.jsx - FIXED MOBILE SCROLLING ISSUE
+// src/components/layout/Sidebar.jsx - CHATBOT INTEGRATION
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
@@ -30,7 +30,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatbot PROP
   const [expandedSections, setExpandedSections] = useState(['explore']);
   const { user, logout } = useAuth();
   const { currentLanguage } = useLanguage();
@@ -77,14 +77,14 @@ const Sidebar = ({ isOpen, onClose }) => {
             label: currentLanguage === 'hi' ? 'बाजार भाव' : 'Market Prices',
             href: '/market',
             badge: 'Live',
-            requiresLogin: false // ✅ MAKE PUBLIC
+            requiresLogin: false
           },
           {
             icon: Cloud,
             label: currentLanguage === 'hi' ? 'मौसम अलर्ट' : 'Weather Alerts',
             href: '/weather-alerts',
             badge: '7-Day',
-            requiresLogin: false // ✅ MAKE PUBLIC
+            requiresLogin: false
           },
           {
             icon: Calculator,
@@ -95,10 +95,11 @@ const Sidebar = ({ isOpen, onClose }) => {
           },
           {
             icon: MessageSquare,
-            label: currentLanguage === 'hi' ? 'AI सहायक' : 'AI Chatbot',
-            href: '/ai-chat',
+            label: currentLanguage === 'hi' ? 'AI सहायक' : 'AI Assistant',
+            href: 'chatbot', // ✅ SPECIAL IDENTIFIER FOR CHATBOT
             badge: 'Voice',
-            requiresLogin: true
+            requiresLogin: true,
+            isChatbot: true // ✅ SPECIAL FLAG
           },
           {
             icon: ShoppingCart,
@@ -119,7 +120,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             label: currentLanguage === 'hi' ? 'फीडबैक' : 'Feedback',
             href: '/feedback',
             badge: null,
-            requiresLogin: false // ✅ MAKE PUBLIC
+            requiresLogin: false
           }
         ]
       }
@@ -134,12 +135,39 @@ const Sidebar = ({ isOpen, onClose }) => {
     );
   };
 
-  const handleNavigation = (href, requiresLogin = false) => {
-    if (requiresLogin && !user) {
+  // ✅ MODIFIED NAVIGATION HANDLER
+  const handleNavigation = (item) => {
+    // ✅ CHECK IF IT'S THE CHATBOT
+    if (item.isChatbot) {
+      if (!user) {
+        navigate('/login');
+        return;
+      }
+      
+      console.log('🤖 Opening chatbot from sidebar');
+      
+      // ✅ OPEN CHATBOT INSTEAD OF NAVIGATING
+      if (onOpenChatbot && typeof onOpenChatbot === 'function') {
+        onOpenChatbot();
+      } else {
+        console.warn('onOpenChatbot function not provided to Sidebar');
+      }
+      
+      // ✅ CLOSE SIDEBAR ON MOBILE
+      if (onClose && window.innerWidth < 1024) {
+        onClose();
+      }
+      return;
+    }
+
+    // ✅ NORMAL NAVIGATION FOR OTHER ITEMS
+    if (item.requiresLogin && !user) {
       navigate('/login');
       return;
     }
-    navigate(href);
+    
+    navigate(item.href);
+    
     // ✅ AUTO-CLOSE ON MOBILE
     if (onClose && window.innerWidth < 1024) {
       onClose();
@@ -161,7 +189,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div 
           className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300" 
           onClick={onClose}
-          style={{ touchAction: 'none' }} // ✅ PREVENT SCROLL ON OVERLAY
+          style={{ touchAction: 'none' }}
         />
       )}
 
@@ -169,7 +197,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       <div 
         className={cn(
           "fixed top-0 left-0 z-50 w-72 bg-gradient-to-b from-green-50 to-emerald-50 dark:from-gray-900 dark:to-green-950/20 border-r border-green-200 dark:border-gray-700 transform transition-all duration-300 ease-in-out lg:translate-x-0 shadow-2xl lg:shadow-none lg:z-30",
-          "h-screen flex flex-col overflow-hidden", // ✅ PREVENT MAIN CONTAINER SCROLL
+          "h-screen flex flex-col overflow-hidden",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
@@ -242,7 +270,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div 
           className="flex-1 overflow-y-auto overflow-x-hidden"
           style={{
-            WebkitOverflowScrolling: 'touch', // ✅ SMOOTH iOS SCROLLING
+            WebkitOverflowScrolling: 'touch',
             scrollbarWidth: 'thin',
             scrollbarColor: 'rgb(34 197 94) transparent'
           }}
@@ -254,7 +282,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <button
                   onClick={() => toggleSection(section.section)}
                   className="flex items-center justify-between w-full px-3 py-2 text-sm font-semibold text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg transition-all duration-200 group"
-                  style={{ touchAction: 'manipulation' }} // ✅ BETTER TOUCH RESPONSE
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <div className="flex items-center gap-2">
                     <section.icon className="h-4 w-4" />
@@ -271,23 +299,26 @@ const Sidebar = ({ isOpen, onClose }) => {
                 {expandedSections.includes(section.section) && (
                   <div className="space-y-1 ml-4 pl-2 border-l-2 border-green-200 dark:border-green-800">
                     {section.items.map((item) => {
-                      const isActive = location.pathname === item.href;
+                      // ✅ SPECIAL HANDLING FOR CHATBOT - NO ACTIVE STATE
+                      const isActive = !item.isChatbot && location.pathname === item.href;
                       const Icon = item.icon;
                       const needsLogin = item.requiresLogin && !user;
 
                       return (
                         <button
                           key={item.href}
-                          onClick={() => handleNavigation(item.href, item.requiresLogin)}
+                          onClick={() => handleNavigation(item)} // ✅ PASS FULL ITEM OBJECT
                           className={cn(
                             "flex items-center gap-3 w-full px-3 py-2.5 text-sm rounded-lg transition-all duration-200 group relative overflow-hidden",
                             isActive
                               ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 border-l-4 border-white/30"
                               : needsLogin
                               ? "hover:bg-orange-100 dark:hover:bg-orange-900/20 text-gray-500 dark:text-gray-400 hover:text-orange-700 dark:hover:text-orange-400"
+                              : item.isChatbot // ✅ SPECIAL STYLING FOR CHATBOT
+                              ? "hover:bg-blue-100 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400 hover:shadow-md"
                               : "hover:bg-green-100 dark:hover:bg-green-900/20 text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 hover:shadow-md"
                           )}
-                          style={{ touchAction: 'manipulation' }} // ✅ BETTER TOUCH RESPONSE
+                          style={{ touchAction: 'manipulation' }}
                         >
                           <Icon className={cn(
                             "h-4 w-4 flex-shrink-0 transition-all duration-200",
@@ -311,7 +342,8 @@ const Sidebar = ({ isOpen, onClose }) => {
                               variant="secondary"
                               className={cn(
                                 "text-xs font-semibold px-2 py-1",
-                                isActive && "bg-white/20 text-white"
+                                isActive && "bg-white/20 text-white",
+                                item.isChatbot && "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100" // ✅ CHATBOT BADGE STYLING
                               )}
                             >
                               {item.badge}
@@ -321,6 +353,11 @@ const Sidebar = ({ isOpen, onClose }) => {
                           {/* Active indicator */}
                           {isActive && (
                             <div className="absolute left-0 top-0 w-1 h-full bg-yellow-400 rounded-r-full"></div>
+                          )}
+
+                          {/* ✅ CHATBOT INDICATOR */}
+                          {item.isChatbot && (
+                            <div className="absolute right-1 top-1 w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
                           )}
                         </button>
                       );
@@ -338,7 +375,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <Button
             variant="ghost"
             className="w-full justify-start hover:bg-blue-100 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 hover:text-blue-700 group"
-            onClick={() => handleNavigation('/help')}
+            onClick={() => handleNavigation({ href: '/help', requiresLogin: false })}
           >
             <HelpCircle className="h-4 w-4 mr-3 group-hover:scale-110 transition-transform duration-200" />
             {currentLanguage === 'hi' ? 'सहायता' : 'Help Center'}

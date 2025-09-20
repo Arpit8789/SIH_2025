@@ -1,12 +1,16 @@
 // backend/routes/marketRoutes.js - ES MODULE VERSION
 import express from 'express';
-import marketController from '../controllers/marketController1.js'; // Note: .js extension needed
+
+// ✅ Import ONLY real-time microcontroller
+import marketController from '../controllers/marketController1.js';
+
 const router = express.Router();
 
-// GET real-time prices from agmarknet
-router.get('/prices', marketController.getRealTimePrices);
+/* ------------------- REAL DATA (Agmarknet API) ------------------- */
+// Live real-time prices
+router.get('/prices', (req, res) => marketController.getRealTimePrices(req, res));
 
-// GET historical data from government sources
-router.get('/history', marketController.getRealHistoricalData);
+// Live historical prices
+router.get('/history', (req, res) => marketController.getRealHistoricalData(req, res));
 
-export default router; // ⭐ CHANGED: ES Module export
+export default router;

@@ -5,7 +5,7 @@ import '@/styles/globals.css'
 
 // Context Providers
 import { AuthProvider } from '@/context/AuthContext'
-import { LanguageProvider } from '@/context/LanguageContext' // ✅ Already imported
+//import { LanguageProvider } from '@/context/LanguageContext' // ✅ Already imported
 import { ThemeProvider } from '@/context/ThemeContext'
 import { NotificationProvider } from '@/context/NotificationContext'
 
@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ErrorBoundary>
       <ThemeProvider>
         {/* ✅ LANGUAGE PROVIDER - Already wrapped correctly */}
-        <LanguageProvider>
+        
           <AuthProvider>
             <NotificationProvider>
               <App />
@@ -52,7 +52,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               />
             </NotificationProvider>
           </AuthProvider>
-        </LanguageProvider>
+        
       </ThemeProvider>
     </ErrorBoundary>
   </React.StrictMode>,

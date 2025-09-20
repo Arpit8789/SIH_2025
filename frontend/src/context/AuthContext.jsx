@@ -235,13 +235,13 @@ const getRedirectPath = useCallback((user = state.user) => {
   }
   
   const role = user.role
-  console.log('🎯 AuthContext: Extracted role =', role)
-  console.log('🎯 AuthContext: Role type =', typeof role)
-  console.log('🎯 AuthContext: Role is truthy =', !!role)
+  //console.log('🎯 AuthContext: Extracted role =', role)
+  //console.log('🎯 AuthContext: Role type =', typeof role)
+  //console.log('🎯 AuthContext: Role is truthy =', !!role)
   
   // ✅ FIX: Convert role to lowercase for comparison
   const normalizedRole = role?.toLowerCase()
-  console.log('🎯 AuthContext: Normalized role =', normalizedRole)
+  //console.log('🎯 AuthContext: Normalized role =', normalizedRole)
   
   const paths = {
     'farmer': '/dashboard/farmer',
@@ -249,21 +249,21 @@ const getRedirectPath = useCallback((user = state.user) => {
     'admin': '/dashboard/admin'
   }
   
-  console.log('🎯 AuthContext: Available paths =', paths)
-  console.log('🎯 AuthContext: Looking for normalized role in paths:', normalizedRole, 'in', Object.keys(paths))
+  //console.log('🎯 AuthContext: Available paths =', paths)
+  //console.log('🎯 AuthContext: Looking for normalized role in paths:', normalizedRole, 'in', Object.keys(paths))
   
   const redirectPath = paths[normalizedRole] || '/dashboard'
-  console.log('🎯 AuthContext: Determined redirect path =', redirectPath)
+  //console.log('🎯 AuthContext: Determined redirect path =', redirectPath)
   
   // Additional checks with normalized role
   if (normalizedRole === 'farmer') {
-    console.log('🎯 AuthContext: ✅ User is farmer, should redirect to /dashboard/farmer')
+    //console.log('🎯 AuthContext: ✅ User is farmer, should redirect to /dashboard/farmer')
   } else if (normalizedRole === 'buyer') {
-    console.log('🎯 AuthContext: ✅ User is buyer, should redirect to /dashboard/buyer')  
+    //console.log('🎯 AuthContext: ✅ User is buyer, should redirect to /dashboard/buyer')  
   } else if (normalizedRole === 'admin') {
-    console.log('🎯 AuthContext: ✅ User is admin, should redirect to /dashboard/admin')
+    //console.log('🎯 AuthContext: ✅ User is admin, should redirect to /dashboard/admin')
   } else {
-    console.log('🎯 AuthContext: ⚠️ Unknown role, redirecting to default dashboard')
+    //console.log('🎯 AuthContext: ⚠️ Unknown role, redirecting to default dashboard')
   }
   
   return redirectPath
@@ -272,7 +272,7 @@ const getRedirectPath = useCallback((user = state.user) => {
 
   // Other functions remain the same...
   const register = useCallback(async (userData) => {
-    console.log('📝 AuthContext: Registration attempt for', userData.email)
+    //console.log('📝 AuthContext: Registration attempt for', userData.email)
     const loadingToastId = toast.loading('🌾 Creating your Krishi Sahayak account...')
     
     try {

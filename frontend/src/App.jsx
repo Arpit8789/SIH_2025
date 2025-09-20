@@ -3,20 +3,17 @@ import AppRouter from '@/router/AppRouter'
 import LoadingSpinner from '@/components/common/LoadingSpinner'
 
 // ✅ TRANSLATION COMPONENTS
-import LanguageSelectorModal from '@/components/common/LanguageSelectorModal'
-import { useLanguageContext } from '@/context/LanguageContext'
+// import LanguageSelectorModal from '@/components/common/LanguageSelectorModal'
+// import { useLanguageContext } from '@/context/LanguageContext'
 
 function App() {
   // ✅ ACCESS LANGUAGE CONTEXT
-  const { hasSelectedLanguage } = useLanguageContext()
+  //const { hasSelectedLanguage } = useLanguageContext()
 
   return (
     <div className="min-h-screen bg-background text-foreground antialiased">
       {/* ✅ LANGUAGE SELECTOR MODAL - Shows on first load */}
-      <LanguageSelectorModal 
-        isOpen={!hasSelectedLanguage}
-        onClose={() => {}}
-      />
+      
 
       <Suspense 
         fallback={

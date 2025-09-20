@@ -148,6 +148,8 @@ const ToastItem = ({ toast, onRemove }) => {
         <div className="flex-1 min-w-0 text-sm font-medium">{toast.message}</div>
         {toast.type !== TOAST_TYPES.LOADING && (
           <button
+
+          
             onClick={handleRemove}
             className="flex-shrink-0 p-1 rounded-full hover:bg-black/20 transition-colors"
           >

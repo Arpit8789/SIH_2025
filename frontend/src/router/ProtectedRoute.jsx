@@ -40,7 +40,7 @@ const ProtectedRoute = ({ children, requiredRole = null, fallback = '/auth/login
     
     // ✅ FIX: Use normalized roles for dashboard mapping
     const dashboardMap = {
-      farmer: '/dashboard/farmer',
+      Farmer: '/dashboard/farmer',
       buyer: '/dashboard/buyer', 
       admin: '/dashboard/admin'
     };

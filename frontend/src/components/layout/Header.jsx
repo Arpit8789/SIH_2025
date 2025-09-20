@@ -1,298 +1,283 @@
+// src/components/layout/Header.jsx - IMPROVED WITH BETTER DESIGN & FIXES
 import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { useAuth } from '@/context/AuthContext'
-import { useTheme } from '@/context/ThemeContext'
-import { useNotification } from '@/context/NotificationContext'
-
-// ✅ IMPORT LANGUAGE SWITCHER
-import LanguageSwitcher from '@/components/layout/LanguageSwitcher'
-import { useLanguageContext } from '@/context/LanguageContext'
-
-// Icons
 import { 
-  Sun, 
-  Moon, 
-  Bell, 
-  User, 
   Menu, 
-  X,
+  X, 
+  User, 
+  Search, 
+  Globe, 
+  Moon, 
+  Sun, 
   LogOut,
   Settings,
-  UserCircle,
-  Home,
-  BarChart3,
-  MessageCircle
+  Sparkles
 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { useAuth } from '@/hooks/useAuth'
+import { useLanguage } from '@/hooks/useLanguage'
+import { useTheme } from '@/context/ThemeContext'
+import { cn } from '@/lib/utils'
 
-const Header = () => {
-  const { user, logout, isAuthenticated } = useAuth()
-  const { theme, toggleTheme } = useTheme()
-  const { notifications, markAsRead } = useNotification()
-  const { currentLanguage, isTranslating } = useLanguageContext() // ✅ GET TRANSLATION STATE
+const Header = ({ onMenuClick, isMobileMenuOpen }) => {
+  const [searchQuery, setSearchQuery] = useState('')
+  
+  const { user, isAuthenticated, logout } = useAuth()
+  const { currentLanguage, changeLanguage } = useLanguage()
+  const { toggleTheme, isDark } = useTheme()
   
   const navigate = useNavigate()
   const location = useLocation()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false)
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
 
-  const unreadCount = notifications.filter(n => !n.read).length
+  // Check if we're on auth pages
+  const isAuthPage = location.pathname.includes('/login') || 
+                     location.pathname.includes('/register') || 
+                     location.pathname.includes('/verify-otp') ||
+                     location.pathname.includes('/forgot-password')
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      console.log('🔍 Searching for:', searchQuery)
+      // Add your search logic here
+    }
+  }
 
   const handleLogout = async () => {
     await logout()
     navigate('/')
-    setIsProfileOpen(false)
+  }
+
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) return currentLanguage === 'hi' ? 'सुप्रभात' : 'Good Morning'
+    if (hour < 17) return currentLanguage === 'hi' ? 'नमस्कार' : 'Good Afternoon'
+    return currentLanguage === 'hi' ? 'शुभ संध्या' : 'Good Evening'
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4">
+    <header className={cn(
+      "w-full border-b bg-white/95 dark:bg-gray-900/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-gray-900/80 shadow-sm transition-all duration-300",
+      // ✅ Different styling for auth pages vs landing/dashboard
+      isAuthPage 
+        ? "sticky top-0 z-50 border-gray-200 dark:border-gray-700" 
+        : "border-green-100 dark:border-green-900/50 shadow-green-100/50 dark:shadow-green-900/20"
+    )}>
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
-              <span className="text-white text-xl font-bold">🌾</span>
-            </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Krishi Sahayak
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link 
-              to="/home" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === '/home' ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/market" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === '/market' ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              Market
-            </Link>
-            <Link 
-              to="/weather-alerts" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === '/weather-alerts' ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              Weather
-            </Link>
-            {isAuthenticated && (
-              <Link 
-                to="/ai-chat" 
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === '/ai-chat' ? 'text-primary' : 'text-muted-foreground'
-                }`}
+          
+          {/* ✅ LEFT SECTION - ENHANCED LOGO */}
+          <div className="flex items-center gap-3">
+            {isAuthenticated && !isAuthPage && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden hover:bg-green-100 dark:hover:bg-green-900/20 transition-colors"
+                onClick={onMenuClick}
+                aria-label="Menu"
               >
-                AI Chat
-              </Link>
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
             )}
-          </nav>
 
-          {/* Right Section */}
-          <div className="flex items-center space-x-4">
-            {/* ✅ LANGUAGE SWITCHER - Added to notification area */}
-            <div className="hidden md:block">
-              <LanguageSwitcher className="mr-2" />
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="relative">
+                <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-green-600 via-emerald-600 to-green-500 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                  <span className="text-white font-bold text-lg">🌾</span>
+                  {/* ✅ Add sparkle effect */}
+                  <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </div>
+              
+              <div className="hidden sm:block">
+                <h1 className="font-bold text-xl bg-gradient-to-r from-green-700 via-emerald-600 to-green-500 bg-clip-text text-transparent">
+                  कृषि सहायक
+                </h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium tracking-wide">
+                  {currentLanguage === 'hi' ? 'स्मार्ट खेती' : 'Smart Farming'}
+                </p>
+              </div>
+            </Link>
+          </div>
+
+          {/* ✅ CENTER SECTION - ENHANCED SEARCH (Only for authenticated users) */}
+          {isAuthenticated && !isAuthPage && (
+            <div className="hidden md:flex flex-1 max-w-md mx-8">
+              <form onSubmit={handleSearch} className="relative w-full group">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-gray-400 group-focus-within:text-green-500 transition-colors" />
+                </div>
+                <Input
+                  type="text"
+                  placeholder={currentLanguage === 'hi' ? 'फसल, मौसम, भाव खोजें...' : 'Search crops, weather, prices...'}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-4 w-full border-green-200 dark:border-green-800 focus:border-green-400 dark:focus:border-green-600 focus:ring-green-500/20 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm transition-all duration-200"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </form>
             </div>
+          )}
 
-            {/* Translation Status Indicator */}
-            {isTranslating && (
-              <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground">
-                <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                <span>Translating...</span>
-              </div>
-            )}
+          {/* ✅ RIGHT SECTION - ENHANCED CONTROLS */}
+          <div className="flex items-center gap-2">
+            
+            {/* ✅ LANGUAGE SELECTOR - Enhanced dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="hover:bg-green-100 dark:hover:bg-green-900/20 transition-colors relative"
+                >
+                  <Globe className="h-4 w-4" />
+                  {/* Language indicator */}
+                  <span className="absolute -bottom-1 -right-1 text-[10px] font-bold text-green-600 dark:text-green-400">
+                    {currentLanguage.toUpperCase()}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 mt-2 border-green-200 dark:border-green-800">
+                <DropdownMenuLabel className="text-green-700 dark:text-green-300">
+                  {currentLanguage === 'hi' ? 'भाषा चुनें' : 'Choose Language'}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={() => changeLanguage('hi')}
+                  className="focus:bg-green-50 dark:focus:bg-green-900/20"
+                >
+                  🇮🇳 हिंदी {currentLanguage === 'hi' && '✓'}
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => changeLanguage('en')}
+                  className="focus:bg-green-50 dark:focus:bg-green-900/20"
+                >
+                  🇬🇧 English {currentLanguage === 'en' && '✓'}
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => changeLanguage('pa')}
+                  className="focus:bg-green-50 dark:focus:bg-green-900/20"
+                >
+                  🇮🇳 ਪੰਜਾਬੀ {currentLanguage === 'pa' && '✓'}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-            {/* Theme Toggle */}
-            <button
+            {/* ✅ ENHANCED THEME TOGGLE - Works on ALL pages */}
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={toggleTheme}
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
+              className={cn(
+                "transition-all duration-300 relative group",
+                isDark 
+                  ? "hover:bg-yellow-100/20 dark:hover:bg-yellow-900/20" 
+                  : "hover:bg-slate-100 dark:hover:bg-slate-800"
               )}
-            </button>
-
-            {/* Notifications */}
-            {isAuthenticated && (
-              <div className="relative">
-                <button
-                  onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 relative"
-                >
-                  <Bell className="h-4 w-4" />
-                  {unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-xs font-medium text-white flex items-center justify-center">
-                      {unreadCount > 9 ? '9+' : unreadCount}
-                    </span>
-                  )}
-                </button>
-
-                {isNotificationOpen && (
-                  <div className="absolute right-0 mt-2 w-80 bg-popover rounded-md border shadow-lg py-1 z-50">
-                    <div className="px-3 py-2 border-b">
-                      <h3 className="font-semibold text-sm">Notifications</h3>
-                    </div>
-                    <div className="max-h-64 overflow-y-auto">
-                      {notifications.length === 0 ? (
-                        <div className="px-3 py-4 text-sm text-muted-foreground text-center">
-                          No notifications
-                        </div>
-                      ) : (
-                        notifications.slice(0, 5).map((notification) => (
-                          <div
-                            key={notification.id}
-                            className={`px-3 py-2 text-sm border-b last:border-b-0 cursor-pointer hover:bg-muted/50 ${
-                              !notification.read ? 'bg-muted/30' : ''
-                            }`}
-                            onClick={() => markAsRead(notification.id)}
-                          >
-                            <div className="font-medium">{notification.title}</div>
-                            <div className="text-muted-foreground text-xs">
-                              {notification.message}
-                            </div>
-                            <div className="text-xs text-muted-foreground mt-1">
-                              {new Date(notification.createdAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                    {/* ✅ LANGUAGE OPTION IN NOTIFICATION DROPDOWN */}
-                    <div className="border-t px-3 py-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground font-medium">Language</span>
-                        <LanguageSwitcher className="scale-90" />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* User Menu */}
-            {isAuthenticated ? (
-              <div className="relative">
-                <button
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
-                >
-                  <User className="h-4 w-4" />
-                </button>
-
-                {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-popover rounded-md border shadow-lg py-1 z-50">
-                    <div className="px-3 py-2 border-b">
-                      <div className="font-medium text-sm">{user?.name}</div>
-                      <div className="text-xs text-muted-foreground">{user?.email}</div>
-                    </div>
-                    <Link
-                      to="/profile"
-                      className="flex items-center px-3 py-2 text-sm hover:bg-muted/50"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <UserCircle className="mr-2 h-4 w-4" />
-                      Profile
-                    </Link>
-                    <Link
-                      to="/settings"
-                      className="flex items-center px-3 py-2 text-sm hover:bg-muted/50"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <Settings className="mr-2 h-4 w-4" />
-                      Settings
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center w-full px-3 py-2 text-sm hover:bg-muted/50 text-red-600"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" />
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Link
-                  to="/login"
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                >
-                  Register
-                </Link>
-              </div>
-            )}
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 md:hidden"
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
+              <div className="relative">
+                {isDark ? (
+                  <Sun className="h-4 w-4 text-yellow-500 group-hover:text-yellow-400 transition-colors group-hover:rotate-12 transform duration-300" />
+                ) : (
+                  <Moon className="h-4 w-4 text-slate-600 group-hover:text-slate-800 transition-colors group-hover:-rotate-12 transform duration-300" />
+                )}
+                {/* Subtle glow effect */}
+                <div className={cn(
+                  "absolute inset-0 rounded-full blur-sm opacity-0 group-hover:opacity-20 transition-opacity duration-300",
+                  isDark ? "bg-yellow-400" : "bg-slate-400"
+                )} />
+              </div>
+            </Button>
+
+            {/* ✅ USER SECTION - Enhanced */}
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 ring-2 ring-transparent hover:ring-green-200 dark:hover:ring-green-800 transition-all duration-200">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center text-white text-sm font-semibold shadow-lg">
+                      {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                    </div>
+                    {/* Online indicator */}
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-900 rounded-full"></div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 mt-2" align="end" sideOffset={8}>
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col">
+                      <p className="text-sm font-medium text-green-700 dark:text-green-300">{getGreeting()}</p>
+                      <p className="text-sm font-semibold">{user?.name || 'User'}</p>
+                      <p className="text-xs text-muted-foreground">{user?.email || 'user@example.com'}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/profile')} className="focus:bg-green-50 dark:focus:bg-green-900/20">
+                    <User className="mr-2 h-4 w-4" /> {currentLanguage === 'hi' ? 'प्रोफाइल' : 'Profile'}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings')} className="focus:bg-green-50 dark:focus:bg-green-900/20">
+                    <Settings className="mr-2 h-4 w-4" /> {currentLanguage === 'hi' ? 'सेटिंग्स' : 'Settings'}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="focus:bg-red-50 dark:focus:bg-red-900/20 text-red-600 dark:text-red-400">
+                    <LogOut className="mr-2 h-4 w-4" /> {currentLanguage === 'hi' ? 'लॉग आउट' : 'Logout'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              /* ✅ ENHANCED AUTH BUTTONS */
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate('/login')}
+                  className="border-green-300 text-green-700 hover:bg-green-50 dark:border-green-700 dark:text-green-400 dark:hover:bg-green-900/20 transition-all duration-200 font-medium"
+                >
+                  {currentLanguage === 'hi' ? 'लॉगिन' : 'Login'}
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => navigate('/register')}
+                  className="hidden sm:inline-flex bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl transition-all duration-200 font-medium transform hover:scale-105"
+                >
+                  {currentLanguage === 'hi' ? 'रजिस्टर' : 'Register'}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t py-4 space-y-2">
-            <Link
-              to="/home"
-              className="block px-2 py-1 text-sm font-medium hover:bg-muted rounded-md"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Home className="inline mr-2 h-4 w-4" />
-              Home
-            </Link>
-            <Link
-              to="/market"
-              className="block px-2 py-1 text-sm font-medium hover:bg-muted rounded-md"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <BarChart3 className="inline mr-2 h-4 w-4" />
-              Market
-            </Link>
-            <Link
-              to="/weather-alerts"
-              className="block px-2 py-1 text-sm font-medium hover:bg-muted rounded-md"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Weather
-            </Link>
-            {isAuthenticated && (
-              <Link
-                to="/ai-chat"
-                className="block px-2 py-1 text-sm font-medium hover:bg-muted rounded-md"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <MessageCircle className="inline mr-2 h-4 w-4" />
-                AI Chat
-              </Link>
-            )}
-            
-            {/* ✅ MOBILE LANGUAGE SWITCHER */}
-            <div className="px-2 py-1 border-t pt-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Language</span>
-                <LanguageSwitcher />
+        {/* ✅ MOBILE SEARCH - Enhanced */}
+        {isAuthenticated && !isAuthPage && (
+          <div className="md:hidden border-t border-green-100 dark:border-green-900/50 px-0 py-3 bg-gradient-to-r from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20">
+            <form onSubmit={handleSearch} className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-gray-400 group-focus-within:text-green-500 transition-colors" />
               </div>
-            </div>
+              <Input
+                type="text"
+                placeholder={currentLanguage === 'hi' ? 'फसल, मौसम, भाव खोजें...' : 'Search crops, weather, prices...'}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 w-full border-green-200 focus:border-green-400 dark:border-green-800 dark:focus:border-green-600 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm"
+              />
+            </form>
           </div>
         )}
       </div>

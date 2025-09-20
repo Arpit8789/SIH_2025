@@ -1,10 +1,14 @@
-// src/router/routes.jsx - CORRECTED PATHS FOR FEEDBACK & B2B
+// src/router/routes.jsx - FIXED ERROR HANDLING & ROUTING
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import AuthLayout from '@/components/layout/AuthLayout';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
+
+// Import your custom error components
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import NotFound from '@/components/common/NotFound';
 
 // Direct imports for critical components
 import Register from '@/pages/auth/Register';
@@ -19,7 +23,6 @@ const Home = lazy(() => import('@/pages/common/Home'));
 const About = lazy(() => import('@/pages/common/About'));
 const Contact = lazy(() => import('@/pages/common/Contact'));
 const Help = lazy(() => import('@/pages/common/Help'));
-const NotFound = lazy(() => import('@/pages/common/NotFound'));
 
 // Auth pages
 const Login = lazy(() => import('@/pages/auth/Login'));
@@ -31,7 +34,7 @@ const FarmerDashboard = lazy(() => import('@/pages/dashboard/FarmerDashboard'));
 const BuyerDashboard = lazy(() => import('@/pages/dashboard/BuyerDashboard'));
 const AdminDashboard = lazy(() => import('@/pages/dashboard/AdminDashboard'));
 
-// Market Intelligence (keep existing path - it's working)
+// Market Intelligence
 const MarketPrices = lazy(() => import('@/pages/market/MarketPrices'));
 
 // ✅ FEATURES - Correct paths
@@ -40,7 +43,7 @@ const DiseaseDetection = lazy(() => import('@/pages/features/DiseaseDetection'))
 const AIChatbot = lazy(() => import('@/pages/features/AIChatbot'));
 const GovernmentSchemes = lazy(() => import('@/pages/features/GovernmentSchemes'));
 const SoilHealth = lazy(() => import('@/pages/features/SoilHealth'));
-const B2BMarketplace = lazy(() => import('@/pages/features/B2BMarketplace')); // ✅ CORRECT PATH
+const B2BMarketplace = lazy(() => import('@/pages/features/B2BMarketplace'));
 const CropRecommendations = lazy(() => import('@/pages/features/CropRecommendations'));
 
 // Profile pages
@@ -48,15 +51,47 @@ const Profile = lazy(() => import('@/pages/profile/Profile'));
 const EditProfile = lazy(() => import('@/pages/profile/EditProfile'));
 const Settings = lazy(() => import('@/pages/profile/Settings'));
 
-// ✅ FEEDBACK PAGE WRAPPER - Create a page wrapper for the form
+// ✅ FEEDBACK PAGE WRAPPER
 const FeedbackPage = () => {
   return (
     <div className="container mx-auto py-8">
       <FeedbackForm onSubmitSuccess={(result) => {
         console.log('Feedback submitted:', result);
-        // Handle success - maybe show toast or redirect
       }} />
     </div>
+  );
+};
+
+// ✅ CUSTOM ERROR ELEMENT - Use your ErrorBoundary
+const CustomErrorElement = () => {
+  return (
+    <ErrorBoundary>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center">
+          <div className="text-6xl mb-4">🌾</div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Oops! Something went wrong
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            We're sorry, but there seems to be an issue with the page you're trying to access.
+          </p>
+          <div className="space-y-3">
+            <button 
+              onClick={() => window.location.reload()} 
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              Reload Page
+            </button>
+            <button 
+              onClick={() => window.location.href = '/'} 
+              className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              Go to Homepage
+            </button>
+          </div>
+        </div>
+      </div>
+    </ErrorBoundary>
   );
 };
 
@@ -65,7 +100,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    errorElement: <NotFound />,
+    errorElement: <CustomErrorElement />, // ✅ Use custom error element
     children: [
       {
         index: true,
@@ -87,12 +122,10 @@ const router = createBrowserRouter([
         path: 'help',
         element: <Help />
       },
-      // ✅ FEEDBACK - Using the form component wrapped in a page
       {
         path: 'feedback',
         element: <FeedbackPage />
       },
-      // Public market prices preview
       {
         path: 'market-prices',
         element: <MarketPrices />
@@ -104,14 +137,15 @@ const router = createBrowserRouter([
     ]
   },
   
-  // ✅ AUTH ROUTES
+  // ✅ AUTH ROUTES WITH CUSTOM ERROR HANDLING
   {
     path: '/login',
     element: (
       <PublicRoute>
         <AuthLayout><Login /></AuthLayout>
       </PublicRoute>
-    )
+    ),
+    errorElement: <CustomErrorElement />
   },
   {
     path: '/register',
@@ -119,7 +153,8 @@ const router = createBrowserRouter([
       <PublicRoute>
         <AuthLayout><Register /></AuthLayout>
       </PublicRoute>
-    )
+    ),
+    errorElement: <CustomErrorElement />
   },
   {
     path: '/forgot-password',
@@ -127,7 +162,8 @@ const router = createBrowserRouter([
       <PublicRoute>
         <AuthLayout><ForgotPassword /></AuthLayout>
       </PublicRoute>
-    )
+    ),
+    errorElement: <CustomErrorElement />
   },
   {
     path: '/verify-otp',
@@ -135,7 +171,8 @@ const router = createBrowserRouter([
       <PublicRoute>
         <AuthLayout><VerifyOTP /></AuthLayout>
       </PublicRoute>
-    )
+    ),
+    errorElement: <CustomErrorElement />
   },
 
   // ✅ DASHBOARD ROUTES
@@ -146,6 +183,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -181,7 +219,8 @@ const router = createBrowserRouter([
   // ✅ MARKET INTELLIGENCE ROUTES
   {
     path: '/market',
-    element: <MainLayout />, // ✅ REMOVED ProtectedRoute - Make public
+    element: <MainLayout />,
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -193,7 +232,8 @@ const router = createBrowserRouter([
   // ✅ WEATHER ROUTES
   {
     path: '/weather-alerts',
-    element: <MainLayout />, // ✅ REMOVED ProtectedRoute - Make public
+    element: <MainLayout />,
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -210,6 +250,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -226,6 +267,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -242,6 +284,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -258,6 +301,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -274,6 +318,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -282,7 +327,7 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ B2B MARKETPLACE - Correct path from features folder
+  // ✅ B2B MARKETPLACE
   {
     path: '/marketplace',
     element: (
@@ -290,10 +335,11 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
-        element: <B2BMarketplace /> // ✅ This now points to the correct file
+        element: <B2BMarketplace />
       }
     ]
   },
@@ -306,6 +352,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -326,6 +373,7 @@ const router = createBrowserRouter([
         <MainLayout />
       </ProtectedRoute>
     ),
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -334,7 +382,7 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ CATCH ALL - 404
+  // ✅ CATCH ALL - 404 with custom styling
   {
     path: '*',
     element: <NotFound />

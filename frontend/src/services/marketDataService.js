@@ -7,6 +7,21 @@ class MarketDataService {
     this.fallbackUrl = FALLBACK_API;
   }
 
+  // Utility fetch with timeout
+  async fetchWithTimeout(url, options = {}, timeout = 10000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(id);
+      return response;
+    } catch (err) {
+      clearTimeout(id);
+      throw err;
+    }
+  }
+
   // Fetch current market prices from agmarknet
   async fetchCurrentPrices(commodity, state, market = '') {
     const cacheKey = `${CACHE_KEYS.MARKET_DATA}${commodity}_${state}_${market}`;
@@ -19,43 +34,30 @@ class MarketDataService {
     }
 
     try {
-      // Primary API call to agmarknet wrapper
-      const response = await fetch(
-        `${this.baseUrl}/request?commodity=${encodeURIComponent(commodity)}&state=${encodeURIComponent(state)}&market=${encodeURIComponent(market)}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 10000
-        }
-      );
+      const url = `${this.baseUrl}/request?commodity=${encodeURIComponent(commodity)}&state=${encodeURIComponent(state)}&market=${encodeURIComponent(market)}`;
+      
+      const response = await this.fetchWithTimeout(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } }, 10000);
 
       if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
       }
 
       const data = await response.json();
-      
-      // Transform agmarknet data to our format
+
       const formattedData = this.formatMarketData(data);
-      
-      // Cache the data
+
       this.saveToCache(cacheKey, formattedData);
-      
+
       console.log('🌐 Fresh market data fetched');
       return formattedData;
-      
+
     } catch (error) {
       console.error('❌ Primary API failed:', error);
-      
-      // Try fallback API
+
       try {
         return await this.fetchFromFallbackAPI(commodity, state, market);
       } catch (fallbackError) {
         console.error('❌ Fallback API also failed:', fallbackError);
-        
-        // Return mock data as last resort
         return this.getMockData(commodity, state, market);
       }
     }
@@ -71,12 +73,9 @@ class MarketDataService {
     }
 
     try {
-      // Generate mock historical data for now (in real app, this would come from API)
       const historicalData = this.generateHistoricalData(commodity, days);
-      
       this.saveToCache(cacheKey, historicalData);
       return historicalData;
-      
     } catch (error) {
       console.error('❌ Failed to fetch historical data:', error);
       return this.generateHistoricalData(commodity, days);
@@ -85,14 +84,15 @@ class MarketDataService {
 
   // Fallback API implementation
   async fetchFromFallbackAPI(commodity, state, market) {
-    const response = await fetch(
-      `${this.fallbackUrl}?api-key=YOUR_API_KEY&format=json&filters[commodity]=${commodity}&filters[state]=${state}`
-    );
-    
+    const apiKey = import.meta.env.VITE_FALLBACK_API_KEY || 'DEMO_KEY';
+    const url = `${this.fallbackUrl}?api-key=${apiKey}&format=json&filters[commodity]=${encodeURIComponent(commodity)}&filters[state]=${encodeURIComponent(state)}`;
+
+    const response = await this.fetchWithTimeout(url, {}, 10000);
+
     if (!response.ok) {
       throw new Error('Fallback API failed');
     }
-    
+
     const data = await response.json();
     return this.formatFallbackData(data);
   }
@@ -103,15 +103,18 @@ class MarketDataService {
       throw new Error('Invalid API response format');
     }
 
+    const record = Array.isArray(rawData.data) ? rawData.data[0] : rawData.data;
+    if (!record) throw new Error('Empty API data');
+
     return {
-      commodity: rawData.commodity,
-      state: rawData.state,
-      market: rawData.market || rawData.district,
-      date: rawData.date || new Date().toISOString().split('T')[0],
-      minPrice: parseInt(rawData.min_price) || 0,
-      maxPrice: parseInt(rawData.max_price) || 0,
-      modalPrice: parseInt(rawData.modal_price) || parseInt(rawData.price) || 0,
-      priceUnit: 'quintal',
+      commodity: record.commodity || rawData.commodity,
+      state: record.state || rawData.state,
+      market: record.market || record.district || rawData.market,
+      date: record.date || rawData.date || new Date().toISOString().split('T')[0],
+      minPrice: parseInt(record.min_price) || 0,
+      maxPrice: parseInt(record.max_price) || 0,
+      modalPrice: parseInt(record.modal_price) || parseInt(record.price) || 0,
+      priceUnit: record.unit || 'quintal',
       source: 'agmarknet',
       lastUpdated: new Date().toISOString()
     };
@@ -120,13 +123,12 @@ class MarketDataService {
   // Format fallback API response
   formatFallbackData(rawData) {
     const records = rawData.records || [];
-    
     if (records.length === 0) {
       throw new Error('No data available from fallback API');
     }
 
     const latest = records[0];
-    
+
     return {
       commodity: latest.commodity,
       state: latest.state,
@@ -135,7 +137,7 @@ class MarketDataService {
       minPrice: parseInt(latest.min_price) || 0,
       maxPrice: parseInt(latest.max_price) || 0,
       modalPrice: parseInt(latest.modal_price) || 0,
-      priceUnit: 'quintal',
+      priceUnit: latest.unit || 'quintal',
       source: 'data.gov.in',
       lastUpdated: new Date().toISOString()
     };
@@ -145,18 +147,17 @@ class MarketDataService {
   generateHistoricalData(commodity, days) {
     const data = [];
     const basePrice = this.getBasePriceForCrop(commodity);
-    
+
     for (let i = days; i >= 0; i--) {
       const date = new Date();
       date.setDate(date.getDate() - i);
-      
-      // Add some realistic price variation
-      const variation = (Math.random() - 0.5) * 0.1; // ±5% variation
+
+      const variation = (Math.random() - 0.5) * 0.1;
       const seasonalEffect = this.getSeasonalEffect(commodity, date.getMonth() + 1);
-      const trendEffect = i / days * 0.05; // Slight upward trend
-      
+      const trendEffect = i / days * 0.05;
+
       const price = Math.round(basePrice * (1 + variation + seasonalEffect + trendEffect));
-      
+
       data.push({
         date: date.toISOString().split('T')[0],
         modalPrice: Math.max(price * 0.9, price),
@@ -165,11 +166,10 @@ class MarketDataService {
         volume: Math.round(Math.random() * 1000 + 500)
       });
     }
-    
+
     return data;
   }
 
-  // Get base price for different crops
   getBasePriceForCrop(commodity) {
     const basePrices = {
       'wheat': 2200,
@@ -178,11 +178,9 @@ class MarketDataService {
       'onion': 2000,
       'mustard': 4500
     };
-    
     return basePrices[commodity.toLowerCase()] || 2000;
   }
 
-  // Get seasonal price effect
   getSeasonalEffect(commodity, month) {
     const seasonalEffects = {
       'wheat': { 3: 0.1, 4: 0.15, 5: 0.1, 6: -0.1, 7: -0.15, 8: -0.1 },
@@ -191,25 +189,23 @@ class MarketDataService {
       'onion': { 6: 0.2, 7: 0.25, 8: 0.2, 2: -0.15, 3: -0.2, 4: -0.15 },
       'mustard': { 3: 0.1, 4: 0.15, 5: 0.1, 9: -0.1, 10: -0.15, 11: -0.1 }
     };
-    
-    const effects = seasonalEffects[commodity.toLowerCase()] || {};
-    return effects[month] || 0;
+    return (seasonalEffects[commodity.toLowerCase()] || {})[month] || 0;
   }
 
   // Mock data as last resort
   getMockData(commodity, state, market) {
     const basePrice = this.getBasePriceForCrop(commodity);
-    const variation = Math.random() * 0.1 - 0.05; // ±5% variation
+    const variation = Math.random() * 0.1 - 0.05;
     const modalPrice = Math.round(basePrice * (1 + variation));
-    
+
     return {
-      commodity: commodity,
-      state: state,
+      commodity,
+      state,
       market: market || 'Default Market',
       date: new Date().toISOString().split('T')[0],
       minPrice: Math.round(modalPrice * 0.9),
       maxPrice: Math.round(modalPrice * 1.1),
-      modalPrice: modalPrice,
+      modalPrice,
       priceUnit: 'quintal',
       source: 'mock',
       lastUpdated: new Date().toISOString()
@@ -219,11 +215,7 @@ class MarketDataService {
   // Cache management
   saveToCache(key, data) {
     try {
-      const cacheData = {
-        data: data,
-        timestamp: Date.now(),
-        expiry: Date.now() + CACHE_DURATION
-      };
+      const cacheData = { data, timestamp: Date.now(), expiry: Date.now() + CACHE_DURATION };
       localStorage.setItem(key, JSON.stringify(cacheData));
     } catch (error) {
       console.warn('⚠️ Failed to save to cache:', error);
@@ -234,15 +226,12 @@ class MarketDataService {
     try {
       const cached = localStorage.getItem(key);
       if (!cached) return null;
-      
+
       const cacheData = JSON.parse(cached);
-      
-      // Check if cache is expired
       if (Date.now() > cacheData.expiry) {
         localStorage.removeItem(key);
         return null;
       }
-      
       return cacheData.data;
     } catch (error) {
       console.warn('⚠️ Failed to read from cache:', error);
