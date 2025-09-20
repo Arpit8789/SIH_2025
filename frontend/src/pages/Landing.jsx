@@ -439,13 +439,13 @@ const Landing = () => {
               </Button>
               
               <Button 
-                variant="outline" 
-                size="lg" 
-                onClick={() => navigate('/contact')}
-                className="w-full sm:w-auto border-2 border-green-300/50 text-white hover:bg-green-700/30 backdrop-blur-sm font-bold text-lg px-10 py-5 rounded-xl"
-              >
-                {currentLanguage === 'hi' ? '📞 संपर्क करें' : '📞 Contact Us'}
-              </Button>
+  variant="outline" 
+  size="lg" 
+  onClick={() => window.open('https://wa.me/918789658518', '_blank')} // ✅ FIXED
+  className="w-full sm:w-auto border-2 border-green-300/50 text-white hover:bg-green-700/30 backdrop-blur-sm font-bold text-lg px-10 py-5 rounded-xl"
+>
+  {currentLanguage === 'hi' ? '📞 संपर्क करें' : '📞 Contact Us'}
+</Button>
             </div>
           </motion.div>
         </div>
