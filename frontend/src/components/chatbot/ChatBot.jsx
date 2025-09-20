@@ -1,4 +1,4 @@
-// components/chatbot/ChatBot.jsx - PROPERLY SIZED FOR MOBILE
+// components/chatbot/ChatBot.jsx - GENERIC AI ASSISTANT (KEEP DESIGN)
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Bot, Sparkles, Minimize2, RotateCcw } from 'lucide-react';
@@ -94,7 +94,7 @@ const ChatBot = () => {
                     : 'bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700'
                   }
                 `}
-                title="Chat with Krishi Sahayak AI"
+                title="Chat with AI Assistant"
                 style={{
                   WebkitTapHighlightColor: 'transparent',
                   touchAction: 'manipulation',
@@ -158,10 +158,8 @@ const ChatBot = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
             transition={{ type: "spring", duration: 0.4, bounce: 0.2 }}
-            // ✅ FIXED: Proper mobile sizing - not full screen height
             className="fixed bottom-4 left-4 right-4 md:bottom-6 md:right-6 md:left-auto md:inset-auto z-50"
             style={{
-              // ✅ CRITICAL: Set max height for mobile to prevent overflow
               height: 'min(70vh, 500px)',
               maxHeight: '70vh'
             }}
@@ -169,7 +167,7 @@ const ChatBot = () => {
             {/* ✅ PROPERLY SIZED CHAT CONTAINER */}
             <div className="w-full h-full md:w-[380px] md:h-[480px] lg:w-[420px] lg:h-[520px] bg-white rounded-lg md:rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden backdrop-blur-sm">
               
-              {/* ✅ COMPACT HEADER */}
+              {/* ✅ GENERIC AI ASSISTANT HEADER */}
               <div className="bg-gradient-to-r from-green-500 via-green-800 to-emerald-800 p-2 md:p-4 text-white relative overflow-hidden flex-shrink-0">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
@@ -179,7 +177,7 @@ const ChatBot = () => {
 
                 <div className="relative z-10 flex items-center justify-between">
                   <div className="flex items-center space-x-2 md:space-x-3">
-                    {/* ✅ COMPACT AI AVATAR */}
+                    {/* ✅ AI ASSISTANT AVATAR */}
                     <div className="w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/30">
                       <div className="flex items-center">
                         <Bot className="w-4 h-4 md:w-5 md:h-5 text-white mr-0.5" />
@@ -188,13 +186,13 @@ const ChatBot = () => {
                     </div>
                     
                     <div>
-                      <h3 className="font-bold text-sm md:text-lg">Krishi Sahayak AI</h3>
+                      <h3 className="font-bold text-sm md:text-lg">AI Assistant</h3>
                       <div className="flex items-center space-x-1 md:space-x-2 text-xs opacity-90">
                         <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${isHealthy ? 'bg-green-300 animate-pulse' : 'bg-gray-300'}`}></div>
                         <span className="text-xs">
                           {currentLanguage === 'hi' ? 'तैयार है' : 
                            currentLanguage === 'pa' ? 'ਤਿਆਰ ਹੈ' : 
-                           'Ready '}
+                           'Ready to help'}
                         </span>
                         {isListening && (
                           <span className="text-xs bg-red-500/30 px-1 py-0.5 rounded border border-red-300/50">
@@ -237,7 +235,7 @@ const ChatBot = () => {
                           resetChat();
                         }
                       }}
-                      className="p-1 pl-5  hover:bg-white/20 rounded-md transition-all duration-200 backdrop-blur-sm"
+                      className="p-1 pl-5 hover:bg-white/20 rounded-md transition-all duration-200 backdrop-blur-sm"
                       title="Reset Chat"
                     >
                       <RotateCcw className="w-3 h-3 md:w-4 md:h-4" />
@@ -270,7 +268,7 @@ const ChatBot = () => {
               </div>
 
               {/* ✅ CHAT CONTENT - PROPERLY SIZED */}
-              <div className="flex-1 flex flex-col min-h-0 dark:bg-black bg-white overflow-hidden ">
+              <div className="flex-1 flex flex-col min-h-0 dark:bg-black bg-white overflow-hidden">
                 <ChatWindow
                   messages={messages || []}
                   isLoading={isLoading || false}
@@ -327,9 +325,9 @@ const ChatBot = () => {
                  'I\'m Listening...'}
               </h3>
               <p className="text-gray-600 mb-4 md:mb-6 text-base md:text-lg">
-                {currentLanguage === 'hi' ? 'अपना कृषि सवाल बोलें' : 
-                 currentLanguage === 'pa' ? 'ਆਪਣਾ ਖੇਤੀ ਸਵਾਲ ਬੋਲੋ' : 
-                 'Ask your farming question'}
+                {currentLanguage === 'hi' ? 'अपना सवाल बोलें' : 
+                 currentLanguage === 'pa' ? 'ਆਪਣਾ ਸਵਾਲ ਬੋਲੋ' : 
+                 'Ask me anything'}
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}

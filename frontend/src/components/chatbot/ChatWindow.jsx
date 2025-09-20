@@ -1,4 +1,4 @@
-// components/chatbot/ChatWindow.jsx - FIXED TEXT INPUT COLOR
+// components/chatbot/ChatWindow.jsx - GENERIC AI ASSISTANT WINDOW
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Mic, MicOff, Smile } from 'lucide-react';
@@ -63,9 +63,9 @@ const ChatWindow = ({
   const getText = (key) => {
     const texts = {
       placeholder: {
-        hi: 'अपना कृषि सवाल यहाँ लिखें...',
-        pa: 'ਆਪਣਾ ਖੇਤੀ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...',
-        en: 'Struggling with farming ?'
+        hi: 'कुछ भी पूछें...',
+        pa: 'ਕੁਝ ਵੀ ਪੁੱਛੋ...',
+        en: 'Ask me anything...'
       },
       send: {
         hi: 'भेजें',
@@ -76,6 +76,16 @@ const ChatWindow = ({
         hi: 'टाइप कर रहा है...',
         pa: 'ਟਾਈਪ ਕਰ ਰਿਹਾ ਹੈ...',
         en: 'Typing...'
+      },
+      welcome_title: {
+        hi: 'नमस्ते! मैं आपका AI असिस्टेंट हूं',
+        pa: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ AI ਅਸਿਸਟੈਂਟ ਹਾਂ',
+        en: 'Hello! I\'m your AI Assistant'
+      },
+      welcome_desc: {
+        hi: 'मैं आपकी किसी भी चीज़ में मदद कर सकता हूं। कृषि, मौसम, सामान्य प्रश्न, या कुछ भी पूछें जो आप जानना चाहते हैं।',
+        pa: 'ਮੈਂ ਤੁਹਾਡੀ ਕਿਸੇ ਵੀ ਚੀਜ਼ ਵਿਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ। ਖੇਤੀ, ਮੌਸਮ, ਆਮ ਸਵਾਲ, ਜਾਂ ਜੋ ਵੀ ਤੁਸੀਂ ਜਾਣਨਾ ਚਾਹੁੰਦੇ ਹੋ।',
+        en: 'I can help you with anything! Ask about farming, weather, general questions, or anything you\'d like to know.'
       }
     };
     return texts[key]?.[currentLanguage] || texts[key]?.en || '';
@@ -85,23 +95,19 @@ const ChatWindow = ({
     <div className="flex flex-col h-full overflow-hidden">
       {/* MESSAGES AREA - PROPER SCROLLING */}
       <div className="flex-1 overflow-y-auto p-2 md:p-4 space-y-3 md:space-y-4 scroll-smooth">
-        {/* Welcome Message if no messages */}
+        {/* ✅ GENERIC WELCOME MESSAGE */}
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-4 md:py-8"
           >
-            <div className="text-4xl md:text-6xl mb-3 md:mb-4">🌾</div>
+            <div className="text-4xl md:text-6xl mb-3 md:mb-4">🤖</div>
             <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">
-              {currentLanguage === 'hi' ? 'नमस्ते किसान!' :
-               currentLanguage === 'pa' ? 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ!' :
-               'Hello Farmer!'}
+              {getText('welcome_title')}
             </h3>
             <p className="text-gray-600 text-xs md:text-sm max-w-xs mx-auto leading-relaxed">
-              {currentLanguage === 'hi' ? 'मैं आपका AI कृषि सहायक हूँ। फसल, मौसम, बाजार की कीमत या सरकारी योजनाओं के बारे में पूछें।' :
-               currentLanguage === 'pa' ? 'ਮੈਂ ਤੁਹਾਡਾ AI ਖੇਤੀ ਸਹਾਇਕ ਹਾਂ। ਫਸਲ, ਮੌਸਮ, ਮਾਰਕੀਟ ਦੀਆਂ ਕੀਮਤਾਂ ਜਾਂ ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ ਬਾਰੇ ਪੁੱਛੋ।' :
-               'I\'m your AI farming assistant. Ask me about crops, weather, market prices, or government schemes.'}
+              {getText('welcome_desc')}
             </p>
           </motion.div>
         )}
@@ -156,9 +162,9 @@ const ChatWindow = ({
         />
       )}
 
-      {/* ✅ INPUT AREA - FIXED TEXT COLOR */}
+      {/* ✅ INPUT AREA - KEEP YOUR DESIGN */}
       <div className="p-2 md:p-4 bg-white flex-shrink-0 dark:bg-black">
-        <div className="flex items-center  space-x-2 md:space-x-3">
+        <div className="flex items-center space-x-2 md:space-x-3">
           {/* Voice Input Button */}
           {speechSupported && (
             <motion.button
@@ -177,7 +183,7 @@ const ChatWindow = ({
             </motion.button>
           )}
 
-          {/* ✅ FIXED TEXT INPUT - PROPER TEXT COLOR */}
+          {/* ✅ TEXT INPUT - KEEP YOUR DESIGN */}
           <div className="flex-1 relative">
             <textarea
               ref={inputRef}
@@ -200,7 +206,6 @@ const ChatWindow = ({
                 maxHeight: '80px'
               }}
               onInput={(e) => {
-                // Auto-resize textarea
                 e.target.style.height = 'auto';
                 e.target.style.height = Math.min(e.target.scrollHeight, 80) + 'px';
               }}
@@ -211,7 +216,7 @@ const ChatWindow = ({
               type="button"
               className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
               onClick={() => {
-                const emojis = ['🌾', '🚜', '🌱', '🌽', '🍅', '🥕', '🌿', '☀️', '🌧️', '💧'];
+                const emojis = ['🤖', '💡', '❓', '👍', '🌟', '💭', '🔍', '📚', '🎯', '✨'];
                 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
                 setInputMessage(prev => prev + randomEmoji);
                 inputRef.current?.focus();
@@ -254,11 +259,10 @@ const ChatWindow = ({
               </span>
             )}
           </div>
-          
         </div>
         <div className="text-right text-gray-400">
-            <span>Press Enter to send • Shift+Enter for new line</span>
-          </div>
+          <span>Press Enter to send • Shift+Enter for new line</span>
+        </div>
       </div>
     </div>
   );

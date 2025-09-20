@@ -1,4 +1,4 @@
-// components/chatbot/Message.jsx - Individual Message Component
+// components/chatbot/Message.jsx - KEEP YOUR DESIGN
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bot, User, Volume2, VolumeX, Copy, Check, Mic, Zap } from 'lucide-react';
@@ -67,7 +67,7 @@ const Message = ({
               ? 'dark:bg-gray-900 bg-gray-200 dark:text-white rounded-br-sm'
               : message.isError
                 ? 'bg-red-100 text-red-700 border border-red-200 rounded-bl-sm'
-                : 'dark:bg-gray-900 bg-gray-200 dark:text-white  rounded-bl-sm shadow-sm'
+                : 'dark:bg-gray-900 bg-gray-200 dark:text-white rounded-bl-sm shadow-sm'
           }`}>
             {/* Message Indicators */}
             <div className="flex flex-wrap gap-2 mb-2">
