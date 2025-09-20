@@ -1,4 +1,4 @@
-// components/chatbot/ChatWindow.jsx - MOBILE OPTIMIZED
+// components/chatbot/ChatWindow.jsx - FIXED TEXT INPUT COLOR
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Mic, MicOff, Smile } from 'lucide-react';
@@ -83,7 +83,7 @@ const ChatWindow = ({
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      {/* ✅ MESSAGES AREA - PROPER SCROLLING */}
+      {/* MESSAGES AREA - PROPER SCROLLING */}
       <div className="flex-1 overflow-y-auto p-2 md:p-4 space-y-3 md:space-y-4 scroll-smooth">
         {/* Welcome Message if no messages */}
         {messages.length === 0 && (
@@ -156,7 +156,7 @@ const ChatWindow = ({
         />
       )}
 
-      {/* ✅ INPUT AREA - COMPACT FOR MOBILE */}
+      {/* ✅ INPUT AREA - FIXED TEXT COLOR */}
       <div className="p-2 md:p-4 border-t border-gray-200 bg-white flex-shrink-0">
         <div className="flex items-end space-x-2 md:space-x-3">
           {/* Voice Input Button */}
@@ -177,7 +177,7 @@ const ChatWindow = ({
             </motion.button>
           )}
 
-          {/* Text Input */}
+          {/* ✅ FIXED TEXT INPUT - PROPER TEXT COLOR */}
           <div className="flex-1 relative">
             <textarea
               ref={inputRef}
@@ -186,7 +186,11 @@ const ChatWindow = ({
               onKeyPress={handleKeyPress}
               placeholder={getText('placeholder')}
               disabled={isLoading}
-              className="w-full resize-none border border-gray-300 rounded-2xl px-3 md:px-4 py-2 md:py-3 pr-10 md:pr-12 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+              className="w-full resize-none border border-gray-300 rounded-2xl px-3 md:px-4 py-2 md:py-3 pr-10 md:pr-12 
+                         focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 
+                         disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base
+                         text-gray-900 bg-white placeholder-gray-500
+                         dark:text-gray-900 dark:bg-white dark:placeholder-gray-500"
               rows="1"
               style={{
                 resize: 'none',
@@ -234,7 +238,7 @@ const ChatWindow = ({
           </motion.button>
         </div>
 
-        {/* ✅ MOBILE-FRIENDLY INPUT FOOTER */}
+        {/* MOBILE-FRIENDLY INPUT FOOTER */}
         <div className="hidden md:flex items-center justify-between mt-2 text-xs text-gray-500">
           <div className="flex items-center space-x-2">
             {isListening && (
