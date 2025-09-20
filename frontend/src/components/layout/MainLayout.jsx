@@ -62,7 +62,7 @@ const MainLayout = () => {
         />
 
         {/* Main Content */}
-        <main className="flex-1 pt-4">
+        <main className="flex-1">
           <Outlet />
         </main>
 

@@ -32,9 +32,9 @@ const ChatBot = () => {
 
   // Language options
   const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
-    { code: 'pa', name: 'ਪੰਜਾਬੀ', flag: '🇮🇳' }
+    { code: 'en', name: 'English', flag: 'US' },
+    { code: 'hi', name: 'हिंदी', flag: 'IN' },
+    { code: 'pa', name: 'ਪੰਜਾਬੀ', flag: 'IN' }
   ];
 
   // Handle opening chat
@@ -170,7 +170,7 @@ const ChatBot = () => {
             <div className="w-full h-full md:w-[380px] md:h-[480px] lg:w-[420px] lg:h-[520px] bg-white rounded-lg md:rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden backdrop-blur-sm">
               
               {/* ✅ COMPACT HEADER */}
-              <div className="bg-gradient-to-r from-green-500 via-green-600 to-emerald-600 p-2 md:p-4 text-white relative overflow-hidden flex-shrink-0">
+              <div className="bg-gradient-to-r from-green-500 via-green-800 to-emerald-800 p-2 md:p-4 text-white relative overflow-hidden flex-shrink-0">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-0 left-0 w-16 h-16 md:w-24 md:h-24 bg-white rounded-full -translate-x-8 -translate-y-8 md:-translate-x-12 md:-translate-y-12"></div>
@@ -194,7 +194,7 @@ const ChatBot = () => {
                         <span className="text-xs">
                           {currentLanguage === 'hi' ? 'तैयार है' : 
                            currentLanguage === 'pa' ? 'ਤਿਆਰ ਹੈ' : 
-                           'Ready'}
+                           'Ready '}
                         </span>
                         {isListening && (
                           <span className="text-xs bg-red-500/30 px-1 py-0.5 rounded border border-red-300/50">
@@ -237,7 +237,7 @@ const ChatBot = () => {
                           resetChat();
                         }
                       }}
-                      className="p-1 md:p-1.5 hover:bg-white/20 rounded-md transition-all duration-200 backdrop-blur-sm"
+                      className="p-1 pl-5  hover:bg-white/20 rounded-md transition-all duration-200 backdrop-blur-sm"
                       title="Reset Chat"
                     >
                       <RotateCcw className="w-3 h-3 md:w-4 md:h-4" />
@@ -270,7 +270,7 @@ const ChatBot = () => {
               </div>
 
               {/* ✅ CHAT CONTENT - PROPERLY SIZED */}
-              <div className="flex-1 flex flex-col min-h-0 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+              <div className="flex-1 flex flex-col min-h-0 dark:bg-black bg-white overflow-hidden ">
                 <ChatWindow
                   messages={messages || []}
                   isLoading={isLoading || false}

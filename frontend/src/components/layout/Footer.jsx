@@ -99,7 +99,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-white font-semibold">24/7 किसान हेल्पलाइन</p>
-                  <p className="text-yellow-300 font-bold">1800-KRISHI-1</p>
+                  <p className="text-yellow-300 font-bold hover:text-yellow-300 transition-colors">1800-KRISHI-1</p>
                 </div>
               </div>
               
@@ -109,7 +109,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-white font-semibold">ईमेल सपोर्ट</p>
-                  <p className="text-yellow-300 font-bold">help@krishisahayak.in</p>
+                  <p className="text-yellow-300 font-bold hover:text-yellow-300 transition-colors">help@krishisahayak.in</p>
                 </div>
               </div>
 
@@ -119,7 +119,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-white font-semibold">भारत से सेवा</p>
-                  <p className="text-yellow-300 font-bold">New Delhi, India</p>
+                  <p className="text-yellow-300 font-bold hover:text-yellow-300 transition-colors">New Delhi, India</p>
                 </div>
               </div>
             </div>

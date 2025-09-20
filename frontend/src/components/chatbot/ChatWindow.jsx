@@ -65,7 +65,7 @@ const ChatWindow = ({
       placeholder: {
         hi: 'अपना कृषि सवाल यहाँ लिखें...',
         pa: 'ਆਪਣਾ ਖੇਤੀ ਸਵਾਲ ਇੱਥੇ ਲਿਖੋ...',
-        en: 'Ask me anything about farming...'
+        en: 'Struggling with farming ?'
       },
       send: {
         hi: 'भेजें',
@@ -157,8 +157,8 @@ const ChatWindow = ({
       )}
 
       {/* ✅ INPUT AREA - FIXED TEXT COLOR */}
-      <div className="p-2 md:p-4 border-t border-gray-200 bg-white flex-shrink-0">
-        <div className="flex items-end space-x-2 md:space-x-3">
+      <div className="p-2 md:p-4 bg-white flex-shrink-0 dark:bg-black">
+        <div className="flex items-center  space-x-2 md:space-x-3">
           {/* Voice Input Button */}
           {speechSupported && (
             <motion.button
@@ -169,7 +169,7 @@ const ChatWindow = ({
               className={`p-2 md:p-3 rounded-full transition-all duration-200 ${
                 isListening
                   ? 'bg-red-500 text-white shadow-lg animate-pulse'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+                  : 'bg-gray-200 hover:bg-gray-200 text-gray-800 dark:bg-gray-900 dark:text-white'
               } disabled:opacity-50`}
               title={isListening ? 'Stop listening' : 'Voice input'}
             >
@@ -189,8 +189,8 @@ const ChatWindow = ({
               className="w-full resize-none border border-gray-300 rounded-2xl px-3 md:px-4 py-2 md:py-3 pr-10 md:pr-12 
                          focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent 
                          disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base
-                         text-gray-900 bg-white placeholder-gray-500
-                         dark:text-gray-900 dark:bg-white dark:placeholder-gray-500"
+                         dark:text-white bg-white placeholder-gray-500
+                          dark:bg-black dark:placeholder-gray-500 justify-center items-center"
               rows="1"
               style={{
                 resize: 'none',
@@ -230,7 +230,7 @@ const ChatWindow = ({
             className={`p-2 md:p-3 rounded-full transition-all duration-200 ${
               inputMessage.trim() && !isLoading
                 ? 'bg-green-500 hover:bg-green-600 text-white shadow-lg'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-gray-300 text-gray-800 dark:bg-gray-900 dark:text-white cursor-not-allowed'
             }`}
             title={getText('send')}
           >
@@ -254,10 +254,11 @@ const ChatWindow = ({
               </span>
             )}
           </div>
-          <div className="text-right">
+          
+        </div>
+        <div className="text-right text-gray-400">
             <span>Press Enter to send • Shift+Enter for new line</span>
           </div>
-        </div>
       </div>
     </div>
   );

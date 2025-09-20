@@ -91,22 +91,22 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
               </Button>
             )}
 
-            <Link to="/" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-2 group ">
               <div className="relative">
                 <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-green-600 via-emerald-600 to-green-500 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                   <span className="text-white font-bold text-lg">🌾</span>
                   {/* Add sparkle effect */}
                   <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-              </div>
+              </div>  
               
-              <div className="hidden sm:block">
-                <h1 className="font-bold text-xl bg-gradient-to-r from-green-700 via-emerald-600 to-green-500 bg-clip-text text-transparent">
+              <div className="hidden sm:block ">
+                <h1 className="font-bold pt-4 text-xl bg-gradient-to-r from-green-700 via-emerald-600 to-green-500 bg-clip-text text-transparent">
                   कृषि सहायक
                 </h1>
-                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium tracking-wide">
+                <div><p className="text-xs text-gray-600 dark:text-gray-400 font-medium tracking-wide">
                   {currentLanguage === 'hi' ? 'स्मार्ट खेती' : 'Smart Farming'}
-                </p>
+                </p></div>
               </div>
             </Link>
           </div>
@@ -140,57 +140,6 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
 
           {/* RIGHT SECTION - ENHANCED CONTROLS */}
           <div className="flex items-center gap-2">
-            
-            {/* ✅ FIXED: LANGUAGE SELECTOR - Proper z-index and portal rendering */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="hover:bg-green-100 dark:hover:bg-green-900/20 transition-colors relative"
-                >
-                  <Globe className="h-4 w-4" />
-                  {/* Language indicator */}
-                  <span className="absolute -bottom-1 -right-1 text-[10px] font-bold text-green-600 dark:text-green-400">
-                    {currentLanguage.toUpperCase()}
-                  </span>
-                </Button>
-              </DropdownMenuTrigger>
-              {/* ✅ CRITICAL FIX: Very high z-index and proper positioning */}
-              <DropdownMenuContent 
-                align="end" 
-                className="w-48 mt-2 border-green-200 dark:border-green-800"
-                style={{ zIndex: 9999 }}
-                container={document.body}
-                sideOffset={4}
-                avoidCollisions={true}
-                collisionPadding={10}
-              >
-                <DropdownMenuLabel className="text-green-700 dark:text-green-300">
-                  {currentLanguage === 'hi' ? 'भाषा चुनें' : 'Choose Language'}
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem 
-                  onClick={() => changeLanguage('hi')}
-                  className="focus:bg-green-50 dark:focus:bg-green-900/20"
-                >
-                  🇮🇳 हिंदी {currentLanguage === 'hi' && '✓'}
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => changeLanguage('en')}
-                  className="focus:bg-green-50 dark:focus:bg-green-900/20"
-                >
-                  🇬🇧 English {currentLanguage === 'en' && '✓'}
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => changeLanguage('pa')}
-                  className="focus:bg-green-50 dark:focus:bg-green-900/20"
-                >
-                  🇮🇳 ਪੰਜਾਬੀ {currentLanguage === 'pa' && '✓'}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
             {/* ENHANCED THEME TOGGLE - Works on ALL pages */}
             <Button
               variant="ghost"

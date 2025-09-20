@@ -46,7 +46,7 @@ const Message = ({
         {/* Avatar */}
         <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
           message.role === 'user' 
-            ? 'bg-blue-500 text-white' 
+            ? 'bg-green-900 text-white' 
             : message.isError 
               ? 'bg-red-500 text-white'
               : 'bg-green-500 text-white'
@@ -64,10 +64,10 @@ const Message = ({
         }`}>
           <div className={`px-4 py-3 rounded-2xl relative group ${
             message.role === 'user'
-              ? 'bg-blue-500 text-white rounded-br-sm'
+              ? 'dark:bg-gray-900 bg-gray-200 dark:text-white rounded-br-sm'
               : message.isError
                 ? 'bg-red-100 text-red-700 border border-red-200 rounded-bl-sm'
-                : 'bg-white text-gray-800 border border-gray-200 rounded-bl-sm shadow-sm'
+                : 'dark:bg-gray-900 bg-gray-200 dark:text-white  rounded-bl-sm shadow-sm'
           }`}>
             {/* Message Indicators */}
             <div className="flex flex-wrap gap-2 mb-2">

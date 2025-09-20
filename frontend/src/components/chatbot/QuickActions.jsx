@@ -19,13 +19,13 @@ const QuickActions = ({
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="px-4 py-3 bg-gradient-to-r from-green-50 to-blue-50 border-t border-gray-200"
+          className="px-4 py-3 bg-blue-50 dark:bg-gray-900 rounded-xl"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
               <Zap className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium dark:text-white text-gray-700">
                 {currentLanguage === 'hi' ? 'त्वरित सुझाव' : 
                  currentLanguage === 'pa' ? 'ਤੁਰੰਤ ਸੁਝਾਅ' : 
                  'Quick Actions'}
@@ -37,7 +37,7 @@ const QuickActions = ({
               className="p-1 hover:bg-gray-200 rounded-full transition-colors"
               title="Close quick actions"
             >
-              <X className="w-4 h-4 text-gray-500" />
+              <X className="w-4 h-4 dark:text-white text-gray-500" />
             </button>
           </div>
 
@@ -52,7 +52,7 @@ const QuickActions = ({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onActionClick(action)}
-                className="group px-4 py-2 bg-white hover:bg-green-50 text-gray-700 hover:text-green-700 text-sm rounded-xl border border-gray-200 hover:border-green-300 transition-all duration-200 shadow-sm hover:shadow-md flex items-center space-x-2"
+                className="group px-4 py-2 bg-white dark:bg-black dark:text-white hover:bg-green-50 text-gray-700 hover:text-green-700 text-sm rounded-xl transition-all duration-200 shadow-sm hover:shadow-md flex items-center space-x-2"
               >
                 {/* Extract emoji from action text */}
                 <span className="text-base">
@@ -66,7 +66,7 @@ const QuickActions = ({
           </div>
 
           {/* Helper Text */}
-          <div className="mt-2 text-xs text-gray-500 text-center">
+          <div className="mt-2 text-xs dark:text-white text-gray-500 text-center">
             {currentLanguage === 'hi' ? 'या सीधे अपना सवाल टाइप करें' : 
              currentLanguage === 'pa' ? 'ਜਾਂ ਸਿੱਧਾ ਆਪਣਾ ਸਵਾਲ ਟਾਈਪ ਕਰੋ' : 
              'Or type your question directly'}

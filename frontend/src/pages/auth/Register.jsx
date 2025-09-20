@@ -103,8 +103,8 @@ const Register = () => {
     }
 
     // Password validation
-    if (formData.password && formData.password.length < 6) {
-      newErrors.password = currentLanguage === 'hi' ? 'पासवर्ड कम से कम 6 अक्षर का होना चाहिए' : 'Password must be at least 6 characters';
+    if (formData.password && formData.password.length < 8) {
+      newErrors.password = currentLanguage === 'hi' ? 'पासवर्ड कम से कम 8 अक्षर का होना चाहिए' : 'Password must be at least 6 characters';
     }
 
     // Confirm password validation
