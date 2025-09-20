@@ -1,45 +1,52 @@
-// routes/weather.js - COMPLETE UPDATED VERSION
+// backend/routes/weather.js - SIMPLE ROUTES FOR WEATHER CONTROLLER
 import express from 'express';
+import { authenticate } from '../middleware/auth.js';
 import {
-  getCurrentWeather,
-  getWeatherForecast,
-  getWeatherAlerts,
-  markAlertsAsRead,
-  testAIConnection
+  getCurrentWeatherWithInsights,
+  getDetailedForecast,
+  getFarmingInsights,
+  toggleWeatherNotifications,
+  sendImmediateAlert,
+  getWeatherStats,
+  testWeatherService,
+  getWeatherByLocation
 } from '../controllers/weatherController.js';
-import { 
-  authenticate, 
-  requireVerification 
-} from '../middleware/auth.js';
-import { 
-  requireFarmer 
-} from '../middleware/roleCheck.js';
 
 const router = express.Router();
 
-// Public routes (no auth required)
-router.get('/test-ai', testAIConnection);
+// ============================================
+// 🌐 PUBLIC ROUTES (No Authentication Required) 
+// ============================================
 
-// Protected routes for farmers
+// Get current weather with AI insights
+router.get('/current', getCurrentWeatherWithInsights);
+
+// Get 7-day detailed forecast
+router.get('/forecast', getDetailedForecast);
+
+// Get AI farming insights only
+router.get('/insights', getFarmingInsights);
+
+// Test weather service status
+router.get('/test', testWeatherService);
+
+// Get weather for specific location by name
+router.get('/location/:location', getWeatherByLocation);
+
+// ============================================
+// 🔒 PROTECTED ROUTES (Authentication Required)
+// ============================================
+
+// Apply authentication middleware to all routes below
 router.use(authenticate);
-router.use(requireVerification);
-router.use(requireFarmer);
 
-// Weather data endpoints
-router.get('/current', getCurrentWeather);
-router.get('/forecast', getWeatherForecast);
+// Toggle weather email notifications
+router.post('/notifications/toggle', toggleWeatherNotifications);
 
-// Weather alerts endpoints
-router.get('/alerts', getWeatherAlerts);
-router.post('/alerts/mark-read', markAlertsAsRead);
+// Send immediate weather alert
+router.post('/alert/send', sendImmediateAlert);
 
-// Additional endpoints for the full system
-router.post('/advisory/feedback', async (req, res) => {
-  // Simple feedback acknowledgment
-  res.json({
-    success: true,
-    message: 'Feedback received successfully'
-  });
-});
+// Get weather statistics for user
+router.get('/stats', getWeatherStats);
 
 export default router;
