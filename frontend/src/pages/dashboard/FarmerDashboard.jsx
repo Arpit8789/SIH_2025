@@ -33,7 +33,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
-import AIWeatherAdvisory from '@/components/weather/AIWeatherAdvisory';
+//import AIWeatherAdvisory from '@/components/weather/AIWeatherAdvisory';
 import { useAuth } from '@/hooks/useAuth';
 import { useLanguage } from '@/hooks/useLanguage';
 import { weatherService } from '@/services/weatherService';
@@ -314,7 +314,7 @@ const getInspirationMessage = () => {
         )}
 
         {/* AI Weather Advisory */}
-        <AIWeatherAdvisory />
+        
 
         {/* Main Dashboard Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
