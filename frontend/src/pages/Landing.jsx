@@ -300,37 +300,42 @@ const Landing = () => {
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <Card className={`h-full border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 ${feature.bgColor} backdrop-blur-sm`}>
-                  <CardContent className="p-8">
-                    <div className="relative mb-6">
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                        <feature.icon className="w-8 h-8 text-white" />
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Sparkles className="w-3 h-3 text-white" />
-                      </div>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors duration-300">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+  {features.map((feature, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className="group"
+    >
+      <Card 
+        className={`h-full border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 ${feature.bgColor} backdrop-blur-sm cursor-pointer`}
+        onClick={() => navigate('/register')} // ✅ ADD THIS CLICK HANDLER
+      >
+        <CardContent className="p-8">
+          <div className="relative mb-6">
+            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
+              <feature.icon className="w-8 h-8 text-white" />
+            </div>
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <Sparkles className="w-3 h-3 text-white" />
+            </div>
           </div>
+          <h3 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors duration-300">
+            {feature.title}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
+            {feature.description}
+          </p>
+        </CardContent>
+      </Card>
+    </motion.div>
+  ))}
+</div>
+
         </div>
       </section>
 
