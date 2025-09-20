@@ -1,4 +1,4 @@
-// services/geminiService.js - Gemini API Integration (MODEL FIXED)
+// services/geminiService.js - GENERIC FARMING CHATBOT (NOT WEBSITE-FOCUSED)
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 class GeminiService {
@@ -25,7 +25,6 @@ class GeminiService {
       
       this.genAI = new GoogleGenerativeAI(apiKey);
       
-      // ✅ Try different model names until one works
       const modelNames = [
         process.env.GEMINI_MODEL || 'gemini-1.5-flash',
         'gemini-1.5-flash',
@@ -41,7 +40,6 @@ class GeminiService {
           console.log(`🔄 Trying model: ${modelName}`);
           this.model = this.genAI.getGenerativeModel({ model: modelName });
           
-          // Test the model
           const testResult = await this.model.generateContent('Hello');
           const testResponse = await testResult.response;
           const testText = testResponse.text();
@@ -73,7 +71,7 @@ class GeminiService {
     }
   }
 
-  // Create system context (same as before)
+  // ✅ FIXED: Generic helpful system context
   createSystemContext(user, currentPage, language = 'en') {
     const languageMap = {
       'en': 'English',
@@ -85,50 +83,58 @@ class GeminiService {
     const userName = user?.name || 'Friend';
     const selectedLanguage = languageMap[language] || 'English';
 
-    return `You are Krishi Sahayak AI Assistant - India's most advanced multilingual farming platform.
+    return `You are a helpful AI assistant specializing in agriculture and farming knowledge.
 
-CRITICAL INSTRUCTIONS:
-1. ALWAYS respond in ${selectedLanguage}. If user writes in Hindi, respond in Hindi. If Punjabi, respond in Punjabi.
-2. You are helping ${userName} (Role: ${userRole}) who is currently on ${currentPage} page.
+CORE BEHAVIOR:
+1. ALWAYS respond in ${selectedLanguage}
+2. You are talking to ${userName} (${userRole})
+3. Be a knowledgeable, helpful farming expert and general assistant
+4. Answer questions directly with useful, practical information
+5. Don't constantly redirect to website features - PROVIDE ACTUAL HELP
 
-PLATFORM KNOWLEDGE - Krishi Sahayak Features:
-🌾 CORE FEATURES:
-- Multilingual Advisory (Hindi/English/Punjabi with voice support)
-- Location-specific crop recommendations with GPS
-- Advanced soil health & NPK calculator with fertilizer guidance
-- Weather-based alerts & 7-day agricultural forecasts
-- AI-powered pest/disease detection via camera
-- Real-time market prices with AI sell/hold recommendations
-- Government schemes & subsidy advisory with eligibility checking
-- B2B marketplace for direct farmer-to-buyer sales
+YOUR EXPERTISE:
+🌾 FARMING KNOWLEDGE:
+- Crop cultivation techniques and best practices
+- Soil health, fertilizers, and NPK management
+- Pest and disease identification and treatment
+- Weather-based farming advice
+- Irrigation and water management
+- Harvest timing and post-harvest handling
+- Organic vs conventional farming methods
 
-🤖 YOUR CAPABILITIES:
-- Answer farming questions (crop selection, fertilizers, pest control)
-- Explain website features and navigation
-- Provide weather-based farming advice
-- Help with market price queries and selling decisions
-- Guide through government scheme applications
-- Assist with soil health and fertilizer calculations
-- Disease identification advice
-- Voice commands and multilingual conversations
+🌱 CROP GUIDANCE:
+- Crop selection based on season, soil, climate
+- Seed variety recommendations
+- Plant spacing and cultivation techniques
+- Growth stages and care requirements
+- Yield optimization strategies
 
-SPECIAL BEHAVIORS:
-- If user is on 'landing' page and not logged in: Encourage them to "register or login to access full farming features"
-- For farming questions: Provide scientific, location-aware advice
-- For website help: Guide them to relevant features
-- Always be helpful, practical, and farmer-focused
+💡 GENERAL ASSISTANCE:
+- Answer any question the user asks
+- Provide practical, actionable advice
+- Explain farming concepts clearly
+- Help with calculations (area, quantity, costs)
+- Give weather-related farming tips
+- Market trends and price guidance
 
 RESPONSE STYLE:
-- Be conversational and friendly
-- Use farming terminology appropriately
-- Include emojis relevant to farming (🌾🚜🌱💧☀️🌧️)
-- Keep responses concise but informative
-- Offer to help with related features when relevant
+- Be conversational, friendly, and helpful
+- Provide direct answers to questions asked
+- Use simple, clear language
+- Include practical tips and examples
+- Add relevant emojis (🌾🚜🌱💧☀️🌧️) when appropriate
+- Keep responses informative but not overwhelming
 
-Remember: You're helping Indian farmers make better decisions. Be accurate, practical, and supportive.`;
+IMPORTANT: 
+- Answer questions directly - don't just redirect to "check our platform"
+- If asked about general topics (not farming), still be helpful
+- Only mention website features if specifically asked about the platform
+- Focus on being genuinely helpful rather than promotional
+- Provide real farming knowledge and advice
+
+You are here to HELP, not just guide users around a website.`;
   }
 
-  // Generate response using Gemini (same logic as before)
   async generateResponse(userMessage, systemContext, conversationHistory = []) {
     try {
       const initialized = await this.initialize();
@@ -172,26 +178,35 @@ Remember: You're helping Indian farmers make better decisions. Be accurate, prac
     }
   }
 
-  // Fallback responses (same as before)
+  // ✅ FIXED: Generic helpful fallback responses
   getFallbackResponse(userMessage) {
     const message = userMessage.toLowerCase();
     
-    if (message.includes('crop') || message.includes('फसल')) {
-      return '🌾 I can help with crop recommendations! Please check our Crop Advisory section for detailed guidance based on your location and soil type.';
+    // General farming topics
+    if (message.includes('crop') || message.includes('फसल') || message.includes('farming')) {
+      return '🌾 I can help you with crop-related questions! What specific crop are you interested in? I can provide guidance on cultivation, pest management, fertilizers, or harvest timing.';
     }
     
-    if (message.includes('weather') || message.includes('मौसम')) {
-      return '🌤️ For weather updates and farming advice, please visit our Weather Alerts section. We provide 7-day forecasts with agricultural recommendations.';
+    if (message.includes('weather') || message.includes('मौसम') || message.includes('rain')) {
+      return '🌤️ Weather is crucial for farming! What would you like to know? I can help with seasonal planning, rain-dependent crops, weather protection techniques, or timing farm activities based on weather patterns.';
     }
     
-    if (message.includes('price') || message.includes('कीमत')) {
-      return '💰 Check our Market Prices section for real-time crop prices and AI-powered selling recommendations.';
+    if (message.includes('price') || message.includes('कीमत') || message.includes('market')) {
+      return '💰 Market prices depend on location, season, and demand. What crop are you asking about? I can give you general market insights and tips for getting better prices for your produce.';
     }
     
-    return '🌾 I apologize, I\'m currently experiencing technical difficulties. However, I can still help you navigate Krishi Sahayak platform! Try asking about our features like Market Prices, Weather Alerts, Disease Detection, or Soil Health guidance.';
+    if (message.includes('soil') || message.includes('मिट्टी') || message.includes('fertilizer')) {
+      return '🌱 Soil health is the foundation of good farming! Are you asking about soil testing, fertilizer recommendations, or improving soil quality? I can help with practical advice.';
+    }
+    
+    if (message.includes('pest') || message.includes('disease') || message.includes('रोग')) {
+      return '🐛 Pest and disease management is important for healthy crops. Which crop are you growing? I can suggest organic and chemical treatment options based on the specific problem.';
+    }
+
+    // Generic helpful response
+    return '🤖 I\'m here to help! I can answer questions about farming, agriculture, weather, crops, soil, pests, market prices, or almost anything else you\'d like to know. What would you like to learn about?';
   }
 
-  // Health check
   async healthCheck() {
     try {
       const initialized = await this.initialize();
