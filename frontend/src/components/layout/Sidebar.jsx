@@ -372,14 +372,14 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
         {/* ✅ FOOTER - FIXED */}
         <div className="p-4 border-t border-green-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-green-900/10 space-y-2 flex-shrink-0">
           {/* Help */}
-          <Button
+          {/* <Button
             variant="ghost"
             className="w-full justify-start hover:bg-blue-100 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 hover:text-blue-700 group"
             onClick={() => handleNavigation({ href: '/help', requiresLogin: false })}
           >
             <HelpCircle className="h-4 w-4 mr-3 group-hover:scale-110 transition-transform duration-200" />
             {currentLanguage === 'hi' ? 'सहायता' : 'Help Center'}
-          </Button>
+          </Button> */}
 
           {/* Logout */}
           {user && (

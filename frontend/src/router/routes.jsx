@@ -1,4 +1,4 @@
-// src/router/routes.jsx - FIXED ERROR HANDLING & ROUTING
+// src/router/routes.jsx - FIXED MARKET ROUTING
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
@@ -34,8 +34,8 @@ const FarmerDashboard = lazy(() => import('@/pages/dashboard/FarmerDashboard'));
 const BuyerDashboard = lazy(() => import('@/pages/dashboard/BuyerDashboard'));
 const AdminDashboard = lazy(() => import('@/pages/dashboard/AdminDashboard'));
 
-// Market Intelligence
-const MarketPrices = lazy(() => import('@/pages/market/MarketPrices'));
+// ✅ UPDATED: Market Intelligence - Import from features folder
+const MarketPrices = lazy(() => import('@/pages/features/MarketPrices'));
 
 // ✅ FEATURES - Correct paths
 const WeatherAlerts = lazy(() => import('@/pages/features/WeatherAlerts'));
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    errorElement: <CustomErrorElement />, // ✅ Use custom error element
+    errorElement: <CustomErrorElement />,
     children: [
       {
         index: true,
@@ -126,8 +126,13 @@ const router = createBrowserRouter([
         path: 'feedback',
         element: <FeedbackPage />
       },
+      // ✅ UPDATED: Multiple market routes for flexibility
       {
         path: 'market-prices',
+        element: <MarketPrices />
+      },
+      {
+        path: 'market',
         element: <MarketPrices />
       },
       {
@@ -212,19 +217,6 @@ const router = createBrowserRouter([
             <AdminDashboard />
           </ProtectedRoute>
         )
-      }
-    ]
-  },
-
-  // ✅ MARKET INTELLIGENCE ROUTES
-  {
-    path: '/market',
-    element: <MainLayout />,
-    errorElement: <CustomErrorElement />,
-    children: [
-      {
-        index: true,
-        element: <MarketPrices />
       }
     ]
   },
