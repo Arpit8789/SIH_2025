@@ -1,4 +1,4 @@
-// src/router/routes.jsx - FIXED MARKET ROUTING
+// src/router/routes.jsx - UPDATED WITH SAVE YOUR HARVEST
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
@@ -13,9 +13,6 @@ import NotFound from '@/components/common/NotFound';
 // Direct imports for critical components
 import Register from '@/pages/auth/Register';
 import VerifyOTP from '@/pages/auth/VerifyOTP';
-
-// ✅ FEEDBACK FORM - Import from forms folder
-import FeedbackForm from '@/components/forms/FeedbackForm';
 
 // Lazy load existing pages
 const Landing = lazy(() => import('@/pages/Landing'));
@@ -34,35 +31,22 @@ const FarmerDashboard = lazy(() => import('@/pages/dashboard/FarmerDashboard'));
 const BuyerDashboard = lazy(() => import('@/pages/dashboard/BuyerDashboard'));
 const AdminDashboard = lazy(() => import('@/pages/dashboard/AdminDashboard'));
 
-// ✅ UPDATED: Market Intelligence - Import from features folder
-const MarketPrices = lazy(() => import('@/pages/features/MarketPrices'));
-
-// ✅ FEATURES - Correct paths
+// ✅ FEATURES - Complete list
 const WeatherAlerts = lazy(() => import('@/pages/features/WeatherAlerts'));
+const MarketPrices = lazy(() => import('@/pages/features/MarketPrices'));
 const DiseaseDetection = lazy(() => import('@/pages/features/DiseaseDetection'));
-const AIChatbot = lazy(() => import('@/pages/features/AIChatbot'));
-const GovernmentSchemes = lazy(() => import('@/pages/features/GovernmentSchemes'));
-const SoilHealth = lazy(() => import('@/pages/features/SoilHealth'));
-const B2BMarketplace = lazy(() => import('@/pages/features/B2BMarketplace'));
 const CropRecommendations = lazy(() => import('@/pages/features/CropRecommendations'));
+const SoilHealth = lazy(() => import('@/pages/features/SoilHealth'));
+const GovernmentSchemes = lazy(() => import('@/pages/features/GovernmentSchemes'));
+const SaveYourHarvest = lazy(() => import('@/pages/features/SaveYourHarvest')); // ✅ NEW
+const B2BMarketplace = lazy(() => import('@/pages/features/B2BMarketplace'));
 
 // Profile pages
 const Profile = lazy(() => import('@/pages/profile/Profile'));
 const EditProfile = lazy(() => import('@/pages/profile/EditProfile'));
 const Settings = lazy(() => import('@/pages/profile/Settings'));
 
-// ✅ FEEDBACK PAGE WRAPPER
-const FeedbackPage = () => {
-  return (
-    <div className="container mx-auto py-8">
-      <FeedbackForm onSubmitSuccess={(result) => {
-        console.log('Feedback submitted:', result);
-      }} />
-    </div>
-  );
-};
-
-// ✅ CUSTOM ERROR ELEMENT - Use your ErrorBoundary
+// ✅ CUSTOM ERROR ELEMENT
 const CustomErrorElement = () => {
   return (
     <ErrorBoundary>
@@ -122,11 +106,15 @@ const router = createBrowserRouter([
         path: 'help',
         element: <Help />
       },
+      // ✅ PUBLIC ACCESS TO CORE FEATURES
       {
-        path: 'feedback',
-        element: <FeedbackPage />
+        path: 'weather',
+        element: <WeatherAlerts />
       },
-      // ✅ UPDATED: Multiple market routes for flexibility
+      {
+        path: 'weather-alerts',
+        element: <WeatherAlerts />
+      },
       {
         path: 'market-prices',
         element: <MarketPrices />
@@ -134,15 +122,11 @@ const router = createBrowserRouter([
       {
         path: 'market',
         element: <MarketPrices />
-      },
-      {
-        path: 'weather',
-        element: <WeatherAlerts />
       }
     ]
   },
   
-  // ✅ AUTH ROUTES WITH CUSTOM ERROR HANDLING
+  // ✅ AUTH ROUTES
   {
     path: '/login',
     element: (
@@ -221,24 +205,11 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ WEATHER ROUTES
-  {
-    path: '/weather-alerts',
-    element: <MainLayout />,
-    errorElement: <CustomErrorElement />,
-    children: [
-      {
-        index: true,
-        element: <WeatherAlerts />
-      }
-    ]
-  },
-
-  // ✅ CROP RECOMMENDATIONS
+  // ✅ PROTECTED FEATURE ROUTES
   {
     path: '/crop-recommendations',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute requiredRole="farmer">
         <MainLayout />
       </ProtectedRoute>
     ),
@@ -251,7 +222,6 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ DISEASE DETECTION
   {
     path: '/disease-detection',
     element: (
@@ -268,41 +238,6 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ AI CHATBOT
-  {
-    path: '/ai-chat',
-    element: (
-      <ProtectedRoute>
-        <MainLayout />
-      </ProtectedRoute>
-    ),
-    errorElement: <CustomErrorElement />,
-    children: [
-      {
-        index: true,
-        element: <AIChatbot />
-      }
-    ]
-  },
-
-  // ✅ GOVERNMENT SCHEMES
-  {
-    path: '/schemes',
-    element: (
-      <ProtectedRoute requiredRole="farmer">
-        <MainLayout />
-      </ProtectedRoute>
-    ),
-    errorElement: <CustomErrorElement />,
-    children: [
-      {
-        index: true,
-        element: <GovernmentSchemes />
-      }
-    ]
-  },
-
-  // ✅ SOIL HEALTH
   {
     path: '/soil-health',
     element: (
@@ -319,7 +254,39 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ B2B MARKETPLACE
+  {
+    path: '/schemes',
+    element: (
+      <ProtectedRoute requiredRole="farmer">
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    errorElement: <CustomErrorElement />,
+    children: [
+      {
+        index: true,
+        element: <GovernmentSchemes />
+      }
+    ]
+  },
+
+  // ✅ NEW: SAVE YOUR HARVEST - PLACED BEFORE B2B MARKETPLACE
+  {
+    path: '/save-harvest',
+    element: (
+      <ProtectedRoute requiredRole="farmer">
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    errorElement: <CustomErrorElement />,
+    children: [
+      {
+        index: true,
+        element: <SaveYourHarvest />
+      }
+    ]
+  },
+
   {
     path: '/marketplace',
     element: (
@@ -357,7 +324,6 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ SETTINGS
   {
     path: '/settings',
     element: (
@@ -374,7 +340,7 @@ const router = createBrowserRouter([
     ]
   },
 
-  // ✅ CATCH ALL - 404 with custom styling
+  // ✅ CATCH ALL - 404
   {
     path: '*',
     element: <NotFound />

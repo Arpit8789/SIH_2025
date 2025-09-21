@@ -1,4 +1,4 @@
-// src/components/layout/Sidebar.jsx - CHATBOT INTEGRATION
+// src/components/layout/Sidebar.jsx - SIMPLE SMART SENSORS TOOLTIP
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
@@ -22,7 +22,9 @@ import {
   Phone,
   BarChart3,
   FileText,
-  Bell
+  Bell,
+  Shield,
+  Wifi // ✅ SMART SENSORS ICON
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -30,8 +32,10 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 
-const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatbot PROP
+const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => {
   const [expandedSections, setExpandedSections] = useState(['explore']);
+  const [sensorTooltipPosition, setSensorTooltipPosition] = useState({ x: 0, y: 0 });
+  const [showSensorTooltip, setShowSensorTooltip] = useState(false);
   const { user, logout } = useAuth();
   const { currentLanguage } = useLanguage();
   const location = useLocation();
@@ -94,12 +98,11 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
             requiresLogin: true
           },
           {
-            icon: MessageSquare,
-            label: currentLanguage === 'hi' ? 'AI सहायक' : 'AI Assistant',
-            href: 'chatbot', // ✅ SPECIAL IDENTIFIER FOR CHATBOT
-            badge: 'Voice',
-            requiresLogin: true,
-            isChatbot: true // ✅ SPECIAL FLAG
+            icon: Shield,
+            label: currentLanguage === 'hi' ? 'अपनी फसल बचाएं' : 'Save Your Harvest',
+            href: '/save-harvest',
+            badge: 'New',
+            requiresLogin: true
           },
           {
             icon: ShoppingCart,
@@ -115,12 +118,14 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
             badge: '2025',
             requiresLogin: true
           },
+          // ✅ NEW: SMART SENSORS - AFTER GOVERNMENT SCHEMES
           {
-            icon: MessageCircle,
-            label: currentLanguage === 'hi' ? 'फीडबैक' : 'Feedback',
-            href: '/feedback',
-            badge: null,
-            requiresLogin: false
+            icon: Wifi,
+            label: currentLanguage === 'hi' ? 'स्मार्ट सेंसर कनेक्ट' : 'Connect Sensors',
+            href: 'sensors',
+            badge: 'IoT',
+            requiresLogin: true,
+            isComingSoon: true
           }
         ]
       }
@@ -135,8 +140,28 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
     );
   };
 
+  // ✅ HANDLE SENSOR HOVER
+  const handleSensorHover = (event, show) => {
+    if (show) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setSensorTooltipPosition({
+        x: rect.right + 10,
+        y: rect.top
+      });
+      setShowSensorTooltip(true);
+    } else {
+      setShowSensorTooltip(false);
+    }
+  };
+
   // ✅ MODIFIED NAVIGATION HANDLER
   const handleNavigation = (item) => {
+    // ✅ CHECK IF IT'S COMING SOON FEATURE
+    if (item.isComingSoon) {
+      // Just show the tooltip, don't navigate
+      return;
+    }
+
     // ✅ CHECK IF IT'S THE CHATBOT
     if (item.isChatbot) {
       if (!user) {
@@ -191,6 +216,54 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
           onClick={onClose}
           style={{ touchAction: 'none' }}
         />
+      )}
+
+      {/* ✅ SIMPLE SENSOR TOOLTIP */}
+      {showSensorTooltip && (
+        <div 
+          className="fixed z-[70] pointer-events-none"
+          style={{
+            left: `${sensorTooltipPosition.x}px`,
+            top: `${sensorTooltipPosition.y}px`,
+            transform: 'translateY(-50%)'
+          }}
+        >
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 p-4 max-w-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Wifi className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white text-sm">
+                  {currentLanguage === 'hi' ? 'स्मार्ट फार्म सेंसर' : 'Smart Farm Sensors'}
+                </h4>
+                <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                  {currentLanguage === 'hi' ? 'जल्द आ रहा है!' : 'Coming Soon!'}
+                </p>
+              </div>
+            </div>
+            
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+              {currentLanguage === 'hi' 
+                ? 'खेत में रियल-टाइम डेटा पाएं: मिट्टी की नमी, pH, NPK। मोबाइल पर तुरंत अलर्ट।'
+                : 'Get real-time farm data: Soil moisture, pH, NPK. Instant mobile alerts.'
+              }
+            </p>
+            
+            <div className="space-y-1 text-xs">
+              {[
+                currentLanguage === 'hi' ? '📡 रियल-टाइम मॉनिटरिंग' : '📡 Real-time Monitoring',
+                currentLanguage === 'hi' ? '💧 स्मार्ट सिंचाई अलर्ट' : '💧 Smart Irrigation Alerts',
+                currentLanguage === 'hi' ? '🧪 मिट्टी विश्लेषण' : '🧪 Soil Analysis',
+                currentLanguage === 'hi' ? '☀️ सोलर पावर्ड' : '☀️ Solar Powered'
+              ].map((feature, idx) => (
+                <div key={idx} className="text-gray-700 dark:text-gray-300">
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
 
       {/* ✅ SIDEBAR WITH PROPER Z-INDEX AND SCROLL */}
@@ -299,30 +372,39 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
                 {expandedSections.includes(section.section) && (
                   <div className="space-y-1 ml-4 pl-2 border-l-2 border-green-200 dark:border-green-800">
                     {section.items.map((item) => {
-                      // ✅ SPECIAL HANDLING FOR CHATBOT - NO ACTIVE STATE
-                      const isActive = !item.isChatbot && location.pathname === item.href;
+                      const isActive = !item.isChatbot && !item.isComingSoon && location.pathname === item.href;
                       const Icon = item.icon;
                       const needsLogin = item.requiresLogin && !user;
 
                       return (
                         <button
                           key={item.href}
-                          onClick={() => handleNavigation(item)} // ✅ PASS FULL ITEM OBJECT
+                          onClick={() => handleNavigation(item)}
+                          onMouseEnter={(e) => item.isComingSoon && handleSensorHover(e, true)}
+                          onMouseLeave={(e) => item.isComingSoon && handleSensorHover(e, false)}
                           className={cn(
                             "flex items-center gap-3 w-full px-3 py-2.5 text-sm rounded-lg transition-all duration-200 group relative overflow-hidden",
                             isActive
                               ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/25 border-l-4 border-white/30"
                               : needsLogin
                               ? "hover:bg-orange-100 dark:hover:bg-orange-900/20 text-gray-500 dark:text-gray-400 hover:text-orange-700 dark:hover:text-orange-400"
-                              : item.isChatbot // ✅ SPECIAL STYLING FOR CHATBOT
+                              : item.isChatbot
                               ? "hover:bg-blue-100 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400 hover:shadow-md"
+                              : item.isComingSoon
+                              ? "hover:bg-purple-100 dark:hover:bg-purple-900/20 text-gray-700 dark:text-gray-300 hover:text-purple-700 dark:hover:text-purple-400 hover:shadow-md cursor-pointer"
                               : "hover:bg-green-100 dark:hover:bg-green-900/20 text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 hover:shadow-md"
                           )}
                           style={{ touchAction: 'manipulation' }}
                         >
                           <Icon className={cn(
                             "h-4 w-4 flex-shrink-0 transition-all duration-200",
-                            isActive ? "text-white" : needsLogin ? "text-gray-400" : "group-hover:scale-110"
+                            isActive 
+                              ? "text-white" 
+                              : needsLogin 
+                              ? "text-gray-400" 
+                              : item.isComingSoon
+                              ? "text-purple-600 dark:text-purple-400"
+                              : "group-hover:scale-110"
                           )} />
                           <span className="flex-1 text-left font-medium">{item.label}</span>
                           
@@ -343,7 +425,9 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
                               className={cn(
                                 "text-xs font-semibold px-2 py-1",
                                 isActive && "bg-white/20 text-white",
-                                item.isChatbot && "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100" // ✅ CHATBOT BADGE STYLING
+                                item.isChatbot && "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
+                                item.isComingSoon && "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100 animate-pulse",
+                                item.href === '/save-harvest' && "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100"
                               )}
                             >
                               {item.badge}
@@ -355,9 +439,14 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
                             <div className="absolute left-0 top-0 w-1 h-full bg-yellow-400 rounded-r-full"></div>
                           )}
 
-                          {/* ✅ CHATBOT INDICATOR */}
-                          {item.isChatbot && (
-                            <div className="absolute right-1 top-1 w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                          {/* ✅ SENSOR INDICATOR */}
+                          {item.isComingSoon && (
+                            <div className="absolute right-1 top-1 w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                          )}
+
+                          {/* ✅ SAVE YOUR HARVEST INDICATOR */}
+                          {item.href === '/save-harvest' && (
+                            <div className="absolute right-1 top-1 w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
                           )}
                         </button>
                       );
@@ -371,16 +460,6 @@ const Sidebar = ({ isOpen, onClose, onOpenChatbot }) => { // ✅ ADD onOpenChatb
 
         {/* ✅ FOOTER - FIXED */}
         <div className="p-4 border-t border-green-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-green-900/10 space-y-2 flex-shrink-0">
-          {/* Help */}
-          {/* <Button
-            variant="ghost"
-            className="w-full justify-start hover:bg-blue-100 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 hover:text-blue-700 group"
-            onClick={() => handleNavigation({ href: '/help', requiresLogin: false })}
-          >
-            <HelpCircle className="h-4 w-4 mr-3 group-hover:scale-110 transition-transform duration-200" />
-            {currentLanguage === 'hi' ? 'सहायता' : 'Help Center'}
-          </Button> */}
-
           {/* Logout */}
           {user && (
             <Button

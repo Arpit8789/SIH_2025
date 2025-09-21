@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 
-const ProtectedRoute = ({ children, requiredRole = null, fallback = '/auth/login' }) => {
+const ProtectedRoute = ({ children, requiredRole = null, fallback = '/login' }) => {
   const { isAuthenticated, user, isLoading } = useAuth();
   const location = useLocation();
 
@@ -40,7 +40,7 @@ const ProtectedRoute = ({ children, requiredRole = null, fallback = '/auth/login
     
     // ✅ FIX: Use normalized roles for dashboard mapping
     const dashboardMap = {
-      Farmer: '/dashboard/farmer',
+      farmer: '/dashboard/farmer',
       buyer: '/dashboard/buyer', 
       admin: '/dashboard/admin'
     };

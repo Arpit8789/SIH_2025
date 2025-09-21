@@ -1,4 +1,4 @@
-// src/pages/Landing.jsx - COMPLETELY FIXED WITH PROPER SPACING & THEMING
+// src/pages/Landing.jsx - WITH COMMUNITY OUTREACH & AWARENESS EVENTS
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
@@ -15,7 +15,20 @@ import {
   Smartphone,
   Sparkles,
   TrendingUp,
-  Users
+  Users,
+  MapPin,
+  Calendar,
+  Award,
+  Instagram,
+  Twitter,
+  Linkedin,
+  Youtube,
+  Facebook,
+  ExternalLink,
+  Presentation,
+  School,
+  HandHeart,
+  Megaphone
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -36,7 +49,7 @@ const Landing = () => {
   const [testimonials, setTestimonials] = useState([])
   const { currentLanguage } = useLanguage()
   const { isAuthenticated } = useAuth()
-  const { isDark } = useTheme() // ✅ Add theme hook
+  const { isDark } = useTheme()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -95,7 +108,6 @@ const Landing = () => {
     setTestimonials(mockTestimonials)
   }, [currentLanguage])
 
-  // ✅ Always navigate to register
   const handleGetStarted = () => {
     navigate('/register')
   }
@@ -149,12 +161,110 @@ const Landing = () => {
     }
   ]
 
+  // ✅ COMMUNITY OUTREACH EVENTS DATA
+  const outreachEvents = [
+    {
+      id: 1,
+      title: currentLanguage === 'hi' ? 'गांव में स्मार्ट फार्मिंग वर्कशॉप' : 'Village Smart Farming Workshop',
+      image: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&h=250&fit=crop&crop=faces',
+      location: 'लुधियाना, पंजाब',
+      date: '15 सितंबर 2025',
+      description: currentLanguage === 'hi' 
+        ? 'स्थानीय NGO के साथ मिलकर 200+ किसानों को डिजिटल खेती की ट्रेनिंग दी। मोबाइल ऐप का इस्तेमाल सिखाया।'
+        : 'Partnered with local NGO to train 200+ farmers on digital farming. Taught mobile app usage and modern techniques.',
+      attendees: '200+ किसान',
+      partner: 'ग्रामीण विकास संस्था',
+      type: 'Training Workshop'
+    },
+    {
+      id: 2,
+      title: currentLanguage === 'hi' ? 'डिजिटल साक्षरता अभियान' : 'Digital Literacy Campaign',
+      image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400&h=250&fit=crop&crop=faces',
+      location: 'अमृतसर, पंजाब',
+      date: '22 अगस्त 2025',
+      description: currentLanguage === 'hi'
+        ? 'किसान कल्याण समिति के साथ मिलकर गांव-गांव जाकर स्मार्टफोन और ऐप का इस्तेमाल सिखाया।'
+        : 'Collaborated with Farmer Welfare Committee to teach smartphone and app usage village by village.',
+      attendees: '150+ किसान',
+      partner: 'किसान कल्याण समिति',
+      type: 'Digital Education'
+    },
+    {
+      id: 3,
+      title: currentLanguage === 'hi' ? 'युवा किसान सम्मेलन' : 'Young Farmers Conference',
+      image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=250&fit=crop&crop=faces',
+      location: 'जालंधर, पंजाब',
+      date: '10 अगस्त 2025',
+      description: currentLanguage === 'hi'
+        ? 'युवा कृषक मंच के साथ नई पीढ़ी के किसानों को AI और IoT तकनीक के बारे में जानकारी दी।'
+        : 'Partnered with Youth Farmer Forum to educate next-generation farmers about AI and IoT technology.',
+      attendees: '300+ युवा किसान',
+      partner: 'युवा कृषक मंच',
+      type: 'Youth Conference'
+    },
+    {
+      id: 4,
+      title: currentLanguage === 'hi' ? 'महिला किसान सशक्तिकरण' : 'Women Farmer Empowerment',
+      image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=250&fit=crop&crop=faces',
+      location: 'पटियाला, पंजाब',
+      date: '28 जुलाई 2025',
+      description: currentLanguage === 'hi'
+        ? 'महिला सहयोग संस्था के साथ महिला किसानों को डिजिटल खेती और बाजार की जानकारी दी।'
+        : 'Collaborated with Women Support Organization to educate women farmers about digital farming and market insights.',
+      attendees: '180+ महिला किसान',
+      partner: 'महिला सहयोग संस्था',
+      type: 'Women Empowerment'
+    }
+  ]
+
+  // ✅ SOCIAL MEDIA LINKS
+  const socialLinks = [
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      url: 'https://www.instagram.com/krishisahayak_official',
+      color: 'from-pink-500 to-purple-600',
+      bgColor: 'bg-pink-50 dark:bg-pink-950/20',
+      username: '@krishisahayak_official'
+    },
+    {
+      name: 'Twitter',
+      icon: Twitter,
+      url: 'https://twitter.com/KrishiSahayak',
+      color: 'from-blue-400 to-blue-600',
+      bgColor: 'bg-blue-50 dark:bg-blue-950/20',
+      username: '@KrishiSahayak'
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      url: 'https://www.linkedin.com/company/krishi-sahayak',
+      color: 'from-blue-600 to-blue-800',
+      bgColor: 'bg-blue-50 dark:bg-blue-950/20',
+      username: 'Krishi Sahayak'
+    },
+    {
+      name: 'YouTube',
+      icon: Youtube,
+      url: 'https://www.youtube.com/@KrishiSahayakOfficial',
+      color: 'from-red-500 to-red-700',
+      bgColor: 'bg-red-50 dark:bg-red-950/20',
+      username: 'Krishi Sahayak Official'
+    },
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      url: 'https://www.facebook.com/KrishiSahayakOfficial',
+      color: 'from-blue-600 to-indigo-700',
+      bgColor: 'bg-blue-50 dark:bg-blue-950/20',
+      username: 'Krishi Sahayak Official'
+    }
+  ]
+
   return (
-    // ✅ FIXED: Remove min-h-screen and any padding that creates gaps
     <div className="w-full">
-      {/* ✅ HERO SECTION - STARTS DIRECTLY AFTER HEADER */}
+      {/* ✅ HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-br from-yellow-500 via-emerald-50/80 to-green-700 dark:from-gray-950 dark:via-green-950/30 dark:to-emerald-950/20">
-        {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <div className="absolute top-20 left-20 text-6xl opacity-30">🌾</div>
           <div className="absolute top-40 right-32 text-4xl opacity-20">🚜</div>
@@ -162,7 +272,6 @@ const Landing = () => {
           <div className="absolute bottom-32 right-20 text-3xl opacity-30">🌾</div>
         </div>
         
-        {/* ✅ ADJUSTED PADDING - NO TOP MARGIN */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
           <div className="text-center">
             <motion.div
@@ -171,7 +280,6 @@ const Landing = () => {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              {/* ✅ ENHANCED BADGE */}
               <Badge 
                 variant="outline" 
                 className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-white/80 dark:bg-gray-800/80 text-emerald-700 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600/50 backdrop-blur-sm hover:scale-105 transition-transform duration-300"
@@ -180,7 +288,6 @@ const Landing = () => {
                 {currentLanguage === 'hi' ? 'AI-संचालित स्मार्ट खेती' : 'AI-Powered Smart Farming'}
               </Badge>
               
-              {/* ✅ ENHANCED TITLE */}
               <div className="space-y-6">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                   <span className="bg-gradient-to-r from-green-700 via-emerald-600 to-green-800 bg-clip-text text-transparent">
@@ -202,7 +309,7 @@ const Landing = () => {
                 </p>
               </div>
 
-              {/* ✅ ENHANCED STATS GRID */}
+              {/* Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-3xl mx-auto">
                 {[
                   { icon: Users, value: stats.farmers, label: currentLanguage === 'hi' ? 'किसान' : 'Farmers', color: 'emerald' },
@@ -230,7 +337,6 @@ const Landing = () => {
                 ))}
               </div>
 
-              {/* ✅ ENHANCED CTA BUTTONS */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -251,7 +357,7 @@ const Landing = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="w-full sm:w-auto dark:border-green-600 text-green-700 dark:text-green-400 hover:bg-green-900 dark:hover:bg-green-950/30 font-semibold text-lg px-8 py-4 rounded-xl backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 group"
+                  className="w-full sm:w-auto dark:border-green-600 text-green-700 dark:text-green-400 hover:bg-green-900 dark:hover:bg-green-950/30 font-semibold text-lg px-8 py-4 rounded-xl backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 group"
                   onClick={handleWatchDemo}
                 >
                   <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
@@ -259,7 +365,6 @@ const Landing = () => {
                 </Button>
               </motion.div>
 
-              {/* ✅ ENHANCED TRUST BADGES */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -282,7 +387,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* ✅ ENHANCED FEATURES SECTION */}
+      {/* ✅ FEATURES SECTION */}
       <section className="py-20 sm:py-28 bg-white dark:bg-gray-900 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -300,46 +405,44 @@ const Landing = () => {
             </p>
           </motion.div>
           
-          
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-  {features.map((feature, index) => (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className="group"
-    >
-      <Card 
-        className={`h-full border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 ${feature.bgColor} backdrop-blur-sm cursor-pointer`}
-        onClick={() => navigate('/register')} // ✅ ADD THIS CLICK HANDLER
-      >
-        <CardContent className="p-8">
-          <div className="relative mb-6">
-            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-              <feature.icon className="w-8 h-8 text-white" />
-            </div>
-            <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Sparkles className="w-3 h-3 text-white" />
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <Card 
+                  className={`h-full border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 ${feature.bgColor} backdrop-blur-sm cursor-pointer`}
+                  onClick={() => navigate('/register')}
+                >
+                  <CardContent className="p-8">
+                    <div className="relative mb-6">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
+                        <feature.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <Sparkles className="w-3 h-3 text-white" />
+                      </div>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors duration-300">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors duration-300">
-            {feature.title}
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
-            {feature.description}
-          </p>
-        </CardContent>
-      </Card>
-    </motion.div>
-  ))}
-</div>
-
         </div>
       </section>
 
-      {/* ✅ ENHANCED TESTIMONIALS */}
+      {/* ✅ TESTIMONIALS SECTION */}
       {testimonials.length > 0 && (
         <section className="py-20 sm:py-28 bg-gradient-to-br from-green-50/80 to-emerald-50/60 dark:from-gray-800 dark:to-green-900/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -370,21 +473,18 @@ const Landing = () => {
                 >
                   <Card className="h-full shadow-xl hover:shadow-2xl border-0 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2">
                     <CardContent className="p-8">
-                      {/* Rating Stars */}
                       <div className="flex items-center mb-6">
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
                         ))}
                       </div>
                       
-                      {/* Testimonial Text */}
                       <blockquote className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-lg italic relative">
                         <span className="text-4xl text-green-500 absolute -top-2 -left-2 opacity-50">"</span>
                         {testimonial.message}
                         <span className="text-4xl text-green-500 absolute -bottom-6 -right-2 opacity-50">"</span>
                       </blockquote>
                       
-                      {/* Farmer Info */}
                       <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                           {testimonial.farmerName.charAt(0)}
@@ -405,7 +505,199 @@ const Landing = () => {
         </section>
       )}
 
-      {/* ✅ ENHANCED FINAL CTA */}
+      {/* ✅ NEW: COMMUNITY OUTREACH & AWARENESS SECTION */}
+      <section className="py-20 sm:py-28 bg-gradient-to-br from-blue-50 via-indigo-50/80 to-purple-50 dark:from-gray-900 dark:via-blue-950/10 dark:to-purple-950/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16 sm:mb-20"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+              <span className="text-4xl">🎯</span> {currentLanguage === 'hi' ? 'सामुदायिक पहल और जागरूकता' : 'Community Outreach & Awareness'}
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              {currentLanguage === 'hi' 
+                ? 'हम NGO संगठनों के साथ मिलकर गांव-गांव जाकर किसानों को डिजिटल खेती के बारे में जागरूक करते हैं और हमारे ऐप का इस्तेमाल सिखाते हैं'
+                : 'We partner with NGOs to conduct village-to-village awareness campaigns, educating farmers about digital farming and teaching them how to use our app'
+              }
+            </p>
+          </motion.div>
+
+          {/* Outreach Events Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mb-16">
+            {outreachEvents.map((event, index) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <Card className="h-full border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm overflow-hidden">
+                  <div className="relative">
+                    <img 
+                      src={event.image} 
+                      alt={event.title}
+                      className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <Badge className="bg-blue-600 text-white px-3 py-1 text-xs">
+                        {event.type}
+                      </Badge>
+                      <Badge className="bg-green-600 text-white px-3 py-1 text-xs">
+                        {event.date}
+                      </Badge>
+                    </div>
+                    <div className="absolute top-4 right-4">
+                      <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                        <Presentation className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <CardContent className="p-6 sm:p-8">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors duration-300">
+                      {event.title}
+                    </h3>
+                    
+                    <div className="flex items-center gap-4 mb-4 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-4 h-4 text-red-500" />
+                        <span>{event.location}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4 text-blue-500" />
+                        <span>{event.date}</span>
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                      {event.description}
+                    </p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4 text-green-600" />
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {currentLanguage === 'hi' ? 'उपस्थिति:' : 'Attendance:'}
+                          </span>
+                        </div>
+                        <span className="text-sm font-bold text-green-700 dark:text-green-400">
+                          {event.attendees}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <HandHeart className="w-4 h-4 text-blue-600" />
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {currentLanguage === 'hi' ? 'साझेदार:' : 'Partner:'}
+                          </span>
+                        </div>
+                        <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">
+                          {event.partner}
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Outreach Impact Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 sm:p-12 shadow-2xl"
+          >
+            <div className="text-center mb-8">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+                <span className="text-3xl">📊</span> {currentLanguage === 'hi' ? 'हमारी सामुदायिक पहुंच' : 'Our Community Impact'}
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                {currentLanguage === 'hi' 
+                  ? 'गांव-गांव जाकर किसानों को डिजिटल खेती की जानकारी देने का हमारा प्रभाव'
+                  : 'Impact of our village-to-village digital farming awareness campaigns'
+                }
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+              {[
+                { 
+                  icon: Presentation, 
+                  value: '50+', 
+                  label: currentLanguage === 'hi' ? 'वर्कशॉप आयोजित' : 'Workshops Conducted',
+                  color: 'blue'
+                },
+                { 
+                  icon: Users, 
+                  value: '2,500+', 
+                  label: currentLanguage === 'hi' ? 'किसान प्रशिक्षित' : 'Farmers Trained',
+                  color: 'green'
+                },
+                { 
+                  icon: School, 
+                  value: '25+', 
+                  label: currentLanguage === 'hi' ? 'गांव कवर्ड' : 'Villages Covered',
+                  color: 'purple'
+                },
+                { 
+                  icon: Megaphone, 
+                  value: '15+', 
+                  label: currentLanguage === 'hi' ? 'NGO साझेदार' : 'NGO Partners',
+                  color: 'orange'
+                }
+              ].map((stat, index) => (
+                <div key={index} className="text-center p-6 bg-gray-50 dark:bg-gray-700/50 rounded-2xl hover:shadow-lg transition-shadow duration-300">
+                  <div className={`w-14 h-14 bg-gradient-to-br from-${stat.color}-500 to-${stat.color}-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                    <stat.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <div className={`text-3xl sm:text-4xl font-bold text-${stat.color}-700 dark:text-${stat.color}-400 mb-2`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium leading-tight">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Call to Action for NGOs */}
+            <div className="mt-12 text-center">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-2xl p-6 sm:p-8">
+                <h4 className="text-xl sm:text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                  {currentLanguage === 'hi' ? '🤝 NGO साझेदारी कार्यक्रम' : '🤝 NGO Partnership Program'}
+                </h4>
+                <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
+                  {currentLanguage === 'hi'
+                    ? 'क्या आप भी किसानों की मदद करना चाहते हैं? हमारे साथ जुड़ें और अपने क्षेत्र में डिजिटल खेती की जागरूकता फैलाने में योगदान दें।'
+                    : 'Want to help farmers in your region? Join our partnership program and contribute to spreading digital farming awareness in your area.'
+                  }
+                </p>
+                <Button 
+                  size="lg"
+                  onClick={() => window.open('https://wa.me/918789658518', '_blank')}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <HandHeart className="w-5 h-5 mr-2" />
+                  {currentLanguage === 'hi' ? 'साझेदार बनें' : 'Become a Partner'}
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ✅ SOCIAL MEDIA & CTA SECTION */}
       <section className="py-20 sm:py-28 bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 opacity-10">
@@ -415,27 +707,64 @@ const Landing = () => {
           <div className="absolute bottom-32 right-20 text-5xl animate-bounce delay-500">🌾</div>
         </div>
         
-        <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-12"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-4xl">🌾</span><br />
-              {currentLanguage === 'hi' ? 'आज ही शुरू करें और अपनी खेती को बदलें' : 'Start Today and Transform Your Farming'}
-            </h2>
-            <p className="text-xl sm:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
-              {currentLanguage === 'hi' ? 'भारत के लाखों किसानों के साथ स्मार्ट कृषि की यात्रा में शामिल हों' : 'Join millions of Indian farmers in the smart agriculture revolution'}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-lg mx-auto pt-8">
+            <div className="space-y-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="text-4xl">🌾</span><br />
+                {currentLanguage === 'hi' ? 'समुदाय से जुड़ें और साथ मिलकर बदलाव लाएं' : 'Join Our Community and Create Change Together'}
+              </h2>
+              <p className="text-xl sm:text-2xl text-green-100 max-w-4xl mx-auto leading-relaxed">
+                {currentLanguage === 'hi' 
+                  ? 'भारत के लाखों किसानों के साथ स्मार्ट कृषि की यात्रा में शामिल हों। हमारे सोशल मीडिया पर फॉलो करें और किसान समुदाय का हिस्सा बनें।'
+                  : 'Join millions of Indian farmers in the smart agriculture revolution. Follow us on social media and be part of the farmer community.'
+                }
+              </p>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 max-w-4xl mx-auto">
+              {socialLinks.map((social, index) => (
+                <motion.div
+                  key={social.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Button
+                    onClick={() => window.open(social.url, '_blank')}
+                    className={`w-full h-auto p-4 sm:p-6 bg-gradient-to-br ${social.color} hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl group border-0`}
+                  >
+                    <div className="flex flex-col items-center gap-2 sm:gap-3">
+                      <social.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white group-hover:scale-110 transition-transform duration-300" />
+                      <div className="text-center">
+                        <div className="font-bold text-sm sm:text-base text-white">
+                          {social.name}
+                        </div>
+                        <div className="text-xs text-white/80 truncate max-w-24 sm:max-w-32">
+                          {social.username}
+                        </div>
+                      </div>
+                      <ExternalLink className="w-3 h-3 text-white/60 group-hover:text-white transition-colors duration-300" />
+                    </div>
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto pt-8">
               <Button 
                 size="lg" 
                 onClick={handleGetStarted}
-                className="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-bold shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 text-lg px-10 py-5 rounded-xl group"
+                className="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-bold shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 text-lg px-8 sm:px-10 py-4 sm:py-5 rounded-xl group"
               >
                 <span className="mr-2">
                   {currentLanguage === 'hi' ? '🚀 निःशुल्क खाता बनाएं' : '🚀 Create Free Account'}
@@ -444,14 +773,38 @@ const Landing = () => {
               </Button>
               
               <Button 
-  variant="outline" 
-  size="lg" 
-  onClick={() => window.open('https://wa.me/918789658518', '_blank')} // ✅ FIXED
-  className="w-full sm:w-auto border-2 border-green-300/50 text-white hover:bg-green-700/30 backdrop-blur-sm font-bold text-lg px-10 py-5 rounded-xl"
->
-  {currentLanguage === 'hi' ? '📞 संपर्क करें' : '📞 Contact Us'}
-</Button>
+                variant="outline" 
+                size="lg" 
+                onClick={() => window.open('https://wa.me/918789658518', '_blank')}
+                className="w-full sm:w-auto border-2 border-green-300/50 text-white hover:bg-green-700/30 backdrop-blur-sm font-bold text-lg px-8 sm:px-10 py-4 sm:py-5 rounded-xl"
+              >
+                {currentLanguage === 'hi' ? '📞 संपर्क करें' : '📞 Contact Us'}
+              </Button>
             </div>
+
+            {/* Community Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="pt-8 border-t border-green-300/20"
+            >
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 max-w-3xl mx-auto">
+                {[
+                  { icon: '📱', value: '25K+', label: currentLanguage === 'hi' ? 'इंस्टाग्राम फॉलोअर्स' : 'Instagram Followers' },
+                  { icon: '🐦', value: '15K+', label: currentLanguage === 'hi' ? 'ट्विटर फॉलोअर्स' : 'Twitter Followers' },
+                  { icon: '📺', value: '50K+', label: currentLanguage === 'hi' ? 'यूट्यूब व्यूज' : 'YouTube Views' },
+                  { icon: '👥', value: '100K+', label: currentLanguage === 'hi' ? 'कुल रीच' : 'Total Reach' }
+                ].map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-2xl mb-1">{stat.icon}</div>
+                    <div className="text-lg sm:text-xl font-bold text-green-300 mb-1">{stat.value}</div>
+                    <div className="text-xs sm:text-sm text-green-100">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
