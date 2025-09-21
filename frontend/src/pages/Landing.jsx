@@ -153,7 +153,7 @@ const Landing = () => {
     // ✅ FIXED: Remove min-h-screen and any padding that creates gaps
     <div className="w-full">
       {/* ✅ HERO SECTION - STARTS DIRECTLY AFTER HEADER */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50/80 to-yellow-50/60 dark:from-gray-950 dark:via-green-950/30 dark:to-emerald-950/20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-yellow-500 via-emerald-50/80 to-green-700 dark:from-gray-950 dark:via-green-950/30 dark:to-emerald-950/20">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <div className="absolute top-20 left-20 text-6xl opacity-30">🌾</div>
