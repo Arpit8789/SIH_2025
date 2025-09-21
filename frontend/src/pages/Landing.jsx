@@ -240,7 +240,7 @@ const Landing = () => {
                 <Button 
                   size="lg" 
                   onClick={handleGetStarted}
-                  className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg px-8 py-4 rounded-xl group"
+                  className="w-full sm:w-auto bg-green-500 hover:bg-green-900 text-white shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-lg px-8 py-4 rounded-xl group"
                 >
                   <span className="mr-2">
                     {currentLanguage === 'hi' ? '🚀 शुरू करें' : '🚀 Get Started'}
@@ -251,7 +251,7 @@ const Landing = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="w-full sm:w-auto border-2 border-green-300 dark:border-green-600 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 font-semibold text-lg px-8 py-4 rounded-xl backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 group"
+                  className="w-full sm:w-auto dark:border-green-600 text-green-700 dark:text-green-400 hover:bg-green-900 dark:hover:bg-green-950/30 font-semibold text-lg px-8 py-4 rounded-xl backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 group"
                   onClick={handleWatchDemo}
                 >
                   <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform duration-200" />

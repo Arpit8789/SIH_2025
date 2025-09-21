@@ -215,14 +215,14 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
                   variant="outline"
                   size="sm"
                   onClick={() => navigate('/login')}
-                  className="border-green-300 text-green-700 hover:bg-green-50 dark:border-green-700 dark:text-green-400 dark:hover:bg-green-900/20 transition-all duration-200 font-medium"
+                  className="border-green-300 text-green-700 hover:bg-green-900 r-green-700 dark:text-green-400 dark:hover:bg-green-900/20 transition-all duration-200 font-medium"
                 >
                   {currentLanguage === 'hi' ? 'लॉगिन' : 'Login'}
                 </Button>
                 <Button
                   size="sm"
                   onClick={() => navigate('/register')}
-                  className="hidden sm:inline-flex bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl transition-all duration-200 font-medium transform hover:scale-105"
+                   className="hidden sm:inline-flex bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-900 hover:to-emerald-700 shadow-lg hover:shadow-xl transition-all duration-200 font-medium transform hover:scale-105"
                 >
                   {currentLanguage === 'hi' ? 'रजिस्टर' : 'Register'}
                 </Button>
